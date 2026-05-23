@@ -1,0 +1,68 @@
+# Duolingo Activity Cinnamon applet translations.
+# This file is put in the public domain.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: duolingo-activity@nodeengineer.com 1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/H234598/duolingo-helper-cinnamon/issues\n"
+"POT-Creation-Date: 2026-05-24 00:00+0000\n"
+"PO-Revision-Date: 2026-05-24 00:00+0000\n"
+"Last-Translator: Codex <noreply@example.com>\n"
+"Language-Team: de\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. metadata.json->name
+#. applet.js
+msgid "Duolingo Activity"
+msgstr "Duolingo-Aktivitaet"
+
+#. metadata.json->description
+msgid "Shows when configured Duolingo users appear recently active."
+msgstr "Zeigt an, wenn konfigurierte Duolingo-Benutzer kuerzlich aktiv wirken."
+
+#. applet.js
+msgid "Settings"
+msgstr "Einstellungen"
+
+#. applet.js
+msgid "Checking Duolingo activity..."
+msgstr "Pruefe Duolingo-Aktivitaet..."
+
+#. applet.js
+msgid "not found"
+msgstr "nicht gefunden"
+
+#. applet.js
+msgid "Error %s"
+msgstr "Fehler %s"
+
+#. applet.js
+msgid "No users configured"
+msgstr "Keine Benutzer konfiguriert"
+
+#. applet.js
+msgid "%s is playing Duolingo right now!"
+msgstr "%s zockt gerade Duolingo!"
+
+#. applet.js
+msgid "No one is playing Duolingo right now."
+msgstr "Gerade zockt niemand Duolingo."
+
+#. settings-schema.json->users->description
+msgid "Duolingo users"
+msgstr "Duolingo-Benutzer"
+
+#. settings-schema.json->users->columns->enabled->title
+msgid "Enabled"
+msgstr "Aktiv"
+
+#. settings-schema.json->users->columns->username->title
+msgid "Username"
+msgstr "Benutzername"
+
+#. settings-schema.json->users->columns->alias->title
+msgid "Alias"
+msgstr "Alias"

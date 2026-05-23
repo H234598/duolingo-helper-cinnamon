@@ -1,0 +1,7 @@
+{
+  "uuid": "duolingo-activity@nodeengineer.com",
+  "name": "Duolingo Activity",
+  "description": "Shows when configured Duolingo users appear recently active.",
+  "version": "1.0.0",
+  "max-instances": -1
+}

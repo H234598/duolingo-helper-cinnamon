@@ -51,6 +51,34 @@ Example:
 3 | 42
 ```
 
+## Activity Applet
+
+This repository also contains a second small applet:
+
+```text
+duolingo-activity@nodeengineer.com
+```
+
+It keeps its own user list in Cinnamon settings and checks only the `hasRecentActivity15` field every 5 minutes. If Duolingo reports a configured user as active, the tooltip shows:
+
+```text
+<User> is playing Duolingo right now!
+```
+
+The German translation is:
+
+```text
+<User> zockt gerade Duolingo!
+```
+
+The field name suggests activity in roughly a 15-unit window, but Duolingo does not document whether that means 15 minutes, 15 days, or another internal rule. Treat it as Duolingo's own "recent activity" signal, not as a precise real-time presence indicator.
+
+Install it locally with:
+
+```bash
+./install-activity-local.sh
+```
+
 ## Install
 
 Clone the repository and run the local installer:
@@ -126,6 +154,7 @@ files/duolingo-helper@nodeengineer.com/
   *.png
   po/
 install-local.sh
+install-activity-local.sh
 sync-to-cinnamon-spices.sh
 ```
 
