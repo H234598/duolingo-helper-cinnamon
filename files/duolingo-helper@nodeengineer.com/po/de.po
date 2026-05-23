@@ -126,6 +126,10 @@ msgstr "Beim Hovern anzeigen"
 msgid "Show on click"
 msgstr "Beim Klicken anzeigen"
 
+#. settings-schema.json->sort-order->description
+msgid "Sort users by"
+msgstr "Benutzer sortieren nach"
+
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
 msgid "Summary"
@@ -146,6 +150,34 @@ msgstr "Kontodetails"
 msgid "All details"
 msgstr "Alle Details"
 
+#. settings-schema.json->sort-order->options
+msgid "Configured order"
+msgstr "Konfigurierte Reihenfolge"
+
+#. settings-schema.json->sort-order->options
+msgid "Alias or username A-Z"
+msgstr "Alias oder Benutzername A-Z"
+
+#. settings-schema.json->sort-order->options
+msgid "Alias or username Z-A"
+msgstr "Alias oder Benutzername Z-A"
+
+#. settings-schema.json->sort-order->options
+msgid "Streak high to low"
+msgstr "Streak absteigend"
+
+#. settings-schema.json->sort-order->options
+msgid "Streak low to high"
+msgstr "Streak aufsteigend"
+
+#. settings-schema.json->sort-order->options
+msgid "Total XP high to low"
+msgstr "Gesamt-XP absteigend"
+
+#. settings-schema.json->sort-order->options
+msgid "Total XP low to high"
+msgstr "Gesamt-XP aufsteigend"
+
 #. settings-schema.json->users->description
 msgid "Duolingo users"
 msgstr "Duolingo-Benutzer"
@@ -157,3 +189,7 @@ msgstr "Aktiv"
 #. settings-schema.json->users->columns->username->title
 msgid "Username"
 msgstr "Benutzername"
+
+#. settings-schema.json->users->columns->alias->title
+msgid "Alias"
+msgstr "Alias"

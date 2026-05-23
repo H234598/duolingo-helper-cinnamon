@@ -126,6 +126,10 @@ msgstr ""
 msgid "Show on click"
 msgstr ""
 
+#. settings-schema.json->sort-order->description
+msgid "Sort users by"
+msgstr ""
+
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
 msgid "Summary"
@@ -146,6 +150,34 @@ msgstr ""
 msgid "All details"
 msgstr ""
 
+#. settings-schema.json->sort-order->options
+msgid "Configured order"
+msgstr ""
+
+#. settings-schema.json->sort-order->options
+msgid "Alias or username A-Z"
+msgstr ""
+
+#. settings-schema.json->sort-order->options
+msgid "Alias or username Z-A"
+msgstr ""
+
+#. settings-schema.json->sort-order->options
+msgid "Streak high to low"
+msgstr ""
+
+#. settings-schema.json->sort-order->options
+msgid "Streak low to high"
+msgstr ""
+
+#. settings-schema.json->sort-order->options
+msgid "Total XP high to low"
+msgstr ""
+
+#. settings-schema.json->sort-order->options
+msgid "Total XP low to high"
+msgstr ""
+
 #. settings-schema.json->users->description
 msgid "Duolingo users"
 msgstr ""
@@ -156,4 +188,8 @@ msgstr ""
 
 #. settings-schema.json->users->columns->username->title
 msgid "Username"
+msgstr ""
+
+#. settings-schema.json->users->columns->alias->title
+msgid "Alias"
 msgstr ""

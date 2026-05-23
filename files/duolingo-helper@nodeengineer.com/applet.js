@@ -16,6 +16,13 @@ const DISPLAY_MODE_SUMMARY = "summary";
 const DISPLAY_MODE_COURSES = "courses";
 const DISPLAY_MODE_ACCOUNT = "account";
 const DISPLAY_MODE_ALL = "all";
+const SORT_ORDER_CONFIGURED = "configured";
+const SORT_ORDER_USERNAME_ASC = "username-asc";
+const SORT_ORDER_USERNAME_DESC = "username-desc";
+const SORT_ORDER_STREAK_DESC = "streak-desc";
+const SORT_ORDER_STREAK_ASC = "streak-asc";
+const SORT_ORDER_XP_DESC = "xp-desc";
+const SORT_ORDER_XP_ASC = "xp-asc";
 
 Gettext.bindtextdomain(UUID, GLib.get_user_data_dir() + "/locale");
 
@@ -57,6 +64,7 @@ MyApplet.prototype = {
     this.refreshTimer = 0;
     this.hoverDisplayMode = DISPLAY_MODE_SUMMARY;
     this.clickDisplayMode = DISPLAY_MODE_SUMMARY;
+    this.sortOrder = SORT_ORDER_CONFIGURED;
 
     this.settings = new Settings.AppletSettings(this, UUID, instanceId);
     this.settings.bindProperty(
@@ -77,6 +85,13 @@ MyApplet.prototype = {
       Settings.BindingDirection.IN,
       "click-display-mode",
       "clickDisplayMode",
+      this.onDisplaySettingsChanged,
+      null
+    );
+    this.settings.bindProperty(
+      Settings.BindingDirection.IN,
+      "sort-order",
+      "sortOrder",
       this.onDisplaySettingsChanged,
       null
     );
@@ -127,11 +142,12 @@ MyApplet.prototype = {
   },
 
   getConfiguredUsers: function() {
-    let names = [];
+    let users = [];
     let seen = {};
     let rows = this.users || [];
 
-    for (let row of rows) {
+    for (let index = 0; index < rows.length; index++) {
+      let row = rows[index];
       if (row.enabled === false) {
         continue;
       }
@@ -142,10 +158,14 @@ MyApplet.prototype = {
       }
 
       seen[username.toLowerCase()] = true;
-      names.push(username);
+      users.push({
+        username: username,
+        displayUsername: (row.alias || "").trim() || username,
+        index: index
+      });
     }
 
-    return names;
+    return users;
   },
 
   refresh: function() {
@@ -166,8 +186,8 @@ MyApplet.prototype = {
     }
 
     this.set_applet_label("...");
-    for (let username of this.usernames) {
-      this.fetchUser(username);
+    for (let userConfig of this.usernames) {
+      this.fetchUser(userConfig);
     }
 
     this.refreshTimer = GLib.timeout_add_seconds(
@@ -180,7 +200,8 @@ MyApplet.prototype = {
     );
   },
 
-  fetchUser: function(username) {
+  fetchUser: function(userConfig) {
+    let username = userConfig.username;
     let url = `https://www.duolingo.com/2017-06-30/users?username=${encodeURIComponent(username)}`;
     let request = Soup.Message.new("GET", url);
     request.request_headers.set_content_type("application/json", null);
@@ -188,46 +209,48 @@ MyApplet.prototype = {
     if (Soup.MAJOR_VERSION === 2) {
       soupASyncSession.queue_message(request, (session, message) => {
         if (message.status_code !== 200) {
-          this.recordError(username, message.status_code);
+          this.recordError(userConfig, message.status_code);
           return;
         }
 
         try {
-          this.recordResponse(username, JSON.parse(message.response_body.data));
+          this.recordResponse(userConfig, JSON.parse(message.response_body.data));
         } catch (err) {
-          this.recordError(username, "parse");
+          this.recordError(userConfig, "parse");
         }
       });
     } else {
       soupASyncSession.send_and_read_async(request, Soup.MessagePriority.NORMAL, null, (session, response) => {
         if (request.get_status() !== 200) {
-          this.recordError(username, request.get_status());
+          this.recordError(userConfig, request.get_status());
           return;
         }
 
         try {
           let bytes = session.send_and_read_finish(response);
-          this.recordResponse(username, JSON.parse(ByteArray.toString(ByteArray.fromGBytes(bytes))));
+          this.recordResponse(userConfig, JSON.parse(ByteArray.toString(ByteArray.fromGBytes(bytes))));
         } catch (err) {
-          this.recordError(username, "parse");
+          this.recordError(userConfig, "parse");
         }
       });
     }
   },
 
-  recordResponse: function(username, responseParsed) {
+  recordResponse: function(userConfig, responseParsed) {
     if (!responseParsed.users || responseParsed.users.length === 0) {
-      this.recordError(username, "not-found");
+      this.recordError(userConfig, "not-found");
       return;
     }
 
-    this.userData.push(this.normalizeUser(responseParsed.users[0], username));
+    this.userData.push(this.normalizeUser(responseParsed.users[0], userConfig));
     this.finishRequest();
   },
 
-  recordError: function(username, status) {
+  recordError: function(userConfig, status) {
     this.userData.push({
-      username: username,
+      username: userConfig.username,
+      displayUsername: userConfig.displayUsername,
+      configuredIndex: userConfig.index,
       error: status === "not-found" ? _("not found") : formatString(_("Error %s"), [status])
     });
     this.finishRequest();
@@ -236,12 +259,11 @@ MyApplet.prototype = {
   finishRequest: function() {
     this.pendingRequests--;
     if (this.pendingRequests <= 0) {
-      this.userData.sort((a, b) => a.username.localeCompare(b.username));
       this.updateDisplay();
     }
   },
 
-  normalizeUser: function(user, fallbackUsername) {
+  normalizeUser: function(user, userConfig) {
     let courses = user.courses || [];
     let currentCourse = null;
 
@@ -259,8 +281,10 @@ MyApplet.prototype = {
     currentCourse = currentCourse || {};
 
     return {
-      username: user.username || fallbackUsername,
-      name: user.name || user.username || fallbackUsername,
+      username: user.username || userConfig.username,
+      displayUsername: userConfig.displayUsername,
+      configuredIndex: userConfig.index,
+      name: user.name || user.username || userConfig.username,
       streak: user.streak || 0,
       totalXp: user.totalXp || 0,
       courseTitle: currentCourse.title || user.learningLanguage || _("no course"),
@@ -287,6 +311,7 @@ MyApplet.prototype = {
   },
 
   updateDisplay: function() {
+    this.sortUserData();
     let validUsers = this.userData.filter(user => !user.error);
 
     if (validUsers.length === 0) {
@@ -314,7 +339,7 @@ MyApplet.prototype = {
     let lines = [_("Duolingo Statistics")];
     for (let user of this.userData) {
       if (user.error) {
-        lines.push(user.username + ": " + user.error);
+        lines.push(user.displayUsername + ": " + user.error);
         continue;
       }
 
@@ -342,7 +367,7 @@ MyApplet.prototype = {
 
   buildUserSummaryLine: function(user) {
     return formatString(_("%s: %s days, %s total XP, %s XP in %s%s"), [
-      user.username,
+      user.displayUsername,
       user.streak,
       user.totalXp,
       user.courseXp,
@@ -400,6 +425,61 @@ MyApplet.prototype = {
     return DISPLAY_MODE_SUMMARY;
   },
 
+  validSortOrder: function(order) {
+    if (
+      order === SORT_ORDER_CONFIGURED ||
+      order === SORT_ORDER_USERNAME_ASC ||
+      order === SORT_ORDER_USERNAME_DESC ||
+      order === SORT_ORDER_STREAK_DESC ||
+      order === SORT_ORDER_STREAK_ASC ||
+      order === SORT_ORDER_XP_DESC ||
+      order === SORT_ORDER_XP_ASC
+    ) {
+      return order;
+    }
+
+    return SORT_ORDER_CONFIGURED;
+  },
+
+  sortUserData: function() {
+    let order = this.validSortOrder(this.sortOrder);
+
+    this.userData.sort((a, b) => {
+      if (order === SORT_ORDER_USERNAME_ASC) {
+        return this.compareText(a.displayUsername, b.displayUsername) || this.compareConfiguredIndex(a, b);
+      }
+      if (order === SORT_ORDER_USERNAME_DESC) {
+        return this.compareText(b.displayUsername, a.displayUsername) || this.compareConfiguredIndex(a, b);
+      }
+      if (order === SORT_ORDER_STREAK_DESC) {
+        return this.compareNumber(b.streak, a.streak) || this.compareText(a.displayUsername, b.displayUsername);
+      }
+      if (order === SORT_ORDER_STREAK_ASC) {
+        return this.compareNumber(a.streak, b.streak) || this.compareText(a.displayUsername, b.displayUsername);
+      }
+      if (order === SORT_ORDER_XP_DESC) {
+        return this.compareNumber(b.totalXp, a.totalXp) || this.compareText(a.displayUsername, b.displayUsername);
+      }
+      if (order === SORT_ORDER_XP_ASC) {
+        return this.compareNumber(a.totalXp, b.totalXp) || this.compareText(a.displayUsername, b.displayUsername);
+      }
+
+      return this.compareConfiguredIndex(a, b);
+    });
+  },
+
+  compareText: function(left, right) {
+    return String(left || "").localeCompare(String(right || ""));
+  },
+
+  compareNumber: function(left, right) {
+    return (left || 0) - (right || 0);
+  },
+
+  compareConfiguredIndex: function(left, right) {
+    return (left.configuredIndex || 0) - (right.configuredIndex || 0);
+  },
+
   formatUnixDate: function(timestamp) {
     if (!timestamp) {
       return _("unknown");
@@ -427,7 +507,7 @@ MyApplet.prototype = {
         firstUser = false;
 
         if (user.error) {
-          this.menu.addMenuItem(new PopupMenu.PopupMenuItem(user.username + ": " + user.error));
+          this.menu.addMenuItem(new PopupMenu.PopupMenuItem(user.displayUsername + ": " + user.error));
           continue;
         }
 

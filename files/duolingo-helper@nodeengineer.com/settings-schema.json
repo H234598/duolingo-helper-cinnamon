@@ -21,6 +21,20 @@
     },
     "default": "summary"
   },
+  "sort-order": {
+    "type": "combobox",
+    "description": "Sort users by",
+    "options": {
+      "Configured order": "configured",
+      "Alias or username A-Z": "username-asc",
+      "Alias or username Z-A": "username-desc",
+      "Streak high to low": "streak-desc",
+      "Streak low to high": "streak-asc",
+      "Total XP high to low": "xp-desc",
+      "Total XP low to high": "xp-asc"
+    },
+    "default": "configured"
+  },
   "users": {
     "type": "list",
     "description": "Duolingo users",
@@ -34,6 +48,12 @@
       {
         "id": "username",
         "title": "Username",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "id": "alias",
+        "title": "Alias",
         "type": "string",
         "default": ""
       }
