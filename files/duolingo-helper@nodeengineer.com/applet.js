@@ -182,7 +182,7 @@ MyApplet.prototype = {
 
         try {
           let bytes = session.send_and_read_finish(response);
-          this.recordResponse(username, JSON.parse(ByteArray.toString(bytes.get_data())));
+          this.recordResponse(username, JSON.parse(ByteArray.toString(ByteArray.fromGBytes(bytes))));
         } catch (err) {
           this.recordError(username, "parse");
         }
