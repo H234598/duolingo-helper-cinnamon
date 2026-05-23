@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+standalone_repo="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+spices_repo="${1:-${HOME}/cinnamon-spices-applets}"
+uuid="duolingo-helper@nodeengineer.com"
+source_dir="${standalone_repo}/files/${uuid}"
+target_root="${spices_repo}/${uuid}"
+target_dir="${target_root}/files/${uuid}"
+
+if [[ ! -d "${spices_repo}/.git" ]]; then
+  printf 'Not a git repository: %s\n' "${spices_repo}" >&2
+  exit 1
+fi
+
+if [[ ! -d "${target_dir}" ]]; then
+  printf 'Target applet directory not found: %s\n' "${target_dir}" >&2
+  exit 1
+fi
+
+mkdir -p "${target_dir}/po"
+
+cp -a "${source_dir}/applet.js" "${target_dir}/applet.js"
+cp -a "${source_dir}/settings-schema.json" "${target_dir}/settings-schema.json"
+cp -a "${source_dir}/metadata.json" "${target_dir}/metadata.json"
+cp -a "${source_dir}/po/." "${target_dir}/po/"
+
+jq 'del(."last-edited")' "${target_dir}/metadata.json" > "${target_dir}/metadata.json.tmp"
+mv "${target_dir}/metadata.json.tmp" "${target_dir}/metadata.json"
+
+cat > "${target_root}/README.md" <<'README'
+# Duolingo Helper Cinnamon Spice
+
+This applet shows public Duolingo profile statistics in the Cinnamon panel.
+
+The previous version used Duolingo's obsolete password login endpoint and displayed daily-goal/crown/lingot data that is no longer reliable in the current Duolingo product. This version no longer asks for or stores a Duolingo password. It reads public profile data from:
+
+```text
+https://www.duolingo.com/2017-06-30/users?username=<username>
+```
+
+## Features
+
+- No Duolingo password is requested or stored.
+- Multiple Duolingo usernames can be configured.
+- Right-click the panel applet and choose `Settings` to edit users. The label is translated by Cinnamon.
+- Hover over the applet to see per-user statistics.
+- Left-click the applet for a compact menu, profile links, and manual refresh.
+- Refreshes automatically every 5 minutes.
+
+## Displayed Statistics
+
+The current public profile endpoint exposes:
+
+- Streak in days
+- Total XP
+- XP in the current course
+- Current course title
+- Duolingo Plus status when present
+- Error state per configured username
+
+The panel label stays compact:
+
+```text
+<loaded-users> | <sum-of-streaks>
+```
+
+Example:
+
+```text
+3 | 42
+```
+
+## Configure
+
+1. Right-click the Duolingo Helper applet in the Cinnamon panel.
+2. Click `Settings`.
+3. Add one row per Duolingo username.
+4. Enable the rows you want to fetch.
+
+Use the Duolingo username, not the email address.
+
+Clicking a loaded user in the applet menu opens that user's Duolingo profile.
+
+## Notes
+
+This applet uses an unofficial public Duolingo endpoint. Duolingo can change or remove it without notice.
+
+If a configured username shows an error, verify that the profile exists and that the username is public.
+README
+
+(
+  cd "${spices_repo}"
+  jq . "${uuid}/files/${uuid}/metadata.json" >/dev/null
+  jq . "${uuid}/files/${uuid}/settings-schema.json" >/dev/null
+  for po in "${uuid}/files/${uuid}/po/"*.po; do
+    msgfmt -c "${po}" -o "/tmp/$(basename "${po}" .po).mo"
+  done
+  git diff --check
+)
+
+printf 'Synced %s into %s\n' "${uuid}" "${spices_repo}"

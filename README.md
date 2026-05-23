@@ -102,7 +102,18 @@ files/duolingo-helper@nodeengineer.com/
   *.png
   po/
 install-local.sh
+sync-to-cinnamon-spices.sh
 ```
+
+## Sync To Cinnamon Spices Fork
+
+To mirror this standalone applet into a local checkout of `cinnamon-spices-applets`:
+
+```bash
+./sync-to-cinnamon-spices.sh ~/cinnamon-spices-applets
+```
+
+The sync script copies applet code, settings, metadata, and translations, removes the standalone-only `last-edited` metadata field, writes a Cinnamon Spices README, and runs JSON, `msgfmt`, and `git diff --check` validation.
 
 ## Validation
 
