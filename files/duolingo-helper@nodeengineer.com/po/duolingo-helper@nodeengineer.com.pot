@@ -51,7 +51,7 @@ msgid "Duolingo Statistics"
 msgstr ""
 
 #. applet.js
-msgid "%s: %s days, %s total XP, %s XP in %s%s"
+msgid "%s: %s days, %s total XP, %s XP in %s"
 msgstr ""
 
 #. applet.js
@@ -95,6 +95,14 @@ msgid "Achievements: %s"
 msgstr ""
 
 #. applet.js
+msgid "Duolingo Plus: %s"
+msgstr ""
+
+#. applet.js
+msgid "Plus"
+msgstr ""
+
+#. applet.js
 msgid "yes"
 msgstr ""
 
@@ -123,11 +131,11 @@ msgid "Team share"
 msgstr ""
 
 #. applet.js
-msgid "XP: %s / %s (%s%%)"
+msgid "XP: %s / %s (%s%)"
 msgstr ""
 
 #. applet.js
-msgid "Streak: %s / %s (%s%%)"
+msgid "Streak: %s / %s (%s%)"
 msgstr ""
 
 #. settings-schema.json->hover-display-mode->description
@@ -222,6 +230,10 @@ msgstr ""
 
 #. settings-schema.json->users->columns->enabled->title
 msgid "Enabled"
+msgstr ""
+
+#. settings-schema.json->users->columns->highlighted->title
+msgid "Highlight"
 msgstr ""
 
 #. settings-schema.json->users->columns->username->title

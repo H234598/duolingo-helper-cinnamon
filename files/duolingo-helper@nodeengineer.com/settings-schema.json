@@ -60,6 +60,12 @@
         "default": true
       },
       {
+        "id": "highlighted",
+        "title": "Highlight",
+        "type": "boolean",
+        "default": false
+      },
+      {
         "id": "username",
         "title": "Username",
         "type": "string",

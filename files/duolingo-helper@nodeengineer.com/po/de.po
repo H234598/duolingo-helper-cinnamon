@@ -51,8 +51,8 @@ msgid "Duolingo Statistics"
 msgstr "Duolingo-Statistiken"
 
 #. applet.js
-msgid "%s: %s days, %s total XP, %s XP in %s%s"
-msgstr "%s: %s Tage, %s XP gesamt, %s XP in %s%s"
+msgid "%s: %s days, %s total XP, %s XP in %s"
+msgstr "%s: %s Tage, %s XP gesamt, %s XP in %s"
 
 #. applet.js
 msgid "Current course: %s (%s -> %s)"
@@ -95,6 +95,14 @@ msgid "Achievements: %s"
 msgstr "Erfolge: %s"
 
 #. applet.js
+msgid "Duolingo Plus: %s"
+msgstr "Duolingo Plus: %s"
+
+#. applet.js
+msgid "Plus"
+msgstr "Huldigt der Eule mit echtem Geld"
+
+#. applet.js
 msgid "yes"
 msgstr "ja"
 
@@ -123,12 +131,12 @@ msgid "Team share"
 msgstr "Teamanteil"
 
 #. applet.js
-msgid "XP: %s / %s (%s%%)"
-msgstr "XP: %s / %s (%s%%)"
+msgid "XP: %s / %s (%s%)"
+msgstr "XP: %s / %s (%s%)"
 
 #. applet.js
-msgid "Streak: %s / %s (%s%%)"
-msgstr "Streak: %s / %s (%s%%)"
+msgid "Streak: %s / %s (%s%)"
+msgstr "Streak: %s / %s (%s%)"
 
 #. settings-schema.json->hover-display-mode->description
 msgid "Show on hover"
@@ -223,6 +231,10 @@ msgstr "Duolingo-Benutzer"
 #. settings-schema.json->users->columns->enabled->title
 msgid "Enabled"
 msgstr "Aktiv"
+
+#. settings-schema.json->users->columns->highlighted->title
+msgid "Highlight"
+msgstr "Hervorheben"
 
 #. settings-schema.json->users->columns->username->title
 msgid "Username"

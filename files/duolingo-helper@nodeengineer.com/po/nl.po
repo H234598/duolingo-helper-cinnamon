@@ -51,8 +51,8 @@ msgid "Duolingo Statistics"
 msgstr "Duolingo-statistieken"
 
 #. applet.js
-msgid "%s: %s days, %s total XP, %s XP in %s%s"
-msgstr "%s: %s dagen, %s XP totaal, %s XP in %s%s"
+msgid "%s: %s days, %s total XP, %s XP in %s"
+msgstr "%s: %s dagen, %s XP totaal, %s XP in %s"
 
 #. applet.js
 msgid "%s - %s days - %s XP"

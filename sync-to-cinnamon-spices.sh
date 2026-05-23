@@ -23,7 +23,12 @@ mkdir -p "${target_dir}/po"
 cp -a "${source_dir}/applet.js" "${target_dir}/applet.js"
 cp -a "${source_dir}/settings-schema.json" "${target_dir}/settings-schema.json"
 cp -a "${source_dir}/metadata.json" "${target_dir}/metadata.json"
+cp -a "${source_dir}/stylesheet.css" "${target_dir}/stylesheet.css"
 cp -a "${source_dir}/po/." "${target_dir}/po/"
+
+if [[ -f "${target_dir}/po/de.po" ]]; then
+  perl -0pi -e 's/msgid "Plus"\nmsgstr "[^"]*"/msgid "Plus"\nmsgstr "Plus"/' "${target_dir}/po/de.po"
+fi
 
 jq 'del(."last-edited")' "${target_dir}/metadata.json" > "${target_dir}/metadata.json.tmp"
 mv "${target_dir}/metadata.json.tmp" "${target_dir}/metadata.json"
@@ -44,6 +49,7 @@ https://www.duolingo.com/2017-06-30/users?username=<username>
 - No Duolingo password is requested or stored.
 - Multiple Duolingo usernames can be configured.
 - Optional aliases can replace usernames in the displayed applet text.
+- Configured users can be highlighted in the applet menu.
 - Configure user sorting by configured order, alias/name, streak, or total XP.
 - Configure the panel label separately: compact summary, user count, total streak, total XP, or nothing.
 - Right-click the panel applet and choose `Settings` to edit users. The label is translated by Cinnamon.
@@ -64,6 +70,8 @@ The current public profile endpoint exposes:
 - Display name, join date, recent activity, email verification, profile country, live event count, and achievement count
 - Duolingo Plus status when present
 - Error state per configured username
+
+The summary line intentionally does not show whether a user has Duolingo Plus.
 
 The default panel label stays compact:
 
@@ -87,7 +95,8 @@ Example:
 6. Choose the user sort order.
 7. Add one row per Duolingo username.
 8. Optionally set an alias for any row.
-9. Enable the rows you want to fetch.
+9. Enable highlighting for rows that should stand out in the click menu.
+10. Enable the rows you want to fetch.
 
 Use the Duolingo username, not the email address.
 Aliases are display-only; profile links still open the configured Duolingo username.

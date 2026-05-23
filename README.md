@@ -15,6 +15,7 @@ It is designed for Cinnamon 6.x and was tested locally on Cinnamon 6.6.7.
 - No Duolingo password is requested or stored.
 - Multiple Duolingo usernames can be configured.
 - Optional aliases can replace usernames in the displayed applet text.
+- Configured users can be highlighted in the applet menu.
 - Configure user sorting by configured order, alias/name, streak, or total XP.
 - Configure the panel label separately: compact summary, user count, total streak, total XP, or nothing.
 - Right-click the panel applet and choose `Settings` to edit users. The label is translated by Cinnamon.
@@ -35,6 +36,8 @@ Duolingo no longer has meaningful "crowns" for current course progress. This app
 - Display name, join date, recent activity, email verification, profile country, live event count, and achievement count
 - Duolingo Plus status when present
 - Error state per configured username
+
+The summary line intentionally does not show whether a user has Duolingo Plus.
 
 The default panel label stays compact:
 
@@ -76,7 +79,8 @@ Add or enable the applet from Cinnamon's applet settings if it is not already in
 6. Choose the user sort order.
 7. Add one row per Duolingo username.
 8. Optionally set an alias for any row.
-9. Enable the rows you want to fetch.
+9. Enable highlighting for rows that should stand out in the click menu.
+10. Enable the rows you want to fetch.
 
 Use the Duolingo username, not the email address.
 Aliases are display-only; profile links still open the configured Duolingo username.
@@ -91,6 +95,7 @@ Clicking a loaded user in the applet menu opens that user's Duolingo profile.
 - Added Cinnamon settings via `settings-schema.json`.
 - Added multi-user support.
 - Added display aliases for configured users.
+- Added highlighted users in the applet menu.
 - Added a dedicated translated right-click settings item.
 - Added hover tooltip statistics.
 - Added configurable hover and click display modes.

@@ -176,6 +176,7 @@ MyApplet.prototype = {
       users.push({
         username: username,
         displayUsername: (row.alias || "").trim() || username,
+        highlighted: row.highlighted === true,
         index: index
       });
     }
@@ -265,6 +266,7 @@ MyApplet.prototype = {
     this.userData.push({
       username: userConfig.username,
       displayUsername: userConfig.displayUsername,
+      highlighted: userConfig.highlighted,
       configuredIndex: userConfig.index,
       error: status === "not-found" ? _("not found") : formatString(_("Error %s"), [status])
     });
@@ -298,6 +300,7 @@ MyApplet.prototype = {
     return {
       username: user.username || userConfig.username,
       displayUsername: userConfig.displayUsername,
+      highlighted: userConfig.highlighted,
       configuredIndex: userConfig.index,
       name: user.name || user.username || userConfig.username,
       streak: user.streak || 0,
@@ -384,13 +387,12 @@ MyApplet.prototype = {
   },
 
   buildUserSummaryLine: function(user) {
-    return formatString(_("%s: %s days, %s total XP, %s XP in %s%s"), [
+    return formatString(_("%s: %s days, %s total XP, %s XP in %s"), [
       user.displayUsername,
       user.streak,
       user.totalXp,
       user.courseXp,
-      user.courseTitle,
-      user.hasPlus ? ", Plus" : ""
+      user.courseTitle
     ]);
   },
 
@@ -419,7 +421,7 @@ MyApplet.prototype = {
   },
 
   buildAccountLines: function(user) {
-    return [
+    let lines = [
       formatString(_("Name: %s"), [user.name]),
       formatString(_("Joined: %s"), [this.formatUnixDate(user.creationDate)]),
       formatString(_("Recent activity: %s"), [user.activeRecently ? _("yes") : _("no")]),
@@ -428,6 +430,12 @@ MyApplet.prototype = {
       formatString(_("Live events: %s"), [user.liveOpsCount]),
       formatString(_("Achievements: %s"), [user.achievementCount])
     ];
+
+    if (user.hasPlus) {
+      lines.push(formatString(_("Duolingo Plus: %s"), [_("Plus")]));
+    }
+
+    return lines;
   },
 
   validDisplayMode: function(mode) {
@@ -563,12 +571,12 @@ MyApplet.prototype = {
 
     return [
       _("Team share"),
-      formatString(_("XP: %s / %s (%s%%)"), [
+      formatString(_("XP: %s / %s (%s%)"), [
         user.totalXp,
         totalXp,
         this.formatPercent(user.totalXp, totalXp)
       ]),
-      formatString(_("Streak: %s / %s (%s%%)"), [
+      formatString(_("Streak: %s / %s (%s%)"), [
         user.streak,
         totalStreak,
         this.formatPercent(user.streak, totalStreak)
@@ -579,6 +587,12 @@ MyApplet.prototype = {
   setMenuItemTooltip: function(item, text) {
     if (item.actor) {
       item._teamShareTooltip = new Tooltips.Tooltip(item.actor, text);
+    }
+  },
+
+  highlightMenuItem: function(item) {
+    if (item.actor && item.actor.add_style_class_name) {
+      item.actor.add_style_class_name("duolingo-helper-highlighted-user");
     }
   },
 
@@ -618,6 +632,9 @@ MyApplet.prototype = {
         for (let index = 0; index < lines.length; index++) {
           let item = new PopupMenu.PopupMenuItem(lines[index]);
           if (index === 0) {
+            if (user.highlighted) {
+              this.highlightMenuItem(item);
+            }
             this.setMenuItemTooltip(item, this.buildTeamShareTooltip(user));
             item.connect("activate", () => this.openProfile(user.username));
           } else {
