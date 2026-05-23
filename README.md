@@ -1,0 +1,112 @@
+# Duolingo Helper for Cinnamon
+
+A maintained local fork of the Cinnamon applet `duolingo-helper@nodeengineer.com`.
+
+This version removes the obsolete Duolingo password login flow and reads public profile statistics from:
+
+```text
+https://www.duolingo.com/2017-06-30/users?username=<username>
+```
+
+It is designed for Cinnamon 6.x and was tested locally on Cinnamon 6.6.7.
+
+## Features
+
+- No Duolingo password is requested or stored.
+- Multiple Duolingo usernames can be configured.
+- Right-click the panel applet and choose `Einstellungen` to edit users.
+- Hover the applet to see per-user statistics.
+- Left-click the applet for a compact menu, profile links, and manual refresh.
+- Refreshes automatically every 5 minutes.
+
+## Displayed Statistics
+
+Duolingo no longer has meaningful "crowns" for current course progress. This applet shows values still exposed by the current public profile endpoint:
+
+- Streak in days
+- Total XP
+- XP in the current course
+- Current course title
+- Duolingo Plus status when present
+- Error state per configured username
+
+The panel label stays compact:
+
+```text
+<loaded-users> | <sum-of-streaks>
+```
+
+Example:
+
+```text
+3 | 42
+```
+
+## Install
+
+Clone the repository and copy the applet folder into Cinnamon's local applet directory:
+
+```bash
+git clone https://github.com/H234598/duolingo-helper-cinnamon.git
+mkdir -p ~/.local/share/cinnamon/applets
+cp -a duolingo-helper-cinnamon/files/duolingo-helper@nodeengineer.com ~/.local/share/cinnamon/applets/
+```
+
+Then reload Cinnamon:
+
+```text
+Alt+F2, r, Enter
+```
+
+Add or enable the applet from Cinnamon's applet settings if it is not already in the panel.
+
+## Configure
+
+1. Right-click the Duolingo Helper applet in the Cinnamon panel.
+2. Click `Einstellungen`.
+3. Add one row per Duolingo username.
+4. Enable the rows you want to fetch.
+
+Use the Duolingo username, not the email address.
+
+Clicking a loaded user in the applet menu opens that user's Duolingo profile.
+
+## What Changed From The Original Applet
+
+- Removed the old `https://www.duolingo.com/login` password flow.
+- Removed Secret Service credential storage.
+- Removed crown-based display.
+- Added Cinnamon settings via `settings-schema.json`.
+- Added multi-user support.
+- Added a dedicated right-click `Einstellungen` item.
+- Added hover tooltip statistics.
+- Added profile links from the user entries in the applet menu.
+- Added current public profile endpoint support.
+- Fixed Cinnamon 6 / Soup 3 compatibility issues while refactoring.
+
+## Caveats
+
+This applet uses an unofficial public Duolingo endpoint. Duolingo can change or remove it without notice.
+
+If a configured username shows an error, verify that the profile exists and that the username is public.
+
+## Repository Layout
+
+```text
+files/duolingo-helper@nodeengineer.com/
+  applet.js
+  metadata.json
+  settings-schema.json
+  stylesheet.css
+  *.png
+  po/
+```
+
+## Validation
+
+Local validation performed:
+
+- Confirmed the current public Duolingo profile endpoint returns `200 OK`.
+- Reloaded the applet through Cinnamon D-Bus.
+- Confirmed Cinnamon installed the settings schema.
+- Checked `~/.xsession-errors` for new JavaScript load errors after reload.

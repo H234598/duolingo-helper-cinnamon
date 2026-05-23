@@ -1,0 +1,22 @@
+{
+  "users": {
+    "type": "list",
+    "description": "Duolingo-Benutzer",
+    "columns": [
+      {
+        "id": "enabled",
+        "title": "Aktiv",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "id": "username",
+        "title": "Benutzername",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "height": 260,
+    "default": []
+  }
+}
