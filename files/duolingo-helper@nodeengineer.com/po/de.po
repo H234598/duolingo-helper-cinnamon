@@ -55,8 +55,60 @@ msgid "%s: %s days, %s total XP, %s XP in %s%s"
 msgstr "%s: %s Tage, %s XP gesamt, %s XP in %s%s"
 
 #. applet.js
-msgid "%s - %s days - %s XP"
-msgstr "%s - %s Tage - %s XP"
+msgid "Current course: %s (%s -> %s)"
+msgstr "Aktueller Kurs: %s (%s -> %s)"
+
+#. applet.js
+msgid "Courses: %s"
+msgstr "Kurse: %s"
+
+#. applet.js
+msgid "  %s: %s XP (%s -> %s)"
+msgstr "  %s: %s XP (%s -> %s)"
+
+#. applet.js
+msgid "Name: %s"
+msgstr "Name: %s"
+
+#. applet.js
+msgid "Joined: %s"
+msgstr "Beigetreten: %s"
+
+#. applet.js
+msgid "Recent activity: %s"
+msgstr "Kuerzliche Aktivitaet: %s"
+
+#. applet.js
+msgid "Email verified: %s"
+msgstr "E-Mail bestaetigt: %s"
+
+#. applet.js
+msgid "Profile country: %s"
+msgstr "Profilland: %s"
+
+#. applet.js
+msgid "Live events: %s"
+msgstr "Live-Events: %s"
+
+#. applet.js
+msgid "Achievements: %s"
+msgstr "Erfolge: %s"
+
+#. applet.js
+msgid "yes"
+msgstr "ja"
+
+#. applet.js
+msgid "no"
+msgstr "nein"
+
+#. applet.js
+msgid "not set"
+msgstr "nicht gesetzt"
+
+#. applet.js
+msgid "unknown"
+msgstr "unbekannt"
 
 #. applet.js
 msgid "Open Duolingo"
@@ -65,6 +117,34 @@ msgstr "Duolingo öffnen"
 #. applet.js
 msgid "Refresh now"
 msgstr "Jetzt aktualisieren"
+
+#. settings-schema.json->hover-display-mode->description
+msgid "Show on hover"
+msgstr "Beim Hovern anzeigen"
+
+#. settings-schema.json->click-display-mode->description
+msgid "Show on click"
+msgstr "Beim Klicken anzeigen"
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "Summary"
+msgstr "Zusammenfassung"
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "Course details"
+msgstr "Kursdetails"
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "Account details"
+msgstr "Kontodetails"
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "All details"
+msgstr "Alle Details"
 
 #. settings-schema.json->users->description
 msgid "Duolingo users"

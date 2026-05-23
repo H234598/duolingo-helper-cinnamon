@@ -55,7 +55,59 @@ msgid "%s: %s days, %s total XP, %s XP in %s%s"
 msgstr ""
 
 #. applet.js
-msgid "%s - %s days - %s XP"
+msgid "Current course: %s (%s -> %s)"
+msgstr ""
+
+#. applet.js
+msgid "Courses: %s"
+msgstr ""
+
+#. applet.js
+msgid "  %s: %s XP (%s -> %s)"
+msgstr ""
+
+#. applet.js
+msgid "Name: %s"
+msgstr ""
+
+#. applet.js
+msgid "Joined: %s"
+msgstr ""
+
+#. applet.js
+msgid "Recent activity: %s"
+msgstr ""
+
+#. applet.js
+msgid "Email verified: %s"
+msgstr ""
+
+#. applet.js
+msgid "Profile country: %s"
+msgstr ""
+
+#. applet.js
+msgid "Live events: %s"
+msgstr ""
+
+#. applet.js
+msgid "Achievements: %s"
+msgstr ""
+
+#. applet.js
+msgid "yes"
+msgstr ""
+
+#. applet.js
+msgid "no"
+msgstr ""
+
+#. applet.js
+msgid "not set"
+msgstr ""
+
+#. applet.js
+msgid "unknown"
 msgstr ""
 
 #. applet.js
@@ -64,6 +116,34 @@ msgstr ""
 
 #. applet.js
 msgid "Refresh now"
+msgstr ""
+
+#. settings-schema.json->hover-display-mode->description
+msgid "Show on hover"
+msgstr ""
+
+#. settings-schema.json->click-display-mode->description
+msgid "Show on click"
+msgstr ""
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "Summary"
+msgstr ""
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "Course details"
+msgstr ""
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "Account details"
+msgstr ""
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "All details"
 msgstr ""
 
 #. settings-schema.json->users->description

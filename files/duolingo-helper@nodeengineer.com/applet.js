@@ -12,6 +12,10 @@ const ByteArray = imports.byteArray;
 const UUID = "duolingo-helper@nodeengineer.com";
 const APPLET_PATH = global.userdatadir + "/applets/" + UUID;
 const UPDATE_INTERVAL_SECONDS = 300;
+const DISPLAY_MODE_SUMMARY = "summary";
+const DISPLAY_MODE_COURSES = "courses";
+const DISPLAY_MODE_ACCOUNT = "account";
+const DISPLAY_MODE_ALL = "all";
 
 Gettext.bindtextdomain(UUID, GLib.get_user_data_dir() + "/locale");
 
@@ -51,6 +55,8 @@ MyApplet.prototype = {
     this.userData = [];
     this.pendingRequests = 0;
     this.refreshTimer = 0;
+    this.hoverDisplayMode = DISPLAY_MODE_SUMMARY;
+    this.clickDisplayMode = DISPLAY_MODE_SUMMARY;
 
     this.settings = new Settings.AppletSettings(this, UUID, instanceId);
     this.settings.bindProperty(
@@ -58,6 +64,20 @@ MyApplet.prototype = {
       "users",
       "users",
       this.onSettingsChanged,
+      null
+    );
+    this.settings.bindProperty(
+      Settings.BindingDirection.IN,
+      "hover-display-mode",
+      "hoverDisplayMode",
+      this.onDisplaySettingsChanged,
+      null
+    );
+    this.settings.bindProperty(
+      Settings.BindingDirection.IN,
+      "click-display-mode",
+      "clickDisplayMode",
+      this.onDisplaySettingsChanged,
       null
     );
 
@@ -100,6 +120,10 @@ MyApplet.prototype = {
 
   onSettingsChanged: function() {
     this.refresh();
+  },
+
+  onDisplaySettingsChanged: function() {
+    this.updateDisplay();
   },
 
   getConfiguredUsers: function() {
@@ -241,9 +265,24 @@ MyApplet.prototype = {
       totalXp: user.totalXp || 0,
       courseTitle: currentCourse.title || user.learningLanguage || _("no course"),
       courseXp: currentCourse.xp || 0,
+      learningLanguage: user.learningLanguage || currentCourse.learningLanguage || "",
+      fromLanguage: user.fromLanguage || currentCourse.fromLanguage || "",
       hasPlus: user.hasPlus === true,
       activeRecently: user.hasRecentActivity15 === true,
-      courseCount: courses.length
+      courseCount: courses.length,
+      courses: courses.map(course => {
+        return {
+          title: course.title || course.learningLanguage || _("no course"),
+          xp: course.xp || 0,
+          learningLanguage: course.learningLanguage || "",
+          fromLanguage: course.fromLanguage || ""
+        };
+      }),
+      creationDate: user.creationDate || 0,
+      emailVerified: user.emailVerified === true,
+      profileCountry: user.profileCountry || "",
+      liveOpsCount: user.liveOpsFeatures ? user.liveOpsFeatures.length : 0,
+      achievementCount: user.achievements ? user.achievements.length : 0
     };
   },
 
@@ -279,19 +318,95 @@ MyApplet.prototype = {
         continue;
       }
 
+      lines = lines.concat(this.buildUserDisplayLines(user, this.hoverDisplayMode));
+    }
+
+    return lines.join("\n");
+  },
+
+  buildUserDisplayLines: function(user, mode) {
+    mode = this.validDisplayMode(mode);
+
+    let lines = [this.buildUserSummaryLine(user)];
+
+    if (mode === DISPLAY_MODE_COURSES || mode === DISPLAY_MODE_ALL) {
+      lines = lines.concat(this.buildCourseLines(user));
+    }
+
+    if (mode === DISPLAY_MODE_ACCOUNT || mode === DISPLAY_MODE_ALL) {
+      lines = lines.concat(this.buildAccountLines(user));
+    }
+
+    return lines;
+  },
+
+  buildUserSummaryLine: function(user) {
+    return formatString(_("%s: %s days, %s total XP, %s XP in %s%s"), [
+      user.username,
+      user.streak,
+      user.totalXp,
+      user.courseXp,
+      user.courseTitle,
+      user.hasPlus ? ", Plus" : ""
+    ]);
+  },
+
+  buildCourseLines: function(user) {
+    let lines = [
+      formatString(_("Current course: %s (%s -> %s)"), [
+        user.courseTitle,
+        user.fromLanguage || "?",
+        user.learningLanguage || "?"
+      ]),
+      formatString(_("Courses: %s"), [user.courseCount])
+    ];
+
+    for (let course of user.courses) {
       lines.push(
-        formatString(_("%s: %s days, %s total XP, %s XP in %s%s"), [
-          user.username,
-          user.streak,
-          user.totalXp,
-          user.courseXp,
-          user.courseTitle,
-          user.hasPlus ? ", Plus" : ""
+        formatString(_("  %s: %s XP (%s -> %s)"), [
+          course.title,
+          course.xp,
+          course.fromLanguage || "?",
+          course.learningLanguage || "?"
         ])
       );
     }
 
-    return lines.join("\n");
+    return lines;
+  },
+
+  buildAccountLines: function(user) {
+    return [
+      formatString(_("Name: %s"), [user.name]),
+      formatString(_("Joined: %s"), [this.formatUnixDate(user.creationDate)]),
+      formatString(_("Recent activity: %s"), [user.activeRecently ? _("yes") : _("no")]),
+      formatString(_("Email verified: %s"), [user.emailVerified ? _("yes") : _("no")]),
+      formatString(_("Profile country: %s"), [user.profileCountry || _("not set")]),
+      formatString(_("Live events: %s"), [user.liveOpsCount]),
+      formatString(_("Achievements: %s"), [user.achievementCount])
+    ];
+  },
+
+  validDisplayMode: function(mode) {
+    if (
+      mode === DISPLAY_MODE_SUMMARY ||
+      mode === DISPLAY_MODE_COURSES ||
+      mode === DISPLAY_MODE_ACCOUNT ||
+      mode === DISPLAY_MODE_ALL
+    ) {
+      return mode;
+    }
+
+    return DISPLAY_MODE_SUMMARY;
+  },
+
+  formatUnixDate: function(timestamp) {
+    if (!timestamp) {
+      return _("unknown");
+    }
+
+    let date = GLib.DateTime.new_from_unix_local(timestamp);
+    return date ? date.format("%Y-%m-%d") : _("unknown");
   },
 
   rebuildMenu: function() {
@@ -304,15 +419,28 @@ MyApplet.prototype = {
     if (this.userData.length === 0) {
       this.menu.addMenuItem(new PopupMenu.PopupMenuItem(_("No users configured")));
     } else {
+      let firstUser = true;
       for (let user of this.userData) {
-        let text = user.error
-          ? user.username + ": " + user.error
-          : formatString(_("%s - %s days - %s XP"), [user.username, user.streak, user.totalXp]);
-        let item = new PopupMenu.PopupMenuItem(text);
-        if (!user.error) {
-          item.connect("activate", () => this.openProfile(user.username));
+        if (!firstUser && this.validDisplayMode(this.clickDisplayMode) !== DISPLAY_MODE_SUMMARY) {
+          this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         }
-        this.menu.addMenuItem(item);
+        firstUser = false;
+
+        if (user.error) {
+          this.menu.addMenuItem(new PopupMenu.PopupMenuItem(user.username + ": " + user.error));
+          continue;
+        }
+
+        let lines = this.buildUserDisplayLines(user, this.clickDisplayMode);
+        for (let index = 0; index < lines.length; index++) {
+          let item = new PopupMenu.PopupMenuItem(lines[index]);
+          if (index === 0) {
+            item.connect("activate", () => this.openProfile(user.username));
+          } else {
+            item.setSensitive(false);
+          }
+          this.menu.addMenuItem(item);
+        }
       }
     }
 

@@ -1,4 +1,26 @@
 {
+  "hover-display-mode": {
+    "type": "combobox",
+    "description": "Show on hover",
+    "options": {
+      "Summary": "summary",
+      "Course details": "courses",
+      "Account details": "account",
+      "All details": "all"
+    },
+    "default": "summary"
+  },
+  "click-display-mode": {
+    "type": "combobox",
+    "description": "Show on click",
+    "options": {
+      "Summary": "summary",
+      "Course details": "courses",
+      "Account details": "account",
+      "All details": "all"
+    },
+    "default": "summary"
+  },
   "users": {
     "type": "list",
     "description": "Duolingo users",

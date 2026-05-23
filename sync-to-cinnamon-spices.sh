@@ -44,8 +44,8 @@ https://www.duolingo.com/2017-06-30/users?username=<username>
 - No Duolingo password is requested or stored.
 - Multiple Duolingo usernames can be configured.
 - Right-click the panel applet and choose `Settings` to edit users. The label is translated by Cinnamon.
-- Hover over the applet to see per-user statistics.
-- Left-click the applet for a compact menu, profile links, and manual refresh.
+- Configure what the hover tooltip shows: summary, course details, account details, or all details.
+- Configure what the left-click menu shows with the same display modes, plus profile links and manual refresh.
 - Refreshes automatically every 5 minutes.
 
 ## Displayed Statistics
@@ -56,6 +56,8 @@ The current public profile endpoint exposes:
 - Total XP
 - XP in the current course
 - Current course title
+- All course titles, language directions, and XP
+- Display name, join date, recent activity, email verification, profile country, live event count, and achievement count
 - Duolingo Plus status when present
 - Error state per configured username
 
@@ -75,8 +77,10 @@ Example:
 
 1. Right-click the Duolingo Helper applet in the Cinnamon panel.
 2. Click `Settings`.
-3. Add one row per Duolingo username.
-4. Enable the rows you want to fetch.
+3. Choose what should be shown when hovering over the applet.
+4. Choose what should be shown when clicking the applet.
+5. Add one row per Duolingo username.
+6. Enable the rows you want to fetch.
 
 Use the Duolingo username, not the email address.
 
