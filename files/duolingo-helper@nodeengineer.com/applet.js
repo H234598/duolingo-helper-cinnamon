@@ -632,7 +632,9 @@ MyApplet.prototype = {
     let clickDisplayMode = this.validDisplayMode(this.clickDisplayMode);
 
     if (this.userData.length === 0) {
-      this.menu.addMenuItem(new PopupMenu.PopupMenuItem(_("No users configured")));
+      let configureUsers = new PopupMenu.PopupMenuItem(_("No users configured"));
+      configureUsers.connect("activate", () => this.configureApplet());
+      this.menu.addMenuItem(configureUsers);
     } else if (clickDisplayMode !== DISPLAY_MODE_NONE) {
       let firstUser = true;
       for (let user of this.userData) {
