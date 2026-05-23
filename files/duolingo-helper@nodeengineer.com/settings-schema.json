@@ -1,17 +1,17 @@
 {
   "users": {
     "type": "list",
-    "description": "Duolingo-Benutzer",
+    "description": "Duolingo users",
     "columns": [
       {
         "id": "enabled",
-        "title": "Aktiv",
+        "title": "Enabled",
         "type": "boolean",
         "default": true
       },
       {
         "id": "username",
-        "title": "Benutzername",
+        "title": "Username",
         "type": "string",
         "default": ""
       }

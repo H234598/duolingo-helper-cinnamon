@@ -5,11 +5,26 @@ const St = imports.gi.St;
 const Soup = imports.gi.Soup;
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
+const Gettext = imports.gettext;
 const ByteArray = imports.byteArray;
 
 const UUID = "duolingo-helper@nodeengineer.com";
 const APPLET_PATH = global.userdatadir + "/applets/" + UUID;
 const UPDATE_INTERVAL_SECONDS = 300;
+
+Gettext.bindtextdomain(UUID, GLib.get_home_dir() + "/.local/share/locale");
+
+function _(str) {
+  return Gettext.dgettext(UUID, str);
+}
+
+function formatString(template, values) {
+  let text = template;
+  for (let value of values) {
+    text = text.replace("%s", value);
+  }
+  return text;
+}
 
 let soupASyncSession;
 if (Soup.MAJOR_VERSION === 2) {
@@ -47,7 +62,7 @@ MyApplet.prototype = {
 
     this.set_applet_icon_path(APPLET_PATH + "/icon.png");
     this.set_applet_label("Duo");
-    this.set_applet_tooltip("Duolingo Helper");
+    this.set_applet_tooltip(_("Duolingo Helper"));
 
     this.addSettingsMenuItem();
     this.buildMenu(orientation);
@@ -56,7 +71,7 @@ MyApplet.prototype = {
 
   addSettingsMenuItem: function() {
     this.settingsMenuItem = new PopupMenu.PopupIconMenuItem(
-      "Einstellungen",
+      _("Settings"),
       "xsi-preferences",
       St.IconType.SYMBOLIC
     );
@@ -120,7 +135,7 @@ MyApplet.prototype = {
 
     if (this.usernames.length === 0) {
       this.set_applet_label("Duo");
-      this.set_applet_tooltip("Duolingo Helper\nRechtsklick -> Einstellungen");
+      this.set_applet_tooltip(_("Duolingo Helper") + "\n" + _("Right-click -> Settings"));
       this.rebuildMenu();
       return;
     }
@@ -188,7 +203,7 @@ MyApplet.prototype = {
   recordError: function(username, status) {
     this.userData.push({
       username: username,
-      error: status === "not-found" ? "nicht gefunden" : "Fehler " + status
+      error: status === "not-found" ? _("not found") : formatString(_("Error %s"), [status])
     });
     this.finishRequest();
   },
@@ -223,7 +238,7 @@ MyApplet.prototype = {
       name: user.name || user.username || fallbackUsername,
       streak: user.streak || 0,
       totalXp: user.totalXp || 0,
-      courseTitle: currentCourse.title || user.learningLanguage || "kein Kurs",
+      courseTitle: currentCourse.title || user.learningLanguage || _("no course"),
       courseXp: currentCourse.xp || 0,
       hasPlus: user.hasPlus === true,
       activeRecently: user.hasRecentActivity15 === true,
@@ -253,10 +268,10 @@ MyApplet.prototype = {
 
   buildTooltip: function() {
     if (this.userData.length === 0) {
-      return "Duolingo Helper\nKeine Benutzer konfiguriert";
+      return _("Duolingo Helper") + "\n" + _("No users configured");
     }
 
-    let lines = ["Duolingo Statistiken"];
+    let lines = [_("Duolingo Statistics")];
     for (let user of this.userData) {
       if (user.error) {
         lines.push(user.username + ": " + user.error);
@@ -264,11 +279,14 @@ MyApplet.prototype = {
       }
 
       lines.push(
-        user.username +
-        ": " + user.streak + " Tage, " +
-        user.totalXp + " XP gesamt, " +
-        user.courseXp + " XP in " + user.courseTitle +
-        (user.hasPlus ? ", Plus" : "")
+        formatString(_("%s: %s days, %s total XP, %s XP in %s%s"), [
+          user.username,
+          user.streak,
+          user.totalXp,
+          user.courseXp,
+          user.courseTitle,
+          user.hasPlus ? ", Plus" : ""
+        ])
       );
     }
 
@@ -283,12 +301,12 @@ MyApplet.prototype = {
     this.menu.removeAll();
 
     if (this.userData.length === 0) {
-      this.menu.addMenuItem(new PopupMenu.PopupMenuItem("Keine Benutzer konfiguriert"));
+      this.menu.addMenuItem(new PopupMenu.PopupMenuItem(_("No users configured")));
     } else {
       for (let user of this.userData) {
         let text = user.error
           ? user.username + ": " + user.error
-          : user.username + " - " + user.streak + " Tage - " + user.totalXp + " XP";
+          : formatString(_("%s - %s days - %s XP"), [user.username, user.streak, user.totalXp]);
         let item = new PopupMenu.PopupMenuItem(text);
         if (!user.error) {
           item.connect("activate", () => this.openProfile(user.username));
@@ -298,11 +316,11 @@ MyApplet.prototype = {
     }
 
     this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-    let openDuolingo = new PopupMenu.PopupMenuItem("Duolingo öffnen");
+    let openDuolingo = new PopupMenu.PopupMenuItem(_("Open Duolingo"));
     openDuolingo.connect("activate", () => GLib.spawn_command_line_async("xdg-open 'https://duolingo.com'"));
     this.menu.addMenuItem(openDuolingo);
 
-    let refreshNow = new PopupMenu.PopupMenuItem("Jetzt aktualisieren");
+    let refreshNow = new PopupMenu.PopupMenuItem(_("Refresh now"));
     refreshNow.connect("activate", () => this.refresh());
     this.menu.addMenuItem(refreshNow);
   },

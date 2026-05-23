@@ -14,7 +14,7 @@ It is designed for Cinnamon 6.x and was tested locally on Cinnamon 6.6.7.
 
 - No Duolingo password is requested or stored.
 - Multiple Duolingo usernames can be configured.
-- Right-click the panel applet and choose `Einstellungen` to edit users.
+- Right-click the panel applet and choose `Settings` to edit users. The label is translated by Cinnamon.
 - Hover the applet to see per-user statistics.
 - Left-click the applet for a compact menu, profile links, and manual refresh.
 - Refreshes automatically every 5 minutes.
@@ -44,12 +44,12 @@ Example:
 
 ## Install
 
-Clone the repository and copy the applet folder into Cinnamon's local applet directory:
+Clone the repository and run the local installer:
 
 ```bash
 git clone https://github.com/H234598/duolingo-helper-cinnamon.git
-mkdir -p ~/.local/share/cinnamon/applets
-cp -a duolingo-helper-cinnamon/files/duolingo-helper@nodeengineer.com ~/.local/share/cinnamon/applets/
+cd duolingo-helper-cinnamon
+./install-local.sh
 ```
 
 Then reload Cinnamon:
@@ -63,7 +63,7 @@ Add or enable the applet from Cinnamon's applet settings if it is not already in
 ## Configure
 
 1. Right-click the Duolingo Helper applet in the Cinnamon panel.
-2. Click `Einstellungen`.
+2. Click `Settings`.
 3. Add one row per Duolingo username.
 4. Enable the rows you want to fetch.
 
@@ -78,11 +78,12 @@ Clicking a loaded user in the applet menu opens that user's Duolingo profile.
 - Removed crown-based display.
 - Added Cinnamon settings via `settings-schema.json`.
 - Added multi-user support.
-- Added a dedicated right-click `Einstellungen` item.
+- Added a dedicated translated right-click settings item.
 - Added hover tooltip statistics.
 - Added profile links from the user entries in the applet menu.
 - Added current public profile endpoint support.
 - Fixed Cinnamon 6 / Soup 3 compatibility issues while refactoring.
+- Added gettext-based translations for all applet and settings text.
 
 ## Caveats
 
@@ -100,6 +101,7 @@ files/duolingo-helper@nodeengineer.com/
   stylesheet.css
   *.png
   po/
+install-local.sh
 ```
 
 ## Validation
@@ -109,4 +111,5 @@ Local validation performed:
 - Confirmed the current public Duolingo profile endpoint returns `200 OK`.
 - Reloaded the applet through Cinnamon D-Bus.
 - Confirmed Cinnamon installed the settings schema.
+- Compiled translation files with `msgfmt`.
 - Checked `~/.xsession-errors` for new JavaScript load errors after reload.
