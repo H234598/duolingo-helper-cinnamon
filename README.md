@@ -13,6 +13,7 @@ It is designed for Cinnamon 6.x and was tested locally on Cinnamon 6.6.7.
 ## Features
 
 - No Duolingo password is requested or stored.
+- Multiple instances can be added to Cinnamon panels.
 - Multiple Duolingo usernames can be configured.
 - Optional aliases can replace usernames in the displayed applet text.
 - Configured users can be highlighted in the applet menu and optionally marked in the hover tooltip.
@@ -58,6 +59,8 @@ This repository also contains a second small applet:
 ```text
 duolingo-activity@nodeengineer.com
 ```
+
+It also supports multiple Cinnamon panel instances.
 
 It keeps its own user list in Cinnamon settings and checks only the `hasRecentActivity15` field every 5 minutes. If Duolingo reports a configured user as active, the tooltip shows:
 
@@ -122,6 +125,8 @@ Clicking a loaded user in the applet menu opens that user's Duolingo profile.
 - Removed Secret Service credential storage.
 - Removed crown-based display.
 - Added Cinnamon settings via `settings-schema.json`.
+- Made Cinnamon's Applets settings page expose the applet configuration.
+- Allowed multiple applet instances.
 - Added multi-user support.
 - Added display aliases for configured users.
 - Added highlighted users in the applet menu.
