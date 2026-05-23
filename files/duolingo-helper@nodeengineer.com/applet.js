@@ -1,6 +1,7 @@
 const Applet = imports.ui.applet;
 const PopupMenu = imports.ui.popupMenu;
 const Settings = imports.ui.settings;
+const Tooltips = imports.ui.tooltips;
 const Util = imports.misc.util;
 const St = imports.gi.St;
 const Soup = imports.gi.Soup;
@@ -12,10 +13,16 @@ const ByteArray = imports.byteArray;
 const UUID = "duolingo-helper@nodeengineer.com";
 const APPLET_PATH = global.userdatadir + "/applets/" + UUID;
 const UPDATE_INTERVAL_SECONDS = 300;
+const DISPLAY_MODE_NONE = "none";
 const DISPLAY_MODE_SUMMARY = "summary";
 const DISPLAY_MODE_COURSES = "courses";
 const DISPLAY_MODE_ACCOUNT = "account";
 const DISPLAY_MODE_ALL = "all";
+const PANEL_DISPLAY_COMPACT = "compact";
+const PANEL_DISPLAY_USERS = "users";
+const PANEL_DISPLAY_STREAK = "streak";
+const PANEL_DISPLAY_XP = "xp";
+const PANEL_DISPLAY_NONE = "none";
 const SORT_ORDER_CONFIGURED = "configured";
 const SORT_ORDER_USERNAME_ASC = "username-asc";
 const SORT_ORDER_USERNAME_DESC = "username-desc";
@@ -64,6 +71,7 @@ MyApplet.prototype = {
     this.refreshTimer = 0;
     this.hoverDisplayMode = DISPLAY_MODE_SUMMARY;
     this.clickDisplayMode = DISPLAY_MODE_SUMMARY;
+    this.panelDisplayMode = PANEL_DISPLAY_COMPACT;
     this.sortOrder = SORT_ORDER_CONFIGURED;
 
     this.settings = new Settings.AppletSettings(this, UUID, instanceId);
@@ -85,6 +93,13 @@ MyApplet.prototype = {
       Settings.BindingDirection.IN,
       "click-display-mode",
       "clickDisplayMode",
+      this.onDisplaySettingsChanged,
+      null
+    );
+    this.settings.bindProperty(
+      Settings.BindingDirection.IN,
+      "panel-display-mode",
+      "panelDisplayMode",
       this.onDisplaySettingsChanged,
       null
     );
@@ -179,8 +194,8 @@ MyApplet.prototype = {
     this.pendingRequests = this.usernames.length;
 
     if (this.usernames.length === 0) {
-      this.set_applet_label("Duo");
-      this.set_applet_tooltip(_("Duolingo Helper") + "\n" + _("Right-click -> Settings"));
+      this.set_applet_label(this.buildPanelLabel([]));
+      this.set_applet_tooltip(this.buildTooltip());
       this.rebuildMenu();
       return;
     }
@@ -315,23 +330,22 @@ MyApplet.prototype = {
     let validUsers = this.userData.filter(user => !user.error);
 
     if (validUsers.length === 0) {
-      this.set_applet_label("Duo");
+      this.set_applet_label(this.buildPanelLabel(validUsers));
       this.set_applet_tooltip(this.buildTooltip());
       this.rebuildMenu();
       return;
     }
 
-    let totalStreak = 0;
-    for (let user of validUsers) {
-      totalStreak += user.streak;
-    }
-
-    this.set_applet_label(validUsers.length + " | " + totalStreak);
+    this.set_applet_label(this.buildPanelLabel(validUsers));
     this.set_applet_tooltip(this.buildTooltip());
     this.rebuildMenu();
   },
 
   buildTooltip: function() {
+    if (this.validDisplayMode(this.hoverDisplayMode) === DISPLAY_MODE_NONE) {
+      return "";
+    }
+
     if (this.userData.length === 0) {
       return _("Duolingo Helper") + "\n" + _("No users configured");
     }
@@ -351,6 +365,10 @@ MyApplet.prototype = {
 
   buildUserDisplayLines: function(user, mode) {
     mode = this.validDisplayMode(mode);
+
+    if (mode === DISPLAY_MODE_NONE) {
+      return [];
+    }
 
     let lines = [this.buildUserSummaryLine(user)];
 
@@ -414,6 +432,7 @@ MyApplet.prototype = {
 
   validDisplayMode: function(mode) {
     if (
+      mode === DISPLAY_MODE_NONE ||
       mode === DISPLAY_MODE_SUMMARY ||
       mode === DISPLAY_MODE_COURSES ||
       mode === DISPLAY_MODE_ACCOUNT ||
@@ -423,6 +442,47 @@ MyApplet.prototype = {
     }
 
     return DISPLAY_MODE_SUMMARY;
+  },
+
+  validPanelDisplayMode: function(mode) {
+    if (
+      mode === PANEL_DISPLAY_COMPACT ||
+      mode === PANEL_DISPLAY_USERS ||
+      mode === PANEL_DISPLAY_STREAK ||
+      mode === PANEL_DISPLAY_XP ||
+      mode === PANEL_DISPLAY_NONE
+    ) {
+      return mode;
+    }
+
+    return PANEL_DISPLAY_COMPACT;
+  },
+
+  buildPanelLabel: function(validUsers) {
+    let mode = this.validPanelDisplayMode(this.panelDisplayMode);
+
+    if (mode === PANEL_DISPLAY_NONE) {
+      return "";
+    }
+
+    if (!validUsers || validUsers.length === 0) {
+      return mode === PANEL_DISPLAY_COMPACT ? "Duo" : "0";
+    }
+
+    let totalStreak = this.sumUserField(validUsers, "streak");
+    let totalXp = this.sumUserField(validUsers, "totalXp");
+
+    if (mode === PANEL_DISPLAY_USERS) {
+      return String(validUsers.length);
+    }
+    if (mode === PANEL_DISPLAY_STREAK) {
+      return String(totalStreak);
+    }
+    if (mode === PANEL_DISPLAY_XP) {
+      return String(totalXp);
+    }
+
+    return validUsers.length + " | " + totalStreak;
   },
 
   validSortOrder: function(order) {
@@ -480,6 +540,48 @@ MyApplet.prototype = {
     return (left.configuredIndex || 0) - (right.configuredIndex || 0);
   },
 
+  sumUserField: function(users, fieldName) {
+    let total = 0;
+    for (let user of users) {
+      total += user[fieldName] || 0;
+    }
+    return total;
+  },
+
+  formatPercent: function(value, total) {
+    if (!total) {
+      return "0.0";
+    }
+
+    return (value * 100 / total).toFixed(1);
+  },
+
+  buildTeamShareTooltip: function(user) {
+    let validUsers = this.userData.filter(currentUser => !currentUser.error);
+    let totalXp = this.sumUserField(validUsers, "totalXp");
+    let totalStreak = this.sumUserField(validUsers, "streak");
+
+    return [
+      _("Team share"),
+      formatString(_("XP: %s / %s (%s%%)"), [
+        user.totalXp,
+        totalXp,
+        this.formatPercent(user.totalXp, totalXp)
+      ]),
+      formatString(_("Streak: %s / %s (%s%%)"), [
+        user.streak,
+        totalStreak,
+        this.formatPercent(user.streak, totalStreak)
+      ])
+    ].join("\n");
+  },
+
+  setMenuItemTooltip: function(item, text) {
+    if (item.actor) {
+      item._teamShareTooltip = new Tooltips.Tooltip(item.actor, text);
+    }
+  },
+
   formatUnixDate: function(timestamp) {
     if (!timestamp) {
       return _("unknown");
@@ -495,13 +597,14 @@ MyApplet.prototype = {
     }
 
     this.menu.removeAll();
+    let clickDisplayMode = this.validDisplayMode(this.clickDisplayMode);
 
     if (this.userData.length === 0) {
       this.menu.addMenuItem(new PopupMenu.PopupMenuItem(_("No users configured")));
-    } else {
+    } else if (clickDisplayMode !== DISPLAY_MODE_NONE) {
       let firstUser = true;
       for (let user of this.userData) {
-        if (!firstUser && this.validDisplayMode(this.clickDisplayMode) !== DISPLAY_MODE_SUMMARY) {
+        if (!firstUser && clickDisplayMode !== DISPLAY_MODE_SUMMARY) {
           this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         }
         firstUser = false;
@@ -515,6 +618,7 @@ MyApplet.prototype = {
         for (let index = 0; index < lines.length; index++) {
           let item = new PopupMenu.PopupMenuItem(lines[index]);
           if (index === 0) {
+            this.setMenuItemTooltip(item, this.buildTeamShareTooltip(user));
             item.connect("activate", () => this.openProfile(user.username));
           } else {
             item.setSensitive(false);
@@ -524,7 +628,9 @@ MyApplet.prototype = {
       }
     }
 
-    this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+    if (this.userData.length === 0 || clickDisplayMode !== DISPLAY_MODE_NONE) {
+      this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+    }
     let openDuolingo = new PopupMenu.PopupMenuItem(_("Open Duolingo"));
     openDuolingo.connect("activate", () => Util.spawn(["xdg-open", "https://duolingo.com"]));
     this.menu.addMenuItem(openDuolingo);

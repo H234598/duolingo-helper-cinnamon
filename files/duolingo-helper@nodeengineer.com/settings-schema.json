@@ -3,6 +3,7 @@
     "type": "combobox",
     "description": "Show on hover",
     "options": {
+      "Nothing": "none",
       "Summary": "summary",
       "Course details": "courses",
       "Account details": "account",
@@ -14,12 +15,25 @@
     "type": "combobox",
     "description": "Show on click",
     "options": {
+      "Nothing": "none",
       "Summary": "summary",
       "Course details": "courses",
       "Account details": "account",
       "All details": "all"
     },
     "default": "summary"
+  },
+  "panel-display-mode": {
+    "type": "combobox",
+    "description": "Show in panel",
+    "options": {
+      "Compact user/streak summary": "compact",
+      "Loaded user count": "users",
+      "Total streak": "streak",
+      "Total XP": "xp",
+      "Nothing": "none"
+    },
+    "default": "compact"
   },
   "sort-order": {
     "type": "combobox",

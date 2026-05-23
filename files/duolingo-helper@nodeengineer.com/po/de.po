@@ -118,6 +118,18 @@ msgstr "Duolingo öffnen"
 msgid "Refresh now"
 msgstr "Jetzt aktualisieren"
 
+#. applet.js
+msgid "Team share"
+msgstr "Teamanteil"
+
+#. applet.js
+msgid "XP: %s / %s (%s%%)"
+msgstr "XP: %s / %s (%s%%)"
+
+#. applet.js
+msgid "Streak: %s / %s (%s%%)"
+msgstr "Streak: %s / %s (%s%%)"
+
 #. settings-schema.json->hover-display-mode->description
 msgid "Show on hover"
 msgstr "Beim Hovern anzeigen"
@@ -126,9 +138,19 @@ msgstr "Beim Hovern anzeigen"
 msgid "Show on click"
 msgstr "Beim Klicken anzeigen"
 
+#. settings-schema.json->panel-display-mode->description
+msgid "Show in panel"
+msgstr "In der Leiste anzeigen"
+
 #. settings-schema.json->sort-order->description
 msgid "Sort users by"
 msgstr "Benutzer sortieren nach"
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+#. settings-schema.json->panel-display-mode->options
+msgid "Nothing"
+msgstr "Nichts"
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
@@ -149,6 +171,22 @@ msgstr "Kontodetails"
 #. settings-schema.json->click-display-mode->options
 msgid "All details"
 msgstr "Alle Details"
+
+#. settings-schema.json->panel-display-mode->options
+msgid "Compact user/streak summary"
+msgstr "Kompakte Benutzer/Streak-Zusammenfassung"
+
+#. settings-schema.json->panel-display-mode->options
+msgid "Loaded user count"
+msgstr "Geladene Benutzeranzahl"
+
+#. settings-schema.json->panel-display-mode->options
+msgid "Total streak"
+msgstr "Gesamt-Streak"
+
+#. settings-schema.json->panel-display-mode->options
+msgid "Total XP"
+msgstr "Gesamt-XP"
 
 #. settings-schema.json->sort-order->options
 msgid "Configured order"

@@ -118,6 +118,18 @@ msgstr ""
 msgid "Refresh now"
 msgstr ""
 
+#. applet.js
+msgid "Team share"
+msgstr ""
+
+#. applet.js
+msgid "XP: %s / %s (%s%%)"
+msgstr ""
+
+#. applet.js
+msgid "Streak: %s / %s (%s%%)"
+msgstr ""
+
 #. settings-schema.json->hover-display-mode->description
 msgid "Show on hover"
 msgstr ""
@@ -126,8 +138,18 @@ msgstr ""
 msgid "Show on click"
 msgstr ""
 
+#. settings-schema.json->panel-display-mode->description
+msgid "Show in panel"
+msgstr ""
+
 #. settings-schema.json->sort-order->description
 msgid "Sort users by"
+msgstr ""
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+#. settings-schema.json->panel-display-mode->options
+msgid "Nothing"
 msgstr ""
 
 #. settings-schema.json->hover-display-mode->options
@@ -148,6 +170,22 @@ msgstr ""
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
 msgid "All details"
+msgstr ""
+
+#. settings-schema.json->panel-display-mode->options
+msgid "Compact user/streak summary"
+msgstr ""
+
+#. settings-schema.json->panel-display-mode->options
+msgid "Loaded user count"
+msgstr ""
+
+#. settings-schema.json->panel-display-mode->options
+msgid "Total streak"
+msgstr ""
+
+#. settings-schema.json->panel-display-mode->options
+msgid "Total XP"
 msgstr ""
 
 #. settings-schema.json->sort-order->options
