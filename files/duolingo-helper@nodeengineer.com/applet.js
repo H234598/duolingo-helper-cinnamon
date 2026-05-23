@@ -72,6 +72,7 @@ MyApplet.prototype = {
     this.hoverDisplayMode = DISPLAY_MODE_SUMMARY;
     this.clickDisplayMode = DISPLAY_MODE_SUMMARY;
     this.panelDisplayMode = PANEL_DISPLAY_COMPACT;
+    this.highlightOnHover = false;
     this.sortOrder = SORT_ORDER_CONFIGURED;
 
     this.settings = new Settings.AppletSettings(this, UUID, instanceId);
@@ -100,6 +101,13 @@ MyApplet.prototype = {
       Settings.BindingDirection.IN,
       "panel-display-mode",
       "panelDisplayMode",
+      this.onDisplaySettingsChanged,
+      null
+    );
+    this.settings.bindProperty(
+      Settings.BindingDirection.IN,
+      "highlight-on-hover",
+      "highlightOnHover",
       this.onDisplaySettingsChanged,
       null
     );
@@ -360,10 +368,20 @@ MyApplet.prototype = {
         continue;
       }
 
-      lines = lines.concat(this.buildUserDisplayLines(user, this.hoverDisplayMode));
+      lines = lines.concat(this.buildHoverUserDisplayLines(user));
     }
 
     return lines.join("\n");
+  },
+
+  buildHoverUserDisplayLines: function(user) {
+    let lines = this.buildUserDisplayLines(user, this.hoverDisplayMode);
+
+    if (this.highlightOnHover !== true || !user.highlighted) {
+      return lines;
+    }
+
+    return lines.map(line => formatString(_("[highlighted] %s"), [line]));
   },
 
   buildUserDisplayLines: function(user, mode) {

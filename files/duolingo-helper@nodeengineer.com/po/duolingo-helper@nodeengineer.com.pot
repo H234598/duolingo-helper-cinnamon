@@ -138,6 +138,10 @@ msgstr ""
 msgid "Streak: %s / %s (%s%)"
 msgstr ""
 
+#. applet.js
+msgid "[highlighted] %s"
+msgstr ""
+
 #. settings-schema.json->hover-display-mode->description
 msgid "Show on hover"
 msgstr ""
@@ -148,6 +152,10 @@ msgstr ""
 
 #. settings-schema.json->panel-display-mode->description
 msgid "Show in panel"
+msgstr ""
+
+#. settings-schema.json->highlight-on-hover->description
+msgid "Highlight selected users on hover"
 msgstr ""
 
 #. settings-schema.json->sort-order->description

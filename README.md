@@ -15,12 +15,12 @@ It is designed for Cinnamon 6.x and was tested locally on Cinnamon 6.6.7.
 - No Duolingo password is requested or stored.
 - Multiple Duolingo usernames can be configured.
 - Optional aliases can replace usernames in the displayed applet text.
-- Configured users can be highlighted in the applet menu.
+- Configured users can be highlighted in the applet menu and optionally marked in the hover tooltip.
 - Configure user sorting by configured order, alias/name, streak, or total XP.
 - Configure the panel label separately: compact summary, user count, total streak, total XP, or nothing.
 - Right-click the panel applet and choose `Settings` to edit users. The label is translated by Cinnamon.
 - Configure what the hover tooltip shows: nothing, summary, course details, account details, or all details.
-- Configure what the left-click menu shows with the same display modes, plus profile links and manual refresh.
+- Configure what the left-click menu shows with the same display modes, plus profile links and manual refresh. The default is to show no statistics on click.
 - Hovering a user in the left-click menu shows that user's XP and streak share of the loaded team.
 - Refreshes automatically every 5 minutes.
 
@@ -80,7 +80,8 @@ Add or enable the applet from Cinnamon's applet settings if it is not already in
 7. Add one row per Duolingo username.
 8. Optionally set an alias for any row.
 9. Enable highlighting for rows that should stand out in the click menu.
-10. Enable the rows you want to fetch.
+10. Optionally enable hover highlighting for highlighted rows.
+11. Enable the rows you want to fetch.
 
 Use the Duolingo username, not the email address.
 Aliases are display-only; profile links still open the configured Duolingo username.
@@ -96,6 +97,7 @@ Clicking a loaded user in the applet menu opens that user's Duolingo profile.
 - Added multi-user support.
 - Added display aliases for configured users.
 - Added highlighted users in the applet menu.
+- Added optional hover-tooltip markers for highlighted users.
 - Added a dedicated translated right-click settings item.
 - Added hover tooltip statistics.
 - Added configurable hover and click display modes.

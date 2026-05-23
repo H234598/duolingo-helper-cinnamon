@@ -21,7 +21,7 @@
       "Account details": "account",
       "All details": "all"
     },
-    "default": "summary"
+    "default": "none"
   },
   "panel-display-mode": {
     "type": "combobox",
@@ -34,6 +34,11 @@
       "Nothing": "none"
     },
     "default": "compact"
+  },
+  "highlight-on-hover": {
+    "type": "checkbox",
+    "description": "Highlight selected users on hover",
+    "default": false
   },
   "sort-order": {
     "type": "combobox",
