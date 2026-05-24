@@ -1,33 +1,35 @@
 {
+  "hover-self-only": {
+    "type": "checkbox",
+    "description": "Show only me on hover",
+    "default": false
+  },
   "hover-display-mode": {
     "type": "combobox",
     "description": "Show on hover",
     "options": {
       "Nothing": "none",
-      "All: Summary": "summary",
-      "Me: Summary": "summary-me",
-      "All: Course details": "courses",
-      "Me: Course details": "courses-me",
-      "All: Account details": "account",
-      "Me: Account details": "account-me",
-      "All: All details": "all",
-      "Me: All details": "all-me"
+      "Summary": "summary",
+      "Course details": "courses",
+      "Account details": "account",
+      "All details": "all"
     },
     "default": "summary"
+  },
+  "click-self-only": {
+    "type": "checkbox",
+    "description": "Show only me on click",
+    "default": false
   },
   "click-display-mode": {
     "type": "combobox",
     "description": "Show on click",
     "options": {
       "Nothing": "none",
-      "All: Summary": "summary",
-      "Me: Summary": "summary-me",
-      "All: Course details": "courses",
-      "Me: Course details": "courses-me",
-      "All: Account details": "account",
-      "Me: Account details": "account-me",
-      "All: All details": "all",
-      "Me: All details": "all-me"
+      "Summary": "summary",
+      "Course details": "courses",
+      "Account details": "account",
+      "All details": "all"
     },
     "default": "none"
   },

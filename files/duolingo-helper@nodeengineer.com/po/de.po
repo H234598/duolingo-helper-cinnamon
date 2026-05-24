@@ -142,6 +142,14 @@ msgstr "Streak: %s / %s (%s%)"
 msgid "No self user configured"
 msgstr "Kein Ich/Selbst-Benutzer konfiguriert"
 
+#. settings-schema.json->hover-self-only->description
+msgid "Show only me on hover"
+msgstr "Beim Hovern nur mich anzeigen"
+
+#. settings-schema.json->click-self-only->description
+msgid "Show only me on click"
+msgstr "Beim Klicken nur mich anzeigen"
+
 #. settings-schema.json->hover-display-mode->description
 msgid "Show on hover"
 msgstr "Beim Hovern anzeigen"
@@ -170,43 +178,23 @@ msgstr "Nichts"
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
-msgid "All: Summary"
-msgstr "Alle: Zusammenfassung"
+msgid "Summary"
+msgstr "Zusammenfassung"
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
-msgid "Me: Summary"
-msgstr "Ich: Zusammenfassung"
+msgid "Course details"
+msgstr "Kursdetails"
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
-msgid "All: Course details"
-msgstr "Alle: Kursdetails"
+msgid "Account details"
+msgstr "Kontodetails"
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
-msgid "Me: Course details"
-msgstr "Ich: Kursdetails"
-
-#. settings-schema.json->hover-display-mode->options
-#. settings-schema.json->click-display-mode->options
-msgid "All: Account details"
-msgstr "Alle: Kontodetails"
-
-#. settings-schema.json->hover-display-mode->options
-#. settings-schema.json->click-display-mode->options
-msgid "Me: Account details"
-msgstr "Ich: Kontodetails"
-
-#. settings-schema.json->hover-display-mode->options
-#. settings-schema.json->click-display-mode->options
-msgid "All: All details"
-msgstr "Alle: Alle Details"
-
-#. settings-schema.json->hover-display-mode->options
-#. settings-schema.json->click-display-mode->options
-msgid "Me: All details"
-msgstr "Ich: Alle Details"
+msgid "All details"
+msgstr "Alle Details"
 
 #. settings-schema.json->panel-display-mode->options
 msgid "Compact user/streak summary"

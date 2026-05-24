@@ -77,3 +77,156 @@ msgstr "啟用"
 #. settings-schema.json->users->columns->username->title
 msgid "Username"
 msgstr "使用者名稱"
+
+msgid "Current course: %s (%s -> %s)"
+msgstr "目前課程：%s（%s -> %s）"
+
+msgid "Courses: %s"
+msgstr "課程：%s"
+
+msgid "  %s: %s XP (%s -> %s)"
+msgstr "  %s：%s XP（%s -> %s）"
+
+msgid "Name: %s"
+msgstr "名稱：%s"
+
+msgid "Joined: %s"
+msgstr "加入日期：%s"
+
+msgid "Recent activity: %s"
+msgstr "近期活動：%s"
+
+msgid "Email verified: %s"
+msgstr "電子郵件已驗證：%s"
+
+msgid "Profile country: %s"
+msgstr "個人檔案國家/地區：%s"
+
+msgid "Live events: %s"
+msgstr "即時活動：%s"
+
+msgid "Achievements: %s"
+msgstr "成就：%s"
+
+msgid "Duolingo Plus: %s"
+msgstr "Duolingo Plus：%s"
+
+msgid "Plus"
+msgstr "Plus"
+
+msgid "yes"
+msgstr "是"
+
+msgid "no"
+msgstr "否"
+
+msgid "not set"
+msgstr "未設定"
+
+msgid "unknown"
+msgstr "未知"
+
+msgid "Team share"
+msgstr "團隊占比"
+
+msgid "XP: %s / %s (%s%)"
+msgstr "XP：%s / %s（%s%）"
+
+msgid "Streak: %s / %s (%s%)"
+msgstr "連勝：%s / %s（%s%）"
+
+msgid "No self user configured"
+msgstr "尚未設定自己使用者"
+
+msgid "Show on hover"
+msgstr "滑鼠停留時顯示"
+
+msgid "Show on click"
+msgstr "點擊時顯示"
+
+msgid "Show in panel"
+msgstr "在面板中顯示"
+
+msgid "Highlight selected users on hover"
+msgstr "滑鼠停留時醒目提示選取的使用者"
+
+msgid "Sort users by"
+msgstr "使用者排序依據"
+
+msgid "Nothing"
+msgstr "不顯示"
+
+msgid "All: Summary"
+msgstr "全部：摘要"
+
+msgid "Me: Summary"
+msgstr "我：摘要"
+
+msgid "All: Course details"
+msgstr "全部：課程詳細資料"
+
+msgid "Me: Course details"
+msgstr "我：課程詳細資料"
+
+msgid "All: Account details"
+msgstr "全部：帳號詳細資料"
+
+msgid "Me: Account details"
+msgstr "我：帳號詳細資料"
+
+msgid "All: All details"
+msgstr "全部：所有詳細資料"
+
+msgid "Me: All details"
+msgstr "我：所有詳細資料"
+
+msgid "Compact user/streak summary"
+msgstr "精簡使用者/連勝摘要"
+
+msgid "Loaded user count"
+msgstr "已載入使用者數"
+
+msgid "Total streak"
+msgstr "總連勝"
+
+msgid "Total XP"
+msgstr "總 XP"
+
+msgid "Only my values"
+msgstr "只顯示我的數值"
+
+msgid "Configured order"
+msgstr "設定順序"
+
+msgid "Alias or username A-Z"
+msgstr "別名或使用者名稱 A-Z"
+
+msgid "Alias or username Z-A"
+msgstr "別名或使用者名稱 Z-A"
+
+msgid "Streak high to low"
+msgstr "連勝由高到低"
+
+msgid "Streak low to high"
+msgstr "連勝由低到高"
+
+msgid "Total XP high to low"
+msgstr "總 XP 由高到低"
+
+msgid "Total XP low to high"
+msgstr "總 XP 由低到高"
+
+msgid "Highlight"
+msgstr "醒目提示"
+
+msgid "Me / Self"
+msgstr "我 / 自己"
+
+msgid "Alias"
+msgstr "別名"
+
+msgid "Show only me on hover"
+msgstr "滑鼠停留時只顯示我"
+
+msgid "Show only me on click"
+msgstr "點擊時只顯示我"

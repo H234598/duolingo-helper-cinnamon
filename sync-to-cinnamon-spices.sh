@@ -90,16 +90,18 @@ Example:
 
 1. Right-click the Duolingo Helper applet in the Cinnamon panel.
 2. Click `Settings`.
-3. Choose what should be shown when hovering over the applet.
-4. Choose what should be shown when clicking the applet.
-5. Choose what should be shown in the panel itself.
-6. Choose the user sort order.
-7. Add one row per Duolingo username.
-8. Optionally set an alias for any row.
-9. Mark one row as `Me / Self` when using the `Me: ...` display modes.
-10. Enable highlighting for rows that should stand out in the click menu.
-11. Optionally enable hover highlighting for highlighted rows.
-12. Enable the rows you want to fetch.
+3. Choose whether hovering should show all users or only the `Me / Self` user.
+4. Choose what detail level should be shown when hovering over the applet.
+5. Choose whether clicking should show all users or only the `Me / Self` user.
+6. Choose what detail level should be shown when clicking the applet.
+7. Choose what should be shown in the panel itself.
+8. Choose the user sort order.
+9. Add one row per Duolingo username.
+10. Optionally set an alias for any row.
+11. Mark one row as `Me / Self` when using the self-only switches.
+12. Enable highlighting for rows that should stand out in the click menu.
+13. Optionally enable hover highlighting for highlighted rows.
+14. Enable the rows you want to fetch.
 
 Use the Duolingo username, not the email address.
 Aliases are display-only; profile links still open the configured Duolingo username.

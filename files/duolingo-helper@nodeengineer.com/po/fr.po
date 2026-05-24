@@ -77,3 +77,156 @@ msgstr "Activé"
 #. settings-schema.json->users->columns->username->title
 msgid "Username"
 msgstr "Nom d'utilisateur"
+
+msgid "Current course: %s (%s -> %s)"
+msgstr "Cours actuel : %s (%s -> %s)"
+
+msgid "Courses: %s"
+msgstr "Cours : %s"
+
+msgid "  %s: %s XP (%s -> %s)"
+msgstr "  %s : %s XP (%s -> %s)"
+
+msgid "Name: %s"
+msgstr "Nom : %s"
+
+msgid "Joined: %s"
+msgstr "Inscrit le : %s"
+
+msgid "Recent activity: %s"
+msgstr "Activité récente : %s"
+
+msgid "Email verified: %s"
+msgstr "E-mail vérifié : %s"
+
+msgid "Profile country: %s"
+msgstr "Pays du profil : %s"
+
+msgid "Live events: %s"
+msgstr "Événements en direct : %s"
+
+msgid "Achievements: %s"
+msgstr "Succès : %s"
+
+msgid "Duolingo Plus: %s"
+msgstr "Duolingo Plus : %s"
+
+msgid "Plus"
+msgstr "Plus"
+
+msgid "yes"
+msgstr "oui"
+
+msgid "no"
+msgstr "non"
+
+msgid "not set"
+msgstr "non défini"
+
+msgid "unknown"
+msgstr "inconnu"
+
+msgid "Team share"
+msgstr "Part de l’équipe"
+
+msgid "XP: %s / %s (%s%)"
+msgstr "XP : %s / %s (%s%)"
+
+msgid "Streak: %s / %s (%s%)"
+msgstr "Série : %s / %s (%s%)"
+
+msgid "No self user configured"
+msgstr "Aucun utilisateur Moi configuré"
+
+msgid "Show on hover"
+msgstr "Afficher au survol"
+
+msgid "Show on click"
+msgstr "Afficher au clic"
+
+msgid "Show in panel"
+msgstr "Afficher dans le panneau"
+
+msgid "Highlight selected users on hover"
+msgstr "Surligner les utilisateurs sélectionnés au survol"
+
+msgid "Sort users by"
+msgstr "Trier les utilisateurs par"
+
+msgid "Nothing"
+msgstr "Rien"
+
+msgid "All: Summary"
+msgstr "Tous : résumé"
+
+msgid "Me: Summary"
+msgstr "Moi : résumé"
+
+msgid "All: Course details"
+msgstr "Tous : détails du cours"
+
+msgid "Me: Course details"
+msgstr "Moi : détails du cours"
+
+msgid "All: Account details"
+msgstr "Tous : détails du compte"
+
+msgid "Me: Account details"
+msgstr "Moi : détails du compte"
+
+msgid "All: All details"
+msgstr "Tous : tous les détails"
+
+msgid "Me: All details"
+msgstr "Moi : tous les détails"
+
+msgid "Compact user/streak summary"
+msgstr "Résumé compact utilisateurs/séries"
+
+msgid "Loaded user count"
+msgstr "Nombre d’utilisateurs chargés"
+
+msgid "Total streak"
+msgstr "Série totale"
+
+msgid "Total XP"
+msgstr "XP total"
+
+msgid "Only my values"
+msgstr "Seulement mes valeurs"
+
+msgid "Configured order"
+msgstr "Ordre configuré"
+
+msgid "Alias or username A-Z"
+msgstr "Alias ou nom A-Z"
+
+msgid "Alias or username Z-A"
+msgstr "Alias ou nom Z-A"
+
+msgid "Streak high to low"
+msgstr "Série décroissante"
+
+msgid "Streak low to high"
+msgstr "Série croissante"
+
+msgid "Total XP high to low"
+msgstr "XP total décroissant"
+
+msgid "Total XP low to high"
+msgstr "XP total croissant"
+
+msgid "Highlight"
+msgstr "Surligner"
+
+msgid "Me / Self"
+msgstr "Moi / soi"
+
+msgid "Alias"
+msgstr "Alias"
+
+msgid "Show only me on hover"
+msgstr "Afficher seulement moi au survol"
+
+msgid "Show only me on click"
+msgstr "Afficher seulement moi au clic"

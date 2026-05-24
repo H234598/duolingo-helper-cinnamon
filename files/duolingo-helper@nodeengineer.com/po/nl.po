@@ -77,3 +77,156 @@ msgstr "Ingeschakeld"
 #. settings-schema.json->users->columns->username->title
 msgid "Username"
 msgstr "Gebruikersnaam"
+
+msgid "Current course: %s (%s -> %s)"
+msgstr "Huidige cursus: %s (%s -> %s)"
+
+msgid "Courses: %s"
+msgstr "Cursussen: %s"
+
+msgid "  %s: %s XP (%s -> %s)"
+msgstr "  %s: %s XP (%s -> %s)"
+
+msgid "Name: %s"
+msgstr "Naam: %s"
+
+msgid "Joined: %s"
+msgstr "Lid sinds: %s"
+
+msgid "Recent activity: %s"
+msgstr "Recente activiteit: %s"
+
+msgid "Email verified: %s"
+msgstr "E-mail geverifieerd: %s"
+
+msgid "Profile country: %s"
+msgstr "Profielland: %s"
+
+msgid "Live events: %s"
+msgstr "Live-evenementen: %s"
+
+msgid "Achievements: %s"
+msgstr "Prestaties: %s"
+
+msgid "Duolingo Plus: %s"
+msgstr "Duolingo Plus: %s"
+
+msgid "Plus"
+msgstr "Plus"
+
+msgid "yes"
+msgstr "ja"
+
+msgid "no"
+msgstr "nee"
+
+msgid "not set"
+msgstr "niet ingesteld"
+
+msgid "unknown"
+msgstr "onbekend"
+
+msgid "Team share"
+msgstr "Teamaandeel"
+
+msgid "XP: %s / %s (%s%)"
+msgstr "XP: %s / %s (%s%)"
+
+msgid "Streak: %s / %s (%s%)"
+msgstr "Reeks: %s / %s (%s%)"
+
+msgid "No self user configured"
+msgstr "Geen Ik-gebruiker ingesteld"
+
+msgid "Show on hover"
+msgstr "Tonen bij aanwijzen"
+
+msgid "Show on click"
+msgstr "Tonen bij klikken"
+
+msgid "Show in panel"
+msgstr "Tonen in paneel"
+
+msgid "Highlight selected users on hover"
+msgstr "Geselecteerde gebruikers markeren bij aanwijzen"
+
+msgid "Sort users by"
+msgstr "Gebruikers sorteren op"
+
+msgid "Nothing"
+msgstr "Niets"
+
+msgid "All: Summary"
+msgstr "Allemaal: samenvatting"
+
+msgid "Me: Summary"
+msgstr "Ik: samenvatting"
+
+msgid "All: Course details"
+msgstr "Allemaal: cursusdetails"
+
+msgid "Me: Course details"
+msgstr "Ik: cursusdetails"
+
+msgid "All: Account details"
+msgstr "Allemaal: accountdetails"
+
+msgid "Me: Account details"
+msgstr "Ik: accountdetails"
+
+msgid "All: All details"
+msgstr "Allemaal: alle details"
+
+msgid "Me: All details"
+msgstr "Ik: alle details"
+
+msgid "Compact user/streak summary"
+msgstr "Compacte gebruiker/reeks-samenvatting"
+
+msgid "Loaded user count"
+msgstr "Aantal geladen gebruikers"
+
+msgid "Total streak"
+msgstr "Totale reeks"
+
+msgid "Total XP"
+msgstr "Totale XP"
+
+msgid "Only my values"
+msgstr "Alleen mijn waarden"
+
+msgid "Configured order"
+msgstr "Ingestelde volgorde"
+
+msgid "Alias or username A-Z"
+msgstr "Alias of gebruikersnaam A-Z"
+
+msgid "Alias or username Z-A"
+msgstr "Alias of gebruikersnaam Z-A"
+
+msgid "Streak high to low"
+msgstr "Reeks hoog naar laag"
+
+msgid "Streak low to high"
+msgstr "Reeks laag naar hoog"
+
+msgid "Total XP high to low"
+msgstr "Totale XP hoog naar laag"
+
+msgid "Total XP low to high"
+msgstr "Totale XP laag naar hoog"
+
+msgid "Highlight"
+msgstr "Markeren"
+
+msgid "Me / Self"
+msgstr "Ik / zelf"
+
+msgid "Alias"
+msgstr "Alias"
+
+msgid "Show only me on hover"
+msgstr "Alleen mij tonen bij aanwijzen"
+
+msgid "Show only me on click"
+msgstr "Alleen mij tonen bij klikken"

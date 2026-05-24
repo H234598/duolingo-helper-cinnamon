@@ -77,3 +77,156 @@ msgstr "Bật"
 #. settings-schema.json->users->columns->username->title
 msgid "Username"
 msgstr "Tên người dùng"
+
+msgid "Current course: %s (%s -> %s)"
+msgstr "Khóa học hiện tại: %s (%s -> %s)"
+
+msgid "Courses: %s"
+msgstr "Khóa học: %s"
+
+msgid "  %s: %s XP (%s -> %s)"
+msgstr "  %s: %s XP (%s -> %s)"
+
+msgid "Name: %s"
+msgstr "Tên: %s"
+
+msgid "Joined: %s"
+msgstr "Tham gia: %s"
+
+msgid "Recent activity: %s"
+msgstr "Hoạt động gần đây: %s"
+
+msgid "Email verified: %s"
+msgstr "Email đã xác minh: %s"
+
+msgid "Profile country: %s"
+msgstr "Quốc gia hồ sơ: %s"
+
+msgid "Live events: %s"
+msgstr "Sự kiện trực tiếp: %s"
+
+msgid "Achievements: %s"
+msgstr "Thành tích: %s"
+
+msgid "Duolingo Plus: %s"
+msgstr "Duolingo Plus: %s"
+
+msgid "Plus"
+msgstr "Plus"
+
+msgid "yes"
+msgstr "có"
+
+msgid "no"
+msgstr "không"
+
+msgid "not set"
+msgstr "chưa đặt"
+
+msgid "unknown"
+msgstr "không rõ"
+
+msgid "Team share"
+msgstr "Tỷ lệ trong đội"
+
+msgid "XP: %s / %s (%s%)"
+msgstr "XP: %s / %s (%s%)"
+
+msgid "Streak: %s / %s (%s%)"
+msgstr "Chuỗi: %s / %s (%s%)"
+
+msgid "No self user configured"
+msgstr "Chưa cấu hình người dùng Tôi"
+
+msgid "Show on hover"
+msgstr "Hiển thị khi di chuột"
+
+msgid "Show on click"
+msgstr "Hiển thị khi bấm"
+
+msgid "Show in panel"
+msgstr "Hiển thị trong thanh"
+
+msgid "Highlight selected users on hover"
+msgstr "Tô sáng người dùng đã chọn khi di chuột"
+
+msgid "Sort users by"
+msgstr "Sắp xếp người dùng theo"
+
+msgid "Nothing"
+msgstr "Không có gì"
+
+msgid "All: Summary"
+msgstr "Tất cả: tóm tắt"
+
+msgid "Me: Summary"
+msgstr "Tôi: tóm tắt"
+
+msgid "All: Course details"
+msgstr "Tất cả: chi tiết khóa học"
+
+msgid "Me: Course details"
+msgstr "Tôi: chi tiết khóa học"
+
+msgid "All: Account details"
+msgstr "Tất cả: chi tiết tài khoản"
+
+msgid "Me: Account details"
+msgstr "Tôi: chi tiết tài khoản"
+
+msgid "All: All details"
+msgstr "Tất cả: mọi chi tiết"
+
+msgid "Me: All details"
+msgstr "Tôi: mọi chi tiết"
+
+msgid "Compact user/streak summary"
+msgstr "Tóm tắt người dùng/chuỗi gọn"
+
+msgid "Loaded user count"
+msgstr "Số người dùng đã tải"
+
+msgid "Total streak"
+msgstr "Tổng chuỗi"
+
+msgid "Total XP"
+msgstr "Tổng XP"
+
+msgid "Only my values"
+msgstr "Chỉ giá trị của tôi"
+
+msgid "Configured order"
+msgstr "Thứ tự đã cấu hình"
+
+msgid "Alias or username A-Z"
+msgstr "Bí danh hoặc tên A-Z"
+
+msgid "Alias or username Z-A"
+msgstr "Bí danh hoặc tên Z-A"
+
+msgid "Streak high to low"
+msgstr "Chuỗi cao đến thấp"
+
+msgid "Streak low to high"
+msgstr "Chuỗi thấp đến cao"
+
+msgid "Total XP high to low"
+msgstr "Tổng XP cao đến thấp"
+
+msgid "Total XP low to high"
+msgstr "Tổng XP thấp đến cao"
+
+msgid "Highlight"
+msgstr "Tô sáng"
+
+msgid "Me / Self"
+msgstr "Tôi / bản thân"
+
+msgid "Alias"
+msgstr "Bí danh"
+
+msgid "Show only me on hover"
+msgstr "Chỉ hiển thị tôi khi di chuột"
+
+msgid "Show only me on click"
+msgstr "Chỉ hiển thị tôi khi bấm"

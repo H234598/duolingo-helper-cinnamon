@@ -14,3 +14,54 @@ msgstr ""
 
 msgid "%s is playing Duolingo right now!"
 msgstr "%s está jugando Duolingo ahora mismo!"
+
+msgid "Duolingo Activity"
+msgstr "Actividad de Duolingo"
+
+msgid "Shows when configured Duolingo users appear recently active."
+msgstr "Muestra cuándo los usuarios de Duolingo configurados parecen activos recientemente."
+
+msgid "Settings"
+msgstr "Configuración"
+
+msgid "Checking Duolingo activity..."
+msgstr "Comprobando actividad de Duolingo..."
+
+msgid "not found"
+msgstr "no encontrado"
+
+msgid "Error %s"
+msgstr "Error %s"
+
+msgid "No users configured"
+msgstr "No hay usuarios configurados"
+
+msgid "No one is playing Duolingo right now."
+msgstr "Ahora mismo nadie está jugando Duolingo."
+
+msgid "Active now"
+msgstr "Activos ahora"
+
+msgid "Inactive"
+msgstr "Inactivos"
+
+msgid "No active users"
+msgstr "No hay usuarios activos"
+
+msgid "No inactive users"
+msgstr "No hay usuarios inactivos"
+
+msgid "Refresh now"
+msgstr "Actualizar ahora"
+
+msgid "Duolingo users"
+msgstr "Usuarios de Duolingo"
+
+msgid "Enabled"
+msgstr "Activado"
+
+msgid "Username"
+msgstr "Nombre de usuario"
+
+msgid "Alias"
+msgstr "Alias"

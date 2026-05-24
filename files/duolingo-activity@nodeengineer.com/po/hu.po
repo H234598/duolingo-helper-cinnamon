@@ -14,3 +14,54 @@ msgstr ""
 
 msgid "%s is playing Duolingo right now!"
 msgstr "%s most Duolingózik!"
+
+msgid "Duolingo Activity"
+msgstr "Duolingo-aktivitás"
+
+msgid "Shows when configured Duolingo users appear recently active."
+msgstr "Megjeleníti, ha a beállított Duolingo-felhasználók nemrég aktívnak tűnnek."
+
+msgid "Settings"
+msgstr "Beállítások"
+
+msgid "Checking Duolingo activity..."
+msgstr "Duolingo-aktivitás ellenőrzése..."
+
+msgid "not found"
+msgstr "nem található"
+
+msgid "Error %s"
+msgstr "Hiba %s"
+
+msgid "No users configured"
+msgstr "Nincs felhasználó beállítva"
+
+msgid "No one is playing Duolingo right now."
+msgstr "Most senki sem Duolingózik."
+
+msgid "Active now"
+msgstr "Most aktív"
+
+msgid "Inactive"
+msgstr "Inaktív"
+
+msgid "No active users"
+msgstr "Nincs aktív felhasználó"
+
+msgid "No inactive users"
+msgstr "Nincs inaktív felhasználó"
+
+msgid "Refresh now"
+msgstr "Frissítés most"
+
+msgid "Duolingo users"
+msgstr "Duolingo-felhasználók"
+
+msgid "Enabled"
+msgstr "Engedélyezve"
+
+msgid "Username"
+msgstr "Felhasználónév"
+
+msgid "Alias"
+msgstr "Álnév"

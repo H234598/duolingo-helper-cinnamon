@@ -77,6 +77,8 @@ MyApplet.prototype = {
     this.refreshTimer = 0;
     this.hoverDisplayMode = DISPLAY_MODE_SUMMARY;
     this.clickDisplayMode = DISPLAY_MODE_SUMMARY;
+    this.hoverSelfOnly = false;
+    this.clickSelfOnly = false;
     this.panelDisplayMode = PANEL_DISPLAY_COMPACT;
     this.highlightOnHover = false;
     this.sortOrder = SORT_ORDER_CONFIGURED;
@@ -91,8 +93,22 @@ MyApplet.prototype = {
     );
     this.settings.bindProperty(
       Settings.BindingDirection.IN,
+      "hover-self-only",
+      "hoverSelfOnly",
+      this.onDisplaySettingsChanged,
+      null
+    );
+    this.settings.bindProperty(
+      Settings.BindingDirection.IN,
       "hover-display-mode",
       "hoverDisplayMode",
+      this.onDisplaySettingsChanged,
+      null
+    );
+    this.settings.bindProperty(
+      Settings.BindingDirection.IN,
+      "click-self-only",
+      "clickSelfOnly",
       this.onDisplaySettingsChanged,
       null
     );
@@ -206,14 +222,20 @@ MyApplet.prototype = {
   },
 
   migrateLegacyDisplayModes: function() {
-    if (this.hoverDisplayMode === DISPLAY_MODE_ME) {
-      this.hoverDisplayMode = DISPLAY_MODE_SUMMARY_ME;
-      this.settings.setValue("hover-display-mode", DISPLAY_MODE_SUMMARY_ME);
+    if (this.isSelfDisplayMode(this.hoverDisplayMode)) {
+      let detailMode = this.displayDetailMode(this.hoverDisplayMode);
+      this.hoverSelfOnly = true;
+      this.hoverDisplayMode = detailMode;
+      this.settings.setValue("hover-self-only", true);
+      this.settings.setValue("hover-display-mode", detailMode);
     }
 
-    if (this.clickDisplayMode === DISPLAY_MODE_ME) {
-      this.clickDisplayMode = DISPLAY_MODE_SUMMARY_ME;
-      this.settings.setValue("click-display-mode", DISPLAY_MODE_SUMMARY_ME);
+    if (this.isSelfDisplayMode(this.clickDisplayMode)) {
+      let detailMode = this.displayDetailMode(this.clickDisplayMode);
+      this.clickSelfOnly = true;
+      this.clickDisplayMode = detailMode;
+      this.settings.setValue("click-self-only", true);
+      this.settings.setValue("click-display-mode", detailMode);
     }
   },
 
@@ -447,9 +469,9 @@ MyApplet.prototype = {
     }
 
     let lines = [{ text: _("Duolingo Statistics") }];
-    let displayUsers = this.getUsersForDisplayMode(this.userData, hoverDisplayMode);
+    let displayUsers = this.getUsersForDisplayMode(this.userData, this.hoverSelfOnly === true);
 
-    if (displayUsers.length === 0 && this.isSelfDisplayMode(hoverDisplayMode)) {
+    if (displayUsers.length === 0 && this.hoverSelfOnly === true) {
       lines.push({ text: _("No self user configured") });
       return lines.map(line => this.formatTooltipLine(line)).join("\n");
     }
@@ -556,12 +578,7 @@ MyApplet.prototype = {
       mode === DISPLAY_MODE_SUMMARY ||
       mode === DISPLAY_MODE_COURSES ||
       mode === DISPLAY_MODE_ACCOUNT ||
-      mode === DISPLAY_MODE_ALL ||
-      mode === DISPLAY_MODE_ME ||
-      mode === DISPLAY_MODE_SUMMARY_ME ||
-      mode === DISPLAY_MODE_COURSES_ME ||
-      mode === DISPLAY_MODE_ACCOUNT_ME ||
-      mode === DISPLAY_MODE_ALL_ME
+      mode === DISPLAY_MODE_ALL
     ) {
       return mode;
     }
@@ -570,8 +587,6 @@ MyApplet.prototype = {
   },
 
   displayDetailMode: function(mode) {
-    mode = this.validDisplayMode(mode);
-
     if (mode === DISPLAY_MODE_ME || mode === DISPLAY_MODE_SUMMARY_ME) {
       return DISPLAY_MODE_SUMMARY;
     }
@@ -585,11 +600,10 @@ MyApplet.prototype = {
       return DISPLAY_MODE_ALL;
     }
 
-    return mode;
+    return this.validDisplayMode(mode);
   },
 
   isSelfDisplayMode: function(mode) {
-    mode = this.validDisplayMode(mode);
     return (
       mode === DISPLAY_MODE_ME ||
       mode === DISPLAY_MODE_SUMMARY_ME ||
@@ -714,7 +728,7 @@ MyApplet.prototype = {
   },
 
   getUsersForDisplayMode: function(users, mode) {
-    if (!this.isSelfDisplayMode(mode)) {
+    if (mode !== true) {
       return users;
     }
 
@@ -786,16 +800,15 @@ MyApplet.prototype = {
 
     this.menu.removeAll();
     let clickDisplayMode = this.validDisplayMode(this.clickDisplayMode);
-    let clickDetailMode = this.displayDetailMode(clickDisplayMode);
 
     if (this.userData.length === 0) {
       let configureUsers = new PopupMenu.PopupMenuItem(_("No users configured"));
       configureUsers.connect("activate", () => this.configureApplet());
       this.menu.addMenuItem(configureUsers);
     } else if (clickDisplayMode !== DISPLAY_MODE_NONE) {
-      let displayUsers = this.getUsersForDisplayMode(this.userData, clickDisplayMode);
+      let displayUsers = this.getUsersForDisplayMode(this.userData, this.clickSelfOnly === true);
 
-      if (displayUsers.length === 0 && this.isSelfDisplayMode(clickDisplayMode)) {
+      if (displayUsers.length === 0 && this.clickSelfOnly === true) {
         let configureSelf = new PopupMenu.PopupMenuItem(_("No self user configured"));
         configureSelf.connect("activate", () => this.configureApplet());
         this.menu.addMenuItem(configureSelf);
@@ -803,7 +816,7 @@ MyApplet.prototype = {
 
       let firstUser = true;
       for (let user of displayUsers) {
-        if (!firstUser && clickDetailMode !== DISPLAY_MODE_SUMMARY) {
+        if (!firstUser && clickDisplayMode !== DISPLAY_MODE_SUMMARY) {
           this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         }
         firstUser = false;
