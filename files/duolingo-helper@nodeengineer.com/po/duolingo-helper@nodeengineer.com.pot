@@ -142,6 +142,10 @@ msgstr ""
 msgid "[highlighted] %s"
 msgstr ""
 
+#. applet.js
+msgid "No self user configured"
+msgstr ""
+
 #. settings-schema.json->hover-display-mode->description
 msgid "Show on hover"
 msgstr ""
@@ -175,6 +179,11 @@ msgstr ""
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
+msgid "Only me"
+msgstr ""
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
 msgid "Course details"
 msgstr ""
 
@@ -202,6 +211,10 @@ msgstr ""
 
 #. settings-schema.json->panel-display-mode->options
 msgid "Total XP"
+msgstr ""
+
+#. settings-schema.json->panel-display-mode->options
+msgid "Only my values"
 msgstr ""
 
 #. settings-schema.json->sort-order->options
@@ -242,6 +255,10 @@ msgstr ""
 
 #. settings-schema.json->users->columns->highlighted->title
 msgid "Highlight"
+msgstr ""
+
+#. settings-schema.json->users->columns->isSelf->title
+msgid "Me / Self"
 msgstr ""
 
 #. settings-schema.json->users->columns->username->title

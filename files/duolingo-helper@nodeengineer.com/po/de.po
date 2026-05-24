@@ -142,6 +142,10 @@ msgstr "Streak: %s / %s (%s%)"
 msgid "[highlighted] %s"
 msgstr "[hervorgehoben] %s"
 
+#. applet.js
+msgid "No self user configured"
+msgstr "Kein Ich/Selbst-Benutzer konfiguriert"
+
 #. settings-schema.json->hover-display-mode->description
 msgid "Show on hover"
 msgstr "Beim Hovern anzeigen"
@@ -175,6 +179,11 @@ msgstr "Zusammenfassung"
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
+msgid "Only me"
+msgstr "Nur mich anzeigen"
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
 msgid "Course details"
 msgstr "Kursdetails"
 
@@ -203,6 +212,10 @@ msgstr "Gesamt-Streak"
 #. settings-schema.json->panel-display-mode->options
 msgid "Total XP"
 msgstr "Gesamt-XP"
+
+#. settings-schema.json->panel-display-mode->options
+msgid "Only my values"
+msgstr "Nur eigene Werte"
 
 #. settings-schema.json->sort-order->options
 msgid "Configured order"
@@ -243,6 +256,10 @@ msgstr "Aktiv"
 #. settings-schema.json->users->columns->highlighted->title
 msgid "Highlight"
 msgstr "Hervorheben"
+
+#. settings-schema.json->users->columns->isSelf->title
+msgid "Me / Self"
+msgstr "Ich/Selbst"
 
 #. settings-schema.json->users->columns->username->title
 msgid "Username"

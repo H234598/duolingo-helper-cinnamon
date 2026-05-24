@@ -18,10 +18,12 @@ const DISPLAY_MODE_SUMMARY = "summary";
 const DISPLAY_MODE_COURSES = "courses";
 const DISPLAY_MODE_ACCOUNT = "account";
 const DISPLAY_MODE_ALL = "all";
+const DISPLAY_MODE_ME = "me";
 const PANEL_DISPLAY_COMPACT = "compact";
 const PANEL_DISPLAY_USERS = "users";
 const PANEL_DISPLAY_STREAK = "streak";
 const PANEL_DISPLAY_XP = "xp";
+const PANEL_DISPLAY_ME = "me";
 const PANEL_DISPLAY_NONE = "none";
 const SORT_ORDER_CONFIGURED = "configured";
 const SORT_ORDER_USERNAME_ASC = "username-asc";
@@ -157,7 +159,41 @@ MyApplet.prototype = {
   },
 
   onSettingsChanged: function() {
+    this.enforceSingleSelfUser();
     this.refresh();
+  },
+
+  enforceSingleSelfUser: function() {
+    let rows = this.users || [];
+    let selfSeen = false;
+    let changed = false;
+    let normalizedRows = [];
+
+    for (let row of rows) {
+      let normalizedRow = this.cloneUserRow(row);
+      if (normalizedRow.isSelf === true) {
+        if (selfSeen) {
+          normalizedRow.isSelf = false;
+          changed = true;
+        } else {
+          selfSeen = true;
+        }
+      }
+      normalizedRows.push(normalizedRow);
+    }
+
+    if (changed) {
+      this.users = normalizedRows;
+      this.settings.setValue("users", normalizedRows);
+    }
+  },
+
+  cloneUserRow: function(row) {
+    let clone = {};
+    for (let key in row) {
+      clone[key] = row[key];
+    }
+    return clone;
   },
 
   onDisplaySettingsChanged: function() {
@@ -167,6 +203,7 @@ MyApplet.prototype = {
   getConfiguredUsers: function() {
     let users = [];
     let seen = {};
+    let selfSeen = false;
     let rows = this.users || [];
 
     for (let index = 0; index < rows.length; index++) {
@@ -181,10 +218,13 @@ MyApplet.prototype = {
       }
 
       seen[username.toLowerCase()] = true;
+      let isSelf = row.isSelf === true && !selfSeen;
+      selfSeen = selfSeen || isSelf;
       users.push({
         username: username,
         displayUsername: (row.alias || "").trim() || username,
         highlighted: row.highlighted === true,
+        isSelf: isSelf,
         index: index
       });
     }
@@ -275,6 +315,7 @@ MyApplet.prototype = {
       username: userConfig.username,
       displayUsername: userConfig.displayUsername,
       highlighted: userConfig.highlighted,
+      isSelf: userConfig.isSelf,
       configuredIndex: userConfig.index,
       error: status === "not-found" ? _("not found") : formatString(_("Error %s"), [status])
     });
@@ -309,6 +350,7 @@ MyApplet.prototype = {
       username: user.username || userConfig.username,
       displayUsername: userConfig.displayUsername,
       highlighted: userConfig.highlighted,
+      isSelf: userConfig.isSelf,
       configuredIndex: userConfig.index,
       name: user.name || user.username || userConfig.username,
       streak: user.streak || 0,
@@ -353,7 +395,9 @@ MyApplet.prototype = {
   },
 
   buildTooltip: function() {
-    if (this.validDisplayMode(this.hoverDisplayMode) === DISPLAY_MODE_NONE) {
+    let hoverDisplayMode = this.validDisplayMode(this.hoverDisplayMode);
+
+    if (hoverDisplayMode === DISPLAY_MODE_NONE) {
       return "";
     }
 
@@ -362,7 +406,14 @@ MyApplet.prototype = {
     }
 
     let lines = [_("Duolingo Statistics")];
-    for (let user of this.userData) {
+    let displayUsers = this.getUsersForDisplayMode(this.userData, hoverDisplayMode);
+
+    if (displayUsers.length === 0 && hoverDisplayMode === DISPLAY_MODE_ME) {
+      lines.push(_("No self user configured"));
+      return lines.join("\n");
+    }
+
+    for (let user of displayUsers) {
       if (user.error) {
         lines.push(user.displayUsername + ": " + user.error);
         continue;
@@ -389,6 +440,10 @@ MyApplet.prototype = {
 
     if (mode === DISPLAY_MODE_NONE) {
       return [];
+    }
+
+    if (mode === DISPLAY_MODE_ME) {
+      mode = DISPLAY_MODE_SUMMARY;
     }
 
     let lines = [this.buildUserSummaryLine(user)];
@@ -462,7 +517,8 @@ MyApplet.prototype = {
       mode === DISPLAY_MODE_SUMMARY ||
       mode === DISPLAY_MODE_COURSES ||
       mode === DISPLAY_MODE_ACCOUNT ||
-      mode === DISPLAY_MODE_ALL
+      mode === DISPLAY_MODE_ALL ||
+      mode === DISPLAY_MODE_ME
     ) {
       return mode;
     }
@@ -476,6 +532,7 @@ MyApplet.prototype = {
       mode === PANEL_DISPLAY_USERS ||
       mode === PANEL_DISPLAY_STREAK ||
       mode === PANEL_DISPLAY_XP ||
+      mode === PANEL_DISPLAY_ME ||
       mode === PANEL_DISPLAY_NONE
     ) {
       return mode;
@@ -493,6 +550,14 @@ MyApplet.prototype = {
 
     if (!validUsers || validUsers.length === 0) {
       return mode === PANEL_DISPLAY_COMPACT ? "Duo" : "0";
+    }
+
+    if (mode === PANEL_DISPLAY_ME) {
+      let selfUser = this.getSelfUser(validUsers);
+      if (!selfUser) {
+        return "Ich?";
+      }
+      return selfUser.streak + " | " + selfUser.totalXp;
     }
 
     let totalStreak = this.sumUserField(validUsers, "streak");
@@ -566,6 +631,24 @@ MyApplet.prototype = {
     return (left.configuredIndex || 0) - (right.configuredIndex || 0);
   },
 
+  getSelfUser: function(users) {
+    for (let user of users || []) {
+      if (user.isSelf) {
+        return user;
+      }
+    }
+    return null;
+  },
+
+  getUsersForDisplayMode: function(users, mode) {
+    if (this.validDisplayMode(mode) !== DISPLAY_MODE_ME) {
+      return users;
+    }
+
+    let selfUser = this.getSelfUser(users);
+    return selfUser ? [selfUser] : [];
+  },
+
   sumUserField: function(users, fieldName) {
     let total = 0;
     for (let user of users) {
@@ -636,8 +719,16 @@ MyApplet.prototype = {
       configureUsers.connect("activate", () => this.configureApplet());
       this.menu.addMenuItem(configureUsers);
     } else if (clickDisplayMode !== DISPLAY_MODE_NONE) {
+      let displayUsers = this.getUsersForDisplayMode(this.userData, clickDisplayMode);
+
+      if (displayUsers.length === 0 && clickDisplayMode === DISPLAY_MODE_ME) {
+        let configureSelf = new PopupMenu.PopupMenuItem(_("No self user configured"));
+        configureSelf.connect("activate", () => this.configureApplet());
+        this.menu.addMenuItem(configureSelf);
+      }
+
       let firstUser = true;
-      for (let user of this.userData) {
+      for (let user of displayUsers) {
         if (!firstUser && clickDisplayMode !== DISPLAY_MODE_SUMMARY) {
           this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         }

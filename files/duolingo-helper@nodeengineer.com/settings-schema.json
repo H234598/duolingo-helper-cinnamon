@@ -5,6 +5,7 @@
     "options": {
       "Nothing": "none",
       "Summary": "summary",
+      "Only me": "me",
       "Course details": "courses",
       "Account details": "account",
       "All details": "all"
@@ -17,6 +18,7 @@
     "options": {
       "Nothing": "none",
       "Summary": "summary",
+      "Only me": "me",
       "Course details": "courses",
       "Account details": "account",
       "All details": "all"
@@ -31,6 +33,7 @@
       "Loaded user count": "users",
       "Total streak": "streak",
       "Total XP": "xp",
+      "Only my values": "me",
       "Nothing": "none"
     },
     "default": "compact"
@@ -67,6 +70,12 @@
       {
         "id": "highlighted",
         "title": "Highlight",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "id": "isSelf",
+        "title": "Me / Self",
         "type": "boolean",
         "default": false
       },
