@@ -51,6 +51,26 @@ msgstr "%s zockt gerade Duolingo!"
 msgid "No one is playing Duolingo right now."
 msgstr "Gerade zockt niemand Duolingo."
 
+#. applet.js
+msgid "Active now"
+msgstr "Jetzt aktiv"
+
+#. applet.js
+msgid "Inactive"
+msgstr "Inaktiv"
+
+#. applet.js
+msgid "No active users"
+msgstr "Keine aktiven Benutzer"
+
+#. applet.js
+msgid "No inactive users"
+msgstr "Keine inaktiven Benutzer"
+
+#. applet.js
+msgid "Refresh now"
+msgstr "Jetzt aktualisieren"
+
 #. settings-schema.json->users->description
 msgid "Duolingo users"
 msgstr "Duolingo-Benutzer"

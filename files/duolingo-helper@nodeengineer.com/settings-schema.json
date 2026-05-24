@@ -4,11 +4,14 @@
     "description": "Show on hover",
     "options": {
       "Nothing": "none",
-      "Summary": "summary",
-      "Only me": "me",
-      "Course details": "courses",
-      "Account details": "account",
-      "All details": "all"
+      "All: Summary": "summary",
+      "Me: Summary": "summary-me",
+      "All: Course details": "courses",
+      "Me: Course details": "courses-me",
+      "All: Account details": "account",
+      "Me: Account details": "account-me",
+      "All: All details": "all",
+      "Me: All details": "all-me"
     },
     "default": "summary"
   },
@@ -17,11 +20,14 @@
     "description": "Show on click",
     "options": {
       "Nothing": "none",
-      "Summary": "summary",
-      "Only me": "me",
-      "Course details": "courses",
-      "Account details": "account",
-      "All details": "all"
+      "All: Summary": "summary",
+      "Me: Summary": "summary-me",
+      "All: Course details": "courses",
+      "Me: Course details": "courses-me",
+      "All: Account details": "account",
+      "Me: Account details": "account-me",
+      "All: All details": "all",
+      "Me: All details": "all-me"
     },
     "default": "none"
   },

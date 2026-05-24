@@ -139,10 +139,6 @@ msgid "Streak: %s / %s (%s%)"
 msgstr "Streak: %s / %s (%s%)"
 
 #. applet.js
-msgid "[highlighted] %s"
-msgstr "[hervorgehoben] %s"
-
-#. applet.js
 msgid "No self user configured"
 msgstr "Kein Ich/Selbst-Benutzer konfiguriert"
 
@@ -174,28 +170,43 @@ msgstr "Nichts"
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
-msgid "Summary"
-msgstr "Zusammenfassung"
+msgid "All: Summary"
+msgstr "Alle: Zusammenfassung"
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
-msgid "Only me"
-msgstr "Nur mich anzeigen"
+msgid "Me: Summary"
+msgstr "Ich: Zusammenfassung"
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
-msgid "Course details"
-msgstr "Kursdetails"
+msgid "All: Course details"
+msgstr "Alle: Kursdetails"
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
-msgid "Account details"
-msgstr "Kontodetails"
+msgid "Me: Course details"
+msgstr "Ich: Kursdetails"
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
-msgid "All details"
-msgstr "Alle Details"
+msgid "All: Account details"
+msgstr "Alle: Kontodetails"
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "Me: Account details"
+msgstr "Ich: Kontodetails"
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "All: All details"
+msgstr "Alle: Alle Details"
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "Me: All details"
+msgstr "Ich: Alle Details"
 
 #. settings-schema.json->panel-display-mode->options
 msgid "Compact user/streak summary"

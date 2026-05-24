@@ -19,6 +19,10 @@ const DISPLAY_MODE_COURSES = "courses";
 const DISPLAY_MODE_ACCOUNT = "account";
 const DISPLAY_MODE_ALL = "all";
 const DISPLAY_MODE_ME = "me";
+const DISPLAY_MODE_SUMMARY_ME = "summary-me";
+const DISPLAY_MODE_COURSES_ME = "courses-me";
+const DISPLAY_MODE_ACCOUNT_ME = "account-me";
+const DISPLAY_MODE_ALL_ME = "all-me";
 const PANEL_DISPLAY_COMPACT = "compact";
 const PANEL_DISPLAY_USERS = "users";
 const PANEL_DISPLAY_STREAK = "streak";
@@ -197,7 +201,20 @@ MyApplet.prototype = {
   },
 
   onDisplaySettingsChanged: function() {
+    this.migrateLegacyDisplayModes();
     this.updateDisplay();
+  },
+
+  migrateLegacyDisplayModes: function() {
+    if (this.hoverDisplayMode === DISPLAY_MODE_ME) {
+      this.hoverDisplayMode = DISPLAY_MODE_SUMMARY_ME;
+      this.settings.setValue("hover-display-mode", DISPLAY_MODE_SUMMARY_ME);
+    }
+
+    if (this.clickDisplayMode === DISPLAY_MODE_ME) {
+      this.clickDisplayMode = DISPLAY_MODE_SUMMARY_ME;
+      this.settings.setValue("click-display-mode", DISPLAY_MODE_SUMMARY_ME);
+    }
   },
 
   getConfiguredUsers: function() {
@@ -244,7 +261,7 @@ MyApplet.prototype = {
 
     if (this.usernames.length === 0) {
       this.set_applet_label(this.buildPanelLabel([]));
-      this.set_applet_tooltip(this.buildTooltip());
+      this.updateAppletTooltip();
       this.rebuildMenu();
       return;
     }
@@ -384,14 +401,35 @@ MyApplet.prototype = {
 
     if (validUsers.length === 0) {
       this.set_applet_label(this.buildPanelLabel(validUsers));
-      this.set_applet_tooltip(this.buildTooltip());
+      this.updateAppletTooltip();
       this.rebuildMenu();
       return;
     }
 
     this.set_applet_label(this.buildPanelLabel(validUsers));
-    this.set_applet_tooltip(this.buildTooltip());
+    this.updateAppletTooltip();
     this.rebuildMenu();
+  },
+
+  updateAppletTooltip: function() {
+    this.set_applet_tooltip(this.buildTooltip(), true);
+  },
+
+  markupEscape: function(text) {
+    return String(text)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  },
+
+  formatTooltipLine: function(line) {
+    let text = this.markupEscape(line.text || "");
+    if (!line.highlighted) {
+      return text;
+    }
+
+    return '<span weight="bold" background="#4f6f2f" foreground="#ffffff">' + text + '</span>';
   },
 
   buildTooltip: function() {
@@ -402,48 +440,49 @@ MyApplet.prototype = {
     }
 
     if (this.userData.length === 0) {
-      return _("Duolingo Helper") + "\n" + _("No users configured");
+      return [
+        { text: _("Duolingo Helper") },
+        { text: _("No users configured") }
+      ].map(line => this.formatTooltipLine(line)).join("\n");
     }
 
-    let lines = [_("Duolingo Statistics")];
+    let lines = [{ text: _("Duolingo Statistics") }];
     let displayUsers = this.getUsersForDisplayMode(this.userData, hoverDisplayMode);
 
-    if (displayUsers.length === 0 && hoverDisplayMode === DISPLAY_MODE_ME) {
-      lines.push(_("No self user configured"));
-      return lines.join("\n");
+    if (displayUsers.length === 0 && this.isSelfDisplayMode(hoverDisplayMode)) {
+      lines.push({ text: _("No self user configured") });
+      return lines.map(line => this.formatTooltipLine(line)).join("\n");
     }
 
     for (let user of displayUsers) {
       if (user.error) {
-        lines.push(user.displayUsername + ": " + user.error);
+        lines.push({ text: user.displayUsername + ": " + user.error });
         continue;
       }
 
       lines = lines.concat(this.buildHoverUserDisplayLines(user));
     }
 
-    return lines.join("\n");
+    return lines.map(line => this.formatTooltipLine(line)).join("\n");
   },
 
   buildHoverUserDisplayLines: function(user) {
     let lines = this.buildUserDisplayLines(user, this.hoverDisplayMode);
+    let highlighted = this.highlightOnHover === true && user.highlighted === true;
 
-    if (this.highlightOnHover !== true || !user.highlighted) {
-      return lines;
-    }
-
-    return lines.map(line => formatString(_("[highlighted] %s"), [line]));
+    return lines.map(line => {
+      return {
+        text: line,
+        highlighted: highlighted
+      };
+    });
   },
 
   buildUserDisplayLines: function(user, mode) {
-    mode = this.validDisplayMode(mode);
+    mode = this.displayDetailMode(mode);
 
     if (mode === DISPLAY_MODE_NONE) {
       return [];
-    }
-
-    if (mode === DISPLAY_MODE_ME) {
-      mode = DISPLAY_MODE_SUMMARY;
     }
 
     let lines = [this.buildUserSummaryLine(user)];
@@ -518,12 +557,46 @@ MyApplet.prototype = {
       mode === DISPLAY_MODE_COURSES ||
       mode === DISPLAY_MODE_ACCOUNT ||
       mode === DISPLAY_MODE_ALL ||
-      mode === DISPLAY_MODE_ME
+      mode === DISPLAY_MODE_ME ||
+      mode === DISPLAY_MODE_SUMMARY_ME ||
+      mode === DISPLAY_MODE_COURSES_ME ||
+      mode === DISPLAY_MODE_ACCOUNT_ME ||
+      mode === DISPLAY_MODE_ALL_ME
     ) {
       return mode;
     }
 
     return DISPLAY_MODE_SUMMARY;
+  },
+
+  displayDetailMode: function(mode) {
+    mode = this.validDisplayMode(mode);
+
+    if (mode === DISPLAY_MODE_ME || mode === DISPLAY_MODE_SUMMARY_ME) {
+      return DISPLAY_MODE_SUMMARY;
+    }
+    if (mode === DISPLAY_MODE_COURSES_ME) {
+      return DISPLAY_MODE_COURSES;
+    }
+    if (mode === DISPLAY_MODE_ACCOUNT_ME) {
+      return DISPLAY_MODE_ACCOUNT;
+    }
+    if (mode === DISPLAY_MODE_ALL_ME) {
+      return DISPLAY_MODE_ALL;
+    }
+
+    return mode;
+  },
+
+  isSelfDisplayMode: function(mode) {
+    mode = this.validDisplayMode(mode);
+    return (
+      mode === DISPLAY_MODE_ME ||
+      mode === DISPLAY_MODE_SUMMARY_ME ||
+      mode === DISPLAY_MODE_COURSES_ME ||
+      mode === DISPLAY_MODE_ACCOUNT_ME ||
+      mode === DISPLAY_MODE_ALL_ME
+    );
   },
 
   validPanelDisplayMode: function(mode) {
@@ -641,7 +714,7 @@ MyApplet.prototype = {
   },
 
   getUsersForDisplayMode: function(users, mode) {
-    if (this.validDisplayMode(mode) !== DISPLAY_MODE_ME) {
+    if (!this.isSelfDisplayMode(mode)) {
       return users;
     }
 
@@ -713,6 +786,7 @@ MyApplet.prototype = {
 
     this.menu.removeAll();
     let clickDisplayMode = this.validDisplayMode(this.clickDisplayMode);
+    let clickDetailMode = this.displayDetailMode(clickDisplayMode);
 
     if (this.userData.length === 0) {
       let configureUsers = new PopupMenu.PopupMenuItem(_("No users configured"));
@@ -721,7 +795,7 @@ MyApplet.prototype = {
     } else if (clickDisplayMode !== DISPLAY_MODE_NONE) {
       let displayUsers = this.getUsersForDisplayMode(this.userData, clickDisplayMode);
 
-      if (displayUsers.length === 0 && clickDisplayMode === DISPLAY_MODE_ME) {
+      if (displayUsers.length === 0 && this.isSelfDisplayMode(clickDisplayMode)) {
         let configureSelf = new PopupMenu.PopupMenuItem(_("No self user configured"));
         configureSelf.connect("activate", () => this.configureApplet());
         this.menu.addMenuItem(configureSelf);
@@ -729,7 +803,7 @@ MyApplet.prototype = {
 
       let firstUser = true;
       for (let user of displayUsers) {
-        if (!firstUser && clickDisplayMode !== DISPLAY_MODE_SUMMARY) {
+        if (!firstUser && clickDetailMode !== DISPLAY_MODE_SUMMARY) {
           this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         }
         firstUser = false;

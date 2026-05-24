@@ -49,6 +49,7 @@ DuolingoActivityApplet.prototype = {
     this.users = [];
     this.configuredUsers = [];
     this.activeUsers = [];
+    this.inactiveUsers = [];
     this.errors = [];
     this.pendingRequests = 0;
     this.refreshTimer = 0;
@@ -67,6 +68,7 @@ DuolingoActivityApplet.prototype = {
     this.set_applet_tooltip(_("Duolingo Activity"));
 
     this.addSettingsMenuItem();
+    this.buildMenu(orientation);
     this.refresh();
   },
 
@@ -81,7 +83,14 @@ DuolingoActivityApplet.prototype = {
   },
 
   on_applet_clicked: function() {
-    this.refresh();
+    this.menu.toggle();
+  },
+
+  buildMenu: function(orientation) {
+    this.menuManager = new PopupMenu.PopupMenuManager(this);
+    this.menu = new Applet.AppletPopupMenu(this, orientation);
+    this.menuManager.addMenu(this.menu);
+    this.rebuildMenu();
   },
 
   on_applet_removed_from_panel: function() {
@@ -128,6 +137,7 @@ DuolingoActivityApplet.prototype = {
 
     this.configuredUsers = this.getConfiguredUsers();
     this.activeUsers = [];
+    this.inactiveUsers = [];
     this.errors = [];
     this.pendingRequests = this.configuredUsers.length;
 
@@ -197,6 +207,8 @@ DuolingoActivityApplet.prototype = {
     let user = responseParsed.users[0];
     if (this.isTruthyActivity(user.hasRecentActivity15)) {
       this.activeUsers.push(userConfig);
+    } else {
+      this.inactiveUsers.push(userConfig);
     }
 
     this.finishRequest();
@@ -238,14 +250,17 @@ DuolingoActivityApplet.prototype = {
     if (this.configuredUsers.length === 0) {
       this.set_applet_label("Duo");
       this.set_applet_tooltip(_("Duolingo Activity") + "\n" + _("No users configured"));
+      this.rebuildMenu();
       return;
     }
 
     this.activeUsers.sort((a, b) => a.displayUsername.localeCompare(b.displayUsername));
+    this.inactiveUsers.sort((a, b) => a.displayUsername.localeCompare(b.displayUsername));
     this.errors.sort((a, b) => a.displayUsername.localeCompare(b.displayUsername));
 
     this.set_applet_label(this.activeUsers.length > 0 ? "Duo " + this.activeUsers.length : "Duo");
     this.set_applet_tooltip(this.buildTooltip());
+    this.rebuildMenu();
   },
 
   buildTooltip: function() {
@@ -264,6 +279,61 @@ DuolingoActivityApplet.prototype = {
     }
 
     return lines.join("\n");
+  },
+
+  rebuildMenu: function() {
+    if (!this.menu) {
+      return;
+    }
+
+    this.menu.removeAll();
+
+    if (this.configuredUsers.length === 0) {
+      let configureUsers = new PopupMenu.PopupMenuItem(_("No users configured"));
+      configureUsers.connect("activate", () => this.configureApplet());
+      this.menu.addMenuItem(configureUsers);
+    } else {
+      this.addUserGroupToMenu(_("Active now"), this.activeUsers, true);
+      this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+      this.addUserGroupToMenu(_("Inactive"), this.inactiveUsers, false);
+
+      if (this.errors.length > 0) {
+        this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+        for (let error of this.errors) {
+          let item = new PopupMenu.PopupMenuItem(error.displayUsername + ": " + error.error);
+          item.setSensitive(false);
+          this.menu.addMenuItem(item);
+        }
+      }
+    }
+
+    this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+
+    let refreshNow = new PopupMenu.PopupMenuItem(_("Refresh now"));
+    refreshNow.connect("activate", () => this.refresh());
+    this.menu.addMenuItem(refreshNow);
+  },
+
+  addUserGroupToMenu: function(title, users, active) {
+    let sectionTitle = new PopupMenu.PopupMenuItem(title);
+    sectionTitle.setSensitive(false);
+    this.menu.addMenuItem(sectionTitle);
+
+    if (users.length === 0) {
+      let empty = new PopupMenu.PopupMenuItem(active ? _("No active users") : _("No inactive users"));
+      empty.setSensitive(false);
+      this.menu.addMenuItem(empty);
+      return;
+    }
+
+    for (let user of users) {
+      let label = active
+        ? formatString(_("%s is playing Duolingo right now!"), [user.displayUsername])
+        : user.displayUsername;
+      let item = new PopupMenu.PopupMenuItem(label);
+      item.setSensitive(false);
+      this.menu.addMenuItem(item);
+    }
   }
 };
 

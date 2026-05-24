@@ -111,9 +111,9 @@ Add or enable the applet from Cinnamon's applet settings if it is not already in
 6. Choose the user sort order.
 7. Add one row per Duolingo username.
 8. Optionally set an alias for any row.
-9. Mark one row as `Me / Self` when using the "only me" display modes.
+9. Mark one row as `Me / Self` when using the `Me: ...` display modes.
 10. Enable highlighting for rows that should stand out in the click menu.
-11. Optionally enable hover highlighting for highlighted rows. The hover tooltip marks those lines with `[highlighted]`.
+11. Optionally enable hover highlighting for highlighted rows.
 12. Enable the rows you want to fetch.
 
 Use the Duolingo username, not the email address.

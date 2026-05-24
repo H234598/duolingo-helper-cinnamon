@@ -139,10 +139,6 @@ msgid "Streak: %s / %s (%s%)"
 msgstr ""
 
 #. applet.js
-msgid "[highlighted] %s"
-msgstr ""
-
-#. applet.js
 msgid "No self user configured"
 msgstr ""
 
@@ -174,27 +170,42 @@ msgstr ""
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
-msgid "Summary"
+msgid "All: Summary"
 msgstr ""
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
-msgid "Only me"
+msgid "Me: Summary"
 msgstr ""
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
-msgid "Course details"
+msgid "All: Course details"
 msgstr ""
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
-msgid "Account details"
+msgid "Me: Course details"
 msgstr ""
 
 #. settings-schema.json->hover-display-mode->options
 #. settings-schema.json->click-display-mode->options
-msgid "All details"
+msgid "All: Account details"
+msgstr ""
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "Me: Account details"
+msgstr ""
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "All: All details"
+msgstr ""
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "Me: All details"
 msgstr ""
 
 #. settings-schema.json->panel-display-mode->options
