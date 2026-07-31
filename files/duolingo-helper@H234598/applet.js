@@ -201,6 +201,7 @@ MyApplet.prototype = {
     this.userData = [];
     this.pendingRequests = 0;
     this.refreshGeneration = 0;
+    this.appletRemoved = false;
     this.loadingUsers = false;
     this.refreshTimer = 0;
     this.currentRefreshIntervalSeconds = UPDATE_INTERVAL_SECONDS;
@@ -233,6 +234,7 @@ MyApplet.prototype = {
     this.speechBubbleTimer = 0;
     this.speechBubbleRotationTimer = 0;
     this.speechBubbleRotationIndex = 0;
+    this.menuNeedsRebuild = true;
 
     this.settings = new Settings.AppletSettings(this, UUID, instanceId);
     this.settings.bindProperty(
@@ -388,10 +390,19 @@ MyApplet.prototype = {
   },
 
   on_applet_clicked: function() {
+    if (this.menuNeedsRebuild && this.menu.isOpen !== true) {
+      this.rebuildMenu();
+    }
     this.menu.toggle();
   },
 
+  invalidateMenu: function() {
+    this.menuNeedsRebuild = true;
+  },
+
   on_applet_removed_from_panel: function() {
+    this.appletRemoved = true;
+    this.refreshGeneration++;
     if (global.duolingoHelperInstances && global.duolingoHelperInstances[this.instanceId] === this) {
       delete global.duolingoHelperInstances[this.instanceId];
     }
@@ -401,6 +412,22 @@ MyApplet.prototype = {
     }
     this._testStopSpeechBubbleRotation();
     this.destroySpeechBubble();
+    let menu = this.menu;
+    if (menu && this.menuManager && this.menuManager.removeMenu) {
+      this.menuManager.removeMenu(menu);
+    }
+    if (menu && menu.destroy) {
+      menu.destroy();
+    }
+    if (this.settings && this.settings.finalize) {
+      this.settings.finalize();
+    }
+    this.menu = null;
+    this.menuManager = null;
+    this.settings = null;
+    this.clickMenuSection = null;
+    this.clickMenuScrollView = null;
+    this.clickMenuScrollItem = null;
   },
 
   loadFactoryDefaults: function() {
@@ -924,6 +951,9 @@ MyApplet.prototype = {
   },
 
   refresh: function() {
+    if (this.appletRemoved) {
+      return;
+    }
     if (this.refreshTimer > 0) {
       GLib.source_remove(this.refreshTimer);
       this.refreshTimer = 0;
@@ -944,7 +974,7 @@ MyApplet.prototype = {
       this.updatePanelIcon();
       this.updatePanelVisibility();
       this.updateAppletTooltip();
-      this.rebuildMenu();
+      this.invalidateMenu();
       return;
     }
 
@@ -952,7 +982,7 @@ MyApplet.prototype = {
     this.updatePanelIcon();
     this.updatePanelVisibility(false);
     this.updateAppletTooltip();
-    this.rebuildMenu();
+    this.invalidateMenu();
     for (let userConfig of this.usernames) {
       this.fetchUser(userConfig, generation);
     }
@@ -1245,13 +1275,13 @@ MyApplet.prototype = {
     if (validUsers.length === 0) {
       this.set_applet_label(this.buildPanelLabel(validUsers));
       this.updateAppletTooltip();
-      this.rebuildMenu();
+      this.invalidateMenu();
       return;
     }
 
     this.set_applet_label(this.buildPanelLabel(validUsers));
     this.updateAppletTooltip();
-    this.rebuildMenu();
+    this.invalidateMenu();
   },
 
   activitySpeechBubbleEvent: function(validUsers) {
@@ -2198,6 +2228,7 @@ MyApplet.prototype = {
     let refreshNow = new PopupMenu.PopupMenuItem(_("Refresh now"));
     refreshNow.connect("activate", () => this.refresh());
     this.menu.addMenuItem(refreshNow);
+    this.menuNeedsRebuild = false;
   },
 
   beginClickMenuUserScrollSection: function() {

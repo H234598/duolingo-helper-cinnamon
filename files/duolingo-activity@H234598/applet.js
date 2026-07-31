@@ -67,6 +67,8 @@ DuolingoActivityApplet.prototype = {
     this.inactiveUsers = [];
     this.errors = [];
     this.pendingRequests = 0;
+    this.refreshGeneration = 0;
+    this.appletRemoved = false;
     this.refreshTimer = 0;
     this.responseCache = null;
     this.cachePath = GLib.build_filenamev([CACHE_DIR, instanceId + ".json"]);
@@ -75,6 +77,7 @@ DuolingoActivityApplet.prototype = {
     this.panelIconAutoMigrated = false;
     this.hideWhenInactive = false;
     this.highlightOnHover = false;
+    this.menuNeedsRebuild = true;
 
     this.settings = new Settings.AppletSettings(this, UUID, instanceId);
     this.settings.bindProperty(
@@ -134,7 +137,14 @@ DuolingoActivityApplet.prototype = {
   },
 
   on_applet_clicked: function() {
+    if (this.menuNeedsRebuild && this.menu.isOpen !== true) {
+      this.rebuildMenu();
+    }
     this.menu.toggle();
+  },
+
+  invalidateMenu: function() {
+    this.menuNeedsRebuild = true;
   },
 
   buildMenu: function(orientation) {
@@ -145,10 +155,25 @@ DuolingoActivityApplet.prototype = {
   },
 
   on_applet_removed_from_panel: function() {
+    this.appletRemoved = true;
+    this.refreshGeneration++;
     if (this.refreshTimer > 0) {
       GLib.source_remove(this.refreshTimer);
       this.refreshTimer = 0;
     }
+    let menu = this.menu;
+    if (menu && this.menuManager && this.menuManager.removeMenu) {
+      this.menuManager.removeMenu(menu);
+    }
+    if (menu && menu.destroy) {
+      menu.destroy();
+    }
+    if (this.settings && this.settings.finalize) {
+      this.settings.finalize();
+    }
+    this.menu = null;
+    this.menuManager = null;
+    this.settings = null;
   },
 
   onSettingsChanged: function() {
@@ -227,6 +252,9 @@ DuolingoActivityApplet.prototype = {
   },
 
   refresh: function() {
+    if (this.appletRemoved) {
+      return;
+    }
     if (this.refreshTimer > 0) {
       GLib.source_remove(this.refreshTimer);
       this.refreshTimer = 0;
@@ -237,6 +265,8 @@ DuolingoActivityApplet.prototype = {
     this.inactiveUsers = [];
     this.errors = [];
     this.usedCache = false;
+    this.refreshGeneration++;
+    let generation = this.refreshGeneration;
     this.pendingRequests = this.configuredUsers.length;
 
     if (this.configuredUsers.length === 0) {
@@ -250,7 +280,7 @@ DuolingoActivityApplet.prototype = {
     this.set_applet_tooltip(_("Checking Duolingo activity..."));
 
     for (let userConfig of this.configuredUsers) {
-      this.fetchUserActivity(userConfig);
+      this.fetchUserActivity(userConfig, generation);
     }
 
     this.refreshTimer = GLib.timeout_add_seconds(
@@ -340,56 +370,62 @@ DuolingoActivityApplet.prototype = {
     return 0;
   },
 
-  recordCachedResponse: function(userConfig, status) {
+  recordCachedResponse: function(userConfig, status, generation) {
+    if (this.appletRemoved || generation !== this.refreshGeneration) {
+      return;
+    }
     this.loadResponseCache();
     let cached = this.responseCache.users[this.cacheKeyForUser(userConfig)];
 
     if (cached && cached.user) {
       this.usedCache = true;
-      this.recordResponse(userConfig, { users: [cached.user] }, true, cached);
+      this.recordResponse(userConfig, { users: [cached.user] }, true, cached, generation);
       return;
     }
 
-    this.recordError(userConfig, status);
+    this.recordError(userConfig, status, generation);
   },
 
-  fetchUserActivity: function(userConfig) {
+  fetchUserActivity: function(userConfig, generation) {
     let url = `https://www.duolingo.com/2017-06-30/users?username=${encodeURIComponent(userConfig.username)}`;
     let request = this.createDuolingoRequest(url, userConfig.username);
 
     if (Soup.MAJOR_VERSION === 2) {
       soupASyncSession.queue_message(request, (session, message) => {
         if (message.status_code !== 200) {
-          this.recordCachedResponse(userConfig, message.status_code);
+          this.recordCachedResponse(userConfig, message.status_code, generation);
           return;
         }
 
         try {
-          this.recordResponse(userConfig, JSON.parse(message.response_body.data));
+          this.recordResponse(userConfig, JSON.parse(message.response_body.data), false, null, generation);
         } catch (err) {
-          this.recordCachedResponse(userConfig, "parse");
+          this.recordCachedResponse(userConfig, "parse", generation);
         }
       });
     } else {
       soupASyncSession.send_and_read_async(request, Soup.MessagePriority.NORMAL, null, (session, response) => {
         if (request.get_status() !== 200) {
-          this.recordCachedResponse(userConfig, request.get_status());
+          this.recordCachedResponse(userConfig, request.get_status(), generation);
           return;
         }
 
         try {
           let bytes = session.send_and_read_finish(response);
-          this.recordResponse(userConfig, JSON.parse(ByteArray.toString(ByteArray.fromGBytes(bytes))));
+          this.recordResponse(userConfig, JSON.parse(ByteArray.toString(ByteArray.fromGBytes(bytes))), false, null, generation);
         } catch (err) {
-          this.recordCachedResponse(userConfig, "parse");
+          this.recordCachedResponse(userConfig, "parse", generation);
         }
       });
     }
   },
 
-  recordResponse: function(userConfig, responseParsed, fromCache, cachedResponse) {
+  recordResponse: function(userConfig, responseParsed, fromCache, cachedResponse, generation) {
+    if (this.appletRemoved || generation !== this.refreshGeneration) {
+      return;
+    }
     if (!responseParsed.users || responseParsed.users.length === 0) {
-      this.recordError(userConfig, "not-found");
+      this.recordError(userConfig, "not-found", generation);
       return;
     }
 
@@ -426,7 +462,10 @@ DuolingoActivityApplet.prototype = {
     };
   },
 
-  recordError: function(userConfig, status) {
+  recordError: function(userConfig, status, generation) {
+    if (this.appletRemoved || generation !== this.refreshGeneration) {
+      return;
+    }
     this.errors.push({
       displayUsername: userConfig.displayUsername,
       error: status === "not-found" ? _("not found") : formatString(_("Error %s"), [status])
@@ -435,6 +474,9 @@ DuolingoActivityApplet.prototype = {
   },
 
   finishRequest: function() {
+    if (this.appletRemoved) {
+      return;
+    }
     this.pendingRequests--;
     if (this.pendingRequests <= 0) {
       this.updateDisplay();
@@ -464,7 +506,7 @@ DuolingoActivityApplet.prototype = {
       this.updatePanelIcon(false);
       this.set_applet_label("");
       this.set_applet_tooltip(_("Duolingo Activity") + "\n" + _("No users configured"));
-      this.rebuildMenu();
+      this.invalidateMenu();
       return;
     }
 
@@ -476,7 +518,7 @@ DuolingoActivityApplet.prototype = {
     this.updatePanelIcon(this.activeUsers.length > 0);
     this.updatePanelVisibility(this.activeUsers.length > 0);
     this.set_applet_tooltip(this.buildTooltip(), true);
-    this.rebuildMenu();
+    this.invalidateMenu();
   },
 
   compareUsersByActivity: function(a, b) {
@@ -596,6 +638,7 @@ DuolingoActivityApplet.prototype = {
     let refreshNow = new PopupMenu.PopupMenuItem(_("Refresh now"));
     refreshNow.connect("activate", () => this.refresh());
     this.menu.addMenuItem(refreshNow);
+    this.menuNeedsRebuild = false;
   },
 
   addUserGroupToMenu: function(title, users, active) {
