@@ -1,0 +1,142 @@
+# Duolingo Activity Cinnamon applet translations.
+# This file is put in the public domain.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: duolingo-activity@H234598 1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/H234598/duolingo-helper-cinnamon/"
+"issues\n"
+"POT-Creation-Date: 2026-05-24 00:00+0000\n"
+"PO-Revision-Date: 2026-05-24 00:00+0000\n"
+"Last-Translator: Codex <noreply.com>\n"
+"Language-Team: hu\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. metadata.json->name
+#. applet.js
+msgid "Duolingo Activity"
+msgstr "Duolingo-aktivitás"
+
+#. metadata.json->description
+msgid "Shows when configured Duolingo users appear recently active."
+msgstr ""
+"Megjeleníti, ha a beállított Duolingo-felhasználók nemrég aktívnak tűnnek."
+
+#. applet.js
+msgid "Settings"
+msgstr "Beállítások"
+
+#. applet.js
+msgid "Checking Duolingo activity..."
+msgstr "Duolingo-aktivitás ellenőrzése..."
+
+#. applet.js
+msgid "not found"
+msgstr "nem található"
+
+#. applet.js
+msgid "Error %s"
+msgstr "Hiba %s"
+
+#. applet.js
+msgid "No users configured"
+msgstr "Nincs felhasználó beállítva"
+
+#. applet.js
+msgid "%s is playing Duolingo right now!"
+msgstr "%s most Duolingózik!"
+
+#. applet.js
+msgid "No one is playing Duolingo right now."
+msgstr "Most senki sem Duolingózik."
+
+#. applet.js
+msgid "Active now:"
+msgstr "Most aktív:"
+
+#. applet.js
+msgid "Inactive:"
+msgstr "Inaktív:"
+
+#. applet.js
+msgid "No active users"
+msgstr "Nincs aktív felhasználó"
+
+#. applet.js
+msgid "No inactive users"
+msgstr "Nincs inaktív felhasználó"
+
+#. applet.js
+msgid "Refresh now"
+msgstr "Frissítés most"
+
+#. applet.js
+msgid "Using cached Duolingo data"
+msgstr ""
+
+#. applet.js
+msgid "never"
+msgstr "soha"
+
+#. applet.js
+msgid "Last seen: %s"
+msgstr "Utoljara latva: %s"
+
+#. settings-schema.json->panel-icon->description
+msgid "Panel icon"
+msgstr "Panelikon"
+
+#. settings-schema.json->panel-icon->options
+msgid "Automatic"
+msgstr ""
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar square"
+msgstr "Negyzetes avatar"
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar rounded"
+msgstr "Lekerekitett avatar"
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar circle"
+msgstr "Kor alaku avatar"
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar mask"
+msgstr "Avatar-maszk"
+
+#. settings-schema.json->panel-icon->options
+msgid "Duoplatt"
+msgstr "Duoplatt"
+
+#. settings-schema.json->hide-when-inactive->description
+msgid "Hide applet when no users are active"
+msgstr "Elrejtes a panelrol, ha nincs aktiv felhasznalo"
+
+#. settings-schema.json->highlight-on-hover->description
+msgid "Highlight selected users on hover"
+msgstr "Kijelolt felhasznalok kiemelese raallasra"
+
+#. settings-schema.json->users->description
+msgid "Duolingo users"
+msgstr "Duolingo-felhasználók"
+
+#. settings-schema.json->users->columns->enabled->title
+msgid "Enabled"
+msgstr "Engedélyezve"
+
+#. settings-schema.json->users->columns->highlighted->title
+msgid "Highlight"
+msgstr "Kiemeles"
+
+#. settings-schema.json->users->columns->username->title
+msgid "Username"
+msgstr "Felhasználónév"
+
+#. settings-schema.json->users->columns->alias->title
+msgid "Alias"
+msgstr "Álnév"

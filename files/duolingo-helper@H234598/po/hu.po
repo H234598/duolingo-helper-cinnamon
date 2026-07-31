@@ -1,0 +1,260 @@
+# Duolingo Helper Cinnamon applet translations.
+# This file is put in the public domain.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: duolingo-helper@H234598 2.0\n"
+"Report-Msgid-Bugs-To: https://github.com/H234598/duolingo-helper-cinnamon/issues\n"
+"POT-Creation-Date: 2026-05-23 00:00+0000\n"
+"PO-Revision-Date: 2026-05-23 00:00+0000\n"
+"Last-Translator: Codex <noreply@example.com>\n"
+"Language-Team: hu\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. metadata.json->name
+msgid "Duolingo Helper"
+msgstr "Duolingo segítő"
+
+#. metadata.json->description
+msgid "Handy app to help practise with Duolingo."
+msgstr "Hasznos alkalmazás a Duolingóval való gyakorláshoz."
+
+#. applet.js
+msgid "Settings"
+msgstr "Beállítások"
+
+#. applet.js
+msgid "Right-click -> Settings"
+msgstr "Jobb kattintás -> Beállítások"
+
+#. applet.js
+msgid "not found"
+msgstr "nem található"
+
+#. applet.js
+msgid "Error %s"
+msgstr "Hiba %s"
+
+#. applet.js
+msgid "no course"
+msgstr "nincs kurzus"
+
+#. applet.js
+msgid "No users configured"
+msgstr "Nincs beállított felhasználó"
+
+#. applet.js
+msgid "Duolingo Statistics"
+msgstr "Duolingo statisztikák"
+
+#. applet.js
+msgid "Using cached Duolingo data"
+msgstr ""
+
+#. applet.js
+msgid "%s: %s days, %s total XP, %s XP in %s"
+msgstr "%s: %s nap, összesen %s XP, %s XP itt: %s"
+
+#. applet.js
+msgid "%s - %s days - %s XP"
+msgstr "%s - %s nap - %s XP"
+
+#. applet.js
+msgid "Open Duolingo"
+msgstr "Duolingo megnyitása"
+
+#. applet.js
+msgid "Refresh now"
+msgstr "Frissítés most"
+
+#. settings-schema.json->users->description
+msgid "Duolingo users"
+msgstr "Duolingo-felhasználók"
+
+#. settings-schema.json->users->columns->enabled->title
+msgid "Enabled"
+msgstr "Engedélyezve"
+
+#. settings-schema.json->users->columns->username->title
+msgid "Username"
+msgstr "Felhasználónév"
+
+msgid "Current course: %s (%s -> %s)"
+msgstr "Aktuális tanfolyam: %s (%s -> %s)"
+
+msgid "Courses: %s"
+msgstr "Tanfolyamok: %s"
+
+msgid "  %s: %s XP (%s -> %s)"
+msgstr "  %s: %s XP (%s -> %s)"
+
+msgid "Name: %s"
+msgstr "Név: %s"
+
+msgid "Joined: %s"
+msgstr "Csatlakozott: %s"
+
+msgid "Recent activity: %s"
+msgstr "Legutóbbi aktivitás: %s"
+
+msgid "Email verified: %s"
+msgstr "E-mail ellenőrizve: %s"
+
+msgid "Profile country: %s"
+msgstr "Profil országa: %s"
+
+msgid "Live events: %s"
+msgstr "Élő események: %s"
+
+msgid "Achievements: %s"
+msgstr "Eredmények: %s"
+
+msgid "Duolingo Plus: %s"
+msgstr "Duolingo Plus: %s"
+
+msgid "Plus"
+msgstr "Plus"
+
+msgid "yes"
+msgstr "igen"
+
+msgid "no"
+msgstr "nem"
+
+msgid "not set"
+msgstr "nincs beállítva"
+
+msgid "unknown"
+msgstr "ismeretlen"
+
+msgid "Team share"
+msgstr "Csapatrészesedés"
+
+msgid "XP: %s / %s (%s%)"
+msgstr "XP: %s / %s (%s%)"
+
+msgid "Streak: %s / %s (%s%)"
+msgstr "Sorozat: %s / %s (%s%)"
+
+msgid "Last seen: %s"
+msgstr "Utoljara latva: %s"
+
+msgid "never"
+msgstr "soha"
+
+msgid "No self user configured"
+msgstr "Nincs Én felhasználó beállítva"
+
+msgid "Active now:"
+msgstr "Most aktív:"
+
+msgid "Inactive:"
+msgstr "Inaktív:"
+
+msgid "No active users"
+msgstr "Nincs aktív felhasználó"
+
+msgid "No inactive users"
+msgstr "Nincs inaktív felhasználó"
+
+msgid "Show on hover"
+msgstr "Megjelenítés rámutatáskor"
+
+msgid "Show on click"
+msgstr "Megjelenítés kattintáskor"
+
+msgid "Show in panel"
+msgstr "Megjelenítés a panelen"
+
+msgid "Hide applet when no users are active"
+msgstr "Applet elrejtese, ha nincs aktiv felhasznalo"
+
+msgid "Highlight selected users on hover"
+msgstr "Kiválasztott felhasználók kiemelése rámutatáskor"
+
+msgid "Sort users by"
+msgstr "Felhasználók rendezése"
+
+msgid "Nothing"
+msgstr "Semmi"
+
+msgid "All: Summary"
+msgstr "Mindenki: összegzés"
+
+msgid "Me: Summary"
+msgstr "Én: összegzés"
+
+msgid "All: Course details"
+msgstr "Mindenki: tanfolyamrészletek"
+
+msgid "Me: Course details"
+msgstr "Én: tanfolyamrészletek"
+
+msgid "All: Account details"
+msgstr "Mindenki: fiókrészletek"
+
+msgid "Me: Account details"
+msgstr "Én: fiókrészletek"
+
+msgid "All: All details"
+msgstr "Mindenki: minden részlet"
+
+msgid "Me: All details"
+msgstr "Én: minden részlet"
+
+msgid "Compact user/streak summary"
+msgstr "Kompakt felhasználó/sorozat összegzés"
+
+msgid "Loaded user count"
+msgstr "Betöltött felhasználók száma"
+
+msgid "Active user count"
+msgstr "Aktiv felhasznalok szama"
+
+msgid "Total streak"
+msgstr "Összes sorozat"
+
+msgid "Total XP"
+msgstr "Összes XP"
+
+msgid "Only my values"
+msgstr "Csak a saját értékeim"
+
+msgid "Configured order"
+msgstr "Beállított sorrend"
+
+msgid "Alias or username A-Z"
+msgstr "Álnév vagy felhasználónév A-Z"
+
+msgid "Alias or username Z-A"
+msgstr "Álnév vagy felhasználónév Z-A"
+
+msgid "Streak high to low"
+msgstr "Sorozat csökkenő"
+
+msgid "Streak low to high"
+msgstr "Sorozat növekvő"
+
+msgid "Total XP high to low"
+msgstr "Összes XP csökkenő"
+
+msgid "Total XP low to high"
+msgstr "Összes XP növekvő"
+
+msgid "Highlight"
+msgstr "Kiemelés"
+
+msgid "Me / Self"
+msgstr "Én / saját"
+
+msgid "Alias"
+msgstr "Álnév"
+
+msgid "Show only me on hover"
+msgstr "Rámutatáskor csak engem mutasson"
+
+msgid "Show only me on click"
+msgstr "Kattintáskor csak engem mutasson"

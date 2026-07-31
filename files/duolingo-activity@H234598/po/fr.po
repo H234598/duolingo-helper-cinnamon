@@ -1,0 +1,142 @@
+# Duolingo Activity Cinnamon applet translations.
+# This file is put in the public domain.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: duolingo-activity@H234598 1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/H234598/duolingo-helper-cinnamon/"
+"issues\n"
+"POT-Creation-Date: 2026-05-24 00:00+0000\n"
+"PO-Revision-Date: 2026-05-24 00:00+0000\n"
+"Last-Translator: Codex <noreply.com>\n"
+"Language-Team: fr\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. metadata.json->name
+#. applet.js
+msgid "Duolingo Activity"
+msgstr "Activité Duolingo"
+
+#. metadata.json->description
+msgid "Shows when configured Duolingo users appear recently active."
+msgstr ""
+"Indique quand les utilisateurs Duolingo configurés semblent récemment actifs."
+
+#. applet.js
+msgid "Settings"
+msgstr "Paramètres"
+
+#. applet.js
+msgid "Checking Duolingo activity..."
+msgstr "Vérification de l’activité Duolingo..."
+
+#. applet.js
+msgid "not found"
+msgstr "introuvable"
+
+#. applet.js
+msgid "Error %s"
+msgstr "Erreur %s"
+
+#. applet.js
+msgid "No users configured"
+msgstr "Aucun utilisateur configuré"
+
+#. applet.js
+msgid "%s is playing Duolingo right now!"
+msgstr "%s joue à Duolingo en ce moment !"
+
+#. applet.js
+msgid "No one is playing Duolingo right now."
+msgstr "Personne ne joue à Duolingo maintenant."
+
+#. applet.js
+msgid "Active now:"
+msgstr "Actifs maintenant:"
+
+#. applet.js
+msgid "Inactive:"
+msgstr "Inactifs:"
+
+#. applet.js
+msgid "No active users"
+msgstr "Aucun utilisateur actif"
+
+#. applet.js
+msgid "No inactive users"
+msgstr "Aucun utilisateur inactif"
+
+#. applet.js
+msgid "Refresh now"
+msgstr "Actualiser maintenant"
+
+#. applet.js
+msgid "Using cached Duolingo data"
+msgstr ""
+
+#. applet.js
+msgid "never"
+msgstr "jamais"
+
+#. applet.js
+msgid "Last seen: %s"
+msgstr "Vu pour la derniere fois : %s"
+
+#. settings-schema.json->panel-icon->description
+msgid "Panel icon"
+msgstr "Icone du panneau"
+
+#. settings-schema.json->panel-icon->options
+msgid "Automatic"
+msgstr ""
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar square"
+msgstr "Avatar carre"
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar rounded"
+msgstr "Avatar arrondi"
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar circle"
+msgstr "Avatar circulaire"
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar mask"
+msgstr "Masque d avatar"
+
+#. settings-schema.json->panel-icon->options
+msgid "Duoplatt"
+msgstr "Duoplatt"
+
+#. settings-schema.json->hide-when-inactive->description
+msgid "Hide applet when no users are active"
+msgstr "Masquer du panneau quand aucun utilisateur n est actif"
+
+#. settings-schema.json->highlight-on-hover->description
+msgid "Highlight selected users on hover"
+msgstr "Mettre en evidence les utilisateurs selectionnes au survol"
+
+#. settings-schema.json->users->description
+msgid "Duolingo users"
+msgstr "Utilisateurs Duolingo"
+
+#. settings-schema.json->users->columns->enabled->title
+msgid "Enabled"
+msgstr "Activé"
+
+#. settings-schema.json->users->columns->highlighted->title
+msgid "Highlight"
+msgstr "Mettre en evidence"
+
+#. settings-schema.json->users->columns->username->title
+msgid "Username"
+msgstr "Nom d’utilisateur"
+
+#. settings-schema.json->users->columns->alias->title
+msgid "Alias"
+msgstr "Alias"

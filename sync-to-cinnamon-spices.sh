@@ -2,8 +2,9 @@
 set -euo pipefail
 
 standalone_repo="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${standalone_repo}/config/duolingo-helper.conf"
 spices_repo="${1:-${HOME}/cinnamon-spices-applets}"
-uuid="duolingo-helper@nodeengineer.com"
+uuid="${UUID}"
 source_dir="${standalone_repo}/files/${uuid}"
 target_root="${spices_repo}/${uuid}"
 target_dir="${target_root}/files/${uuid}"
@@ -21,10 +22,13 @@ fi
 mkdir -p "${target_dir}/po"
 
 cp -a "${source_dir}/applet.js" "${target_dir}/applet.js"
+cp -a "${source_dir}/SettingsLogo.py" "${target_dir}/SettingsLogo.py"
 cp -a "${source_dir}/settings-schema.json" "${target_dir}/settings-schema.json"
 cp -a "${source_dir}/metadata.json" "${target_dir}/metadata.json"
 cp -a "${source_dir}/stylesheet.css" "${target_dir}/stylesheet.css"
 cp -a "${source_dir}/po/." "${target_dir}/po/"
+rm -rf "${target_dir}/assets"
+cp -a "${source_dir}/assets" "${target_dir}/assets"
 
 if [[ -f "${target_dir}/po/de.po" ]]; then
   perl -0pi -e 's/msgid "Plus"\nmsgstr "[^"]*"/msgid "Plus"\nmsgstr "Plus"/' "${target_dir}/po/de.po"

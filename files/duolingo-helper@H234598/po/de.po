@@ -1,0 +1,672 @@
+# Duolingo Helper Cinnamon applet translations.
+# This file is put in the public domain.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: duolingo-helper@H234598 2.0\n"
+"Report-Msgid-Bugs-To: https://github.com/H234598/duolingo-helper-cinnamon/issues\n"
+"POT-Creation-Date: 2026-05-23 00:00+0000\n"
+"PO-Revision-Date: 2026-05-23 00:00+0000\n"
+"Last-Translator: Codex <noreply@example.com>\n"
+"Language-Team: de\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. metadata.json->name
+msgid "Duolingo Helper"
+msgstr "Duolingo-Helfer"
+
+#. applet.js
+msgid "Reset all Duolingo Helper settings to factory defaults and restart Cinnamon?"
+msgstr "Alle Duolingo-Helfer-Einstellungen auf Werkseinstellungen zuruecksetzen und Cinnamon neu starten?"
+
+#. metadata.json->description
+msgid "Handy app to help practise with Duolingo."
+msgstr "Praktische App, die beim Üben mit Duolingo hilft."
+
+#. applet.js
+msgid "Settings"
+msgstr "Einstellungen"
+
+#. applet.js
+msgid "Right-click -> Settings"
+msgstr "Rechtsklick -> Einstellungen"
+
+#. applet.js
+msgid "not found"
+msgstr "nicht gefunden"
+
+#. applet.js
+msgid "Error %s"
+msgstr "Fehler %s"
+
+#. applet.js
+msgid "no course"
+msgstr "kein Kurs"
+
+#. applet.js
+msgid "No users configured"
+msgstr "Keine Benutzer konfiguriert"
+
+#. applet.js
+msgid "Loading..."
+msgstr "Lade..."
+
+#. applet.js
+msgid "Duolingo Statistics"
+msgstr "Duolingo-Statistiken"
+
+#. applet.js
+msgid "Using cached Duolingo data"
+msgstr "Verwende zwischengespeicherte Duolingo-Daten"
+
+#. applet.js
+msgid "%s: %s days, %s total XP, %s XP in %s"
+msgstr "%s: %s Tage, %s XP gesamt, %s XP in %s"
+
+#. applet.js
+msgid "Current course: %s (%s -> %s)"
+msgstr "Aktueller Kurs: %s (%s -> %s)"
+
+#. applet.js
+msgid "Courses: %s"
+msgstr "Kurse: %s"
+
+#. applet.js
+msgid "  %s: %s XP (%s -> %s)"
+msgstr "  %s: %s XP (%s -> %s)"
+
+#. applet.js
+msgid "Name: %s"
+msgstr "Name: %s"
+
+#. applet.js
+msgid "Joined: %s"
+msgstr "Beigetreten: %s"
+
+#. applet.js
+msgid "Recent activity: %s"
+msgstr "Kuerzliche Aktivitaet: %s"
+
+#. applet.js
+msgid "Email verified: %s"
+msgstr "E-Mail bestaetigt: %s"
+
+#. applet.js
+msgid "Profile country: %s"
+msgstr "Profilland: %s"
+
+#. applet.js
+msgid "Live events: %s"
+msgstr "Live-Events: %s"
+
+#. applet.js
+msgid "Achievements: %s"
+msgstr "Erfolge: %s"
+
+#. applet.js
+msgid "Authenticated API: %s"
+msgstr "Authentifizierte API: %s"
+
+#. applet.js
+msgid "Visible fields: %s"
+msgstr "Sichtbare Felder: %s"
+
+#. applet.js
+msgid "Experiments: %s (%s treated)"
+msgstr "Experimente: %s (%s behandelt)"
+
+#. applet.js
+msgid "Duolingo Plus: %s serves the owl with real money."
+msgstr "Duolingo Plus: %s huldigt der Eule mit echtem Geld."
+
+#. applet.js
+msgid "yes"
+msgstr "ja"
+
+#. applet.js
+msgid "no"
+msgstr "nein"
+
+#. applet.js
+msgid "not set"
+msgstr "nicht gesetzt"
+
+#. applet.js
+msgid "unknown"
+msgstr "unbekannt"
+
+#. applet.js
+msgid "Open Duolingo"
+msgstr "Duolingo öffnen"
+
+#. applet.js
+msgid "Refresh now"
+msgstr "Jetzt aktualisieren"
+
+#. applet.js
+msgid "Team share"
+msgstr "Teamanteil"
+
+#. applet.js
+msgid "XP: %s / %s (%s%)"
+msgstr "XP: %s / %s (%s%)"
+
+#. applet.js
+msgid "Streak: %s / %s (%s%)"
+msgstr "Streak: %s / %s (%s%)"
+
+#. applet.js
+msgid "Last seen: %s"
+msgstr "Zuletzt gesehen: %s"
+
+#. applet.js
+msgid "never"
+msgstr "nie"
+
+#. applet.js
+msgid "No Standalone users configured"
+msgstr "Keine Standalone-Benutzer konfiguriert"
+
+#. applet.js
+msgid "Active now:"
+msgstr "Jetzt aktiv:"
+
+#. applet.js
+msgid "Inactive:"
+msgstr "Inaktiv:"
+
+#. applet.js
+msgid "No active users"
+msgstr "Keine aktiven Benutzer"
+
+#. applet.js
+msgid "No inactive users"
+msgstr "Keine inaktiven Benutzer"
+
+#. settings-schema.json->panel-icon->description
+msgid "Panel icon"
+msgstr "Panel-Symbol"
+
+#. settings-schema.json->panel-icon->tooltip
+msgid ""
+"Automatic:\n"
+"- Avatar rounded while up to 50% of users are online.\n"
+"- Avatar circle above 50%.\n"
+"- Avatar mask above 75%.\n"
+"- Duoplatt above 90%.\n"
+"- If the first Standalone user is online, Duo growth chart is shown.\n"
+"\n"
+"Random:\n"
+"- Chooses a random bundled icon once per hour.\n"
+"\n"
+"Manual icons:\n"
+"- Choosing a specific icon disables automatic and random switching."
+msgstr ""
+"Automatisch:\n"
+"- Abgerundeter Avatar, solange bis zu 50% der Benutzer online sind.\n"
+"- Runder Avatar ueber 50%.\n"
+"- Avatar-Maske ueber 75%.\n"
+"- Duoplatt ueber 90%.\n"
+"- Wenn der erste Standalone-Benutzer online ist, wird Duo-Wachstumsdiagramm angezeigt.\n"
+"\n"
+"Zufall:\n"
+"- Waehlt einmal pro Stunde ein zufaelliges mitgeliefertes Symbol.\n"
+"\n"
+"Manuelle Symbole:\n"
+"- Ein konkretes Symbol deaktiviert Automatik und Zufallswechsel."
+
+#. settings-schema.json->panel-icon->options
+msgid "Automatic"
+msgstr "Automatisch"
+
+#. settings-schema.json->panel-icon->options
+msgid "Random"
+msgstr "Zufall"
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar square"
+msgstr "Quadratischer Avatar"
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar rounded"
+msgstr "Abgerundeter Avatar"
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar circle"
+msgstr "Runder Avatar"
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar mask"
+msgstr "Avatar-Maske"
+
+#. settings-schema.json->panel-icon->options
+msgid "Duoplatt"
+msgstr "Duoplatt"
+
+#. settings-schema.json->panel-icon->options
+msgid "Duo growth chart"
+msgstr "Duo-Wachstumsdiagramm"
+
+#. settings-schema.json->panel-icon->options
+msgid "Duo orange sunburst"
+msgstr "Duo oranger Sonnenstrahl"
+
+#. settings-schema.json->panel-icon->options
+msgid "Duo angry cyber grid"
+msgstr "Duo wuetendes Cyber-Gitter"
+
+#. settings-schema.json->panel-icon->options
+msgid "Duo tired bandage"
+msgstr "Duo muede mit Verband"
+
+#. settings-schema.json->panel-icon->options
+msgid "Duo red eyes elevator"
+msgstr "Duo rote Augen im Aufzug"
+
+#. settings-schema.json->panel-icon->options
+msgid "Duo red demon"
+msgstr "Duo roter Daemon"
+
+#. settings-schema.json->panel-icon->options
+msgid "Duo horror black eyes"
+msgstr "Duo Horror schwarze Augen"
+
+#. settings-schema.json->panel-icon->options
+msgid "Royal owl"
+msgstr "Koenigseule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Cyberpunk owl"
+msgstr "Cyberpunk-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Sleepy owl"
+msgstr "Schlafende Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Wizard owl"
+msgstr "Zauberer-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Rocker owl"
+msgstr "Rocker-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Astronaut owl"
+msgstr "Astronauten-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Pirate owl"
+msgstr "Piraten-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Samurai owl"
+msgstr "Samurai-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Vampire owl"
+msgstr "Vampir-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Chef owl"
+msgstr "Koch-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Detective owl"
+msgstr "Detektiv-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Knight owl"
+msgstr "Ritter-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Surfer owl"
+msgstr "Surfer-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Gamer owl"
+msgstr "Gamer-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Gardener owl"
+msgstr "Gaertner-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Ninja owl"
+msgstr "Ninja-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Disco owl"
+msgstr "Disco-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Scientist owl"
+msgstr "Wissenschaftler-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Firefighter owl"
+msgstr "Feuerwehr-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Artist owl"
+msgstr "Kuenstler-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Beekeeper owl"
+msgstr "Imker-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Mariachi owl"
+msgstr "Mariachi-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Librarian owl"
+msgstr "Bibliothekar-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Boxer owl"
+msgstr "Boxer-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Pharaoh owl"
+msgstr "Pharao-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Skier owl"
+msgstr "Skifahrer-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Mechanic owl"
+msgstr "Mechaniker-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "DJ owl"
+msgstr "DJ-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Movie director owl"
+msgstr "Regisseur-Eule"
+
+#. settings-schema.json->panel-icon->options
+msgid "Superhero owl"
+msgstr "Superheld-Eule"
+
+#. applet.js
+msgid "Serve the owl."
+msgstr "Serv the owl."
+
+#. settings-schema.json->hide-when-inactive->description
+msgid "Hide applet when no users are active"
+msgstr "Applet ausblenden, wenn keine Benutzer aktiv sind"
+
+#. settings-schema.json->hide-when-inactive->tooltip
+msgid "Hides the applet from the panel when no configured user is currently active. The online check keeps running even when activity-based grouping is disabled."
+msgstr "Blendet das Applet aus der Leiste aus, wenn gerade kein konfigurierter Benutzer aktiv ist. Die Online-Pruefung laeuft weiter, auch wenn aktivitaetsbasierte Gruppierung deaktiviert ist."
+
+#. settings-schema.json->activity-tracking-enabled->description
+msgid "User activity tracking"
+msgstr "User activity tracking"
+
+#. settings-schema.json->activity-tracking-enabled->tooltip
+msgid ""
+"Controls only activity-based display. Enabled: users reported active by Duolingo are grouped first and highlighted in multi-user views. Disabled: online/offline grouping is skipped; lists use the configured sort first and last-seen as the next tie-breaker. Online detection, last-seen cache updates, active-count labels, automatic icons, and panel hiding keep working."
+msgstr ""
+"Steuert nur die aktivitaetsbasierte Anzeige. Aktiviert: Von Duolingo als aktiv gemeldete Benutzer werden zuerst gruppiert und in Mehrbenutzeransichten hervorgehoben. Deaktiviert: Online/Offline-Gruppierung wird uebersprungen; Listen nutzen zuerst die eingestellte Sortierung und danach Last seen als naechsten Tie-Breaker. Online-Erkennung, Last-seen-Cache-Updates, Aktivanzahl, Automatik-Symbole und Ausblenden der Leiste funktionieren weiter."
+
+#. settings-schema.json->online-message->description
+msgid "Send Message when user comes online"
+msgstr "Nachricht senden, wenn ein Benutzer online kommt"
+
+#. settings-schema.json->online-message->tooltip
+msgid "Text shown in the speech bubble when a user newly comes online. Placeholders: $user, $count."
+msgstr "Text fuer die Sprechblase, wenn ein Benutzer neu online kommt. Platzhalter: $user, $count."
+
+#. settings-schema.json->offline-message->description
+msgid "Send Message when user goes offline"
+msgstr "Nachricht senden, wenn ein Benutzer offline geht"
+
+#. settings-schema.json->offline-message->tooltip
+msgid "Text shown in the speech bubble when a user goes offline. Placeholders: $user, $count."
+msgstr "Text fuer die Sprechblase, wenn ein Benutzer offline geht. Platzhalter: $user, $count."
+
+#. settings-schema.json->hover-self-only->description
+msgid "Show only Standalone users on hover"
+msgstr "Beim Hovern nur Standalone-Benutzer anzeigen"
+
+#. settings-schema.json->hover-self-only->tooltip
+msgid "Limits the panel hover tooltip to users marked Standalone. When disabled, the hover tooltip shows all enabled users."
+msgstr "Beschraenkt den Hover-Tooltip auf Benutzer mit Standalone-Haken. Wenn deaktiviert, zeigt der Hover-Tooltip alle aktivierten Benutzer."
+
+#. settings-schema.json->click-self-only->description
+msgid "Show only Standalone users on click"
+msgstr "Beim Klicken nur Standalone-Benutzer anzeigen"
+
+#. settings-schema.json->click-self-only->tooltip
+msgid "Limits the left-click menu to users marked Standalone. When disabled, the menu shows all enabled users."
+msgstr "Beschraenkt das Linksklick-Menue auf Benutzer mit Standalone-Haken. Wenn deaktiviert, zeigt das Menue alle aktivierten Benutzer."
+
+#. settings-schema.json->hover-display-mode->description
+msgid "Show on hover"
+msgstr "Beim Hovern anzeigen"
+
+#. settings-schema.json->hover-display-mode->tooltip
+msgid "Controls how much information appears in the tooltip when hovering over the panel applet."
+msgstr "Legt fest, wie viele Informationen beim Hovern ueber das Leisten-Applet im Tooltip erscheinen."
+
+#. settings-schema.json->click-display-mode->description
+msgid "Show on click"
+msgstr "Beim Klicken anzeigen"
+
+#. settings-schema.json->click-display-mode->tooltip
+msgid "Controls how much user information appears in the left-click menu. User rows open the matching Duolingo profile when clicked."
+msgstr "Legt fest, wie viele Benutzerinformationen im Linksklick-Menue erscheinen. Benutzerzeilen oeffnen beim Anklicken das passende Duolingo-Profil."
+
+#. settings-schema.json->panel-display-mode->description
+msgid "Show in panel"
+msgstr "In der Leiste anzeigen"
+
+#. settings-schema.json->panel-display-mode->tooltip
+msgid "Controls the text shown next to the panel icon. Compact mode shows loaded users, total streak, and active users."
+msgstr "Legt den Text neben dem Leisten-Symbol fest. Kompakt zeigt geladene Benutzer, Gesamt-Streak und aktive Benutzer."
+
+#. settings-schema.json->highlight-on-hover->description
+msgid "Highlight selected users on hover"
+msgstr "Ausgewaehlte Benutzer beim Hovern hervorheben"
+
+#. settings-schema.json->highlight-on-hover->tooltip
+msgid "Highlights users marked Highlight in the hover tooltip."
+msgstr "Hebt Benutzer im Hover-Tooltip hervor, die in der Benutzertabelle als Hervorheben markiert sind."
+
+#. settings-schema.json->highlight-active-users-on-hover->description
+#. settings-schema.json->highlight-active-users-on-click->description
+msgid "Highlight active users"
+msgstr "Aktive Benutzer hervorheben"
+
+#. settings-schema.json->highlight-active-users-on-hover->tooltip
+msgid "Highlights users currently reported active in multi-user hover tooltips."
+msgstr "Hebt Benutzer hervor, die in Mehrbenutzer-Hover-Tooltips gerade als aktiv gelten."
+
+#. settings-schema.json->highlight-on-click->description
+msgid "Highlight selected users on click"
+msgstr "Ausgewaehlte Benutzer im Klickmenue hervorheben"
+
+#. settings-schema.json->highlight-on-click->tooltip
+msgid "Highlights users marked Highlight in the click menu."
+msgstr "Hebt Benutzer im Klickmenue hervor, die in der Benutzertabelle als Hervorheben markiert sind."
+
+#. settings-schema.json->highlight-active-users-on-click->tooltip
+msgid "Highlights users currently reported active in the click menu."
+msgstr "Hebt Benutzer im Klickmenue hervor, die gerade als aktiv gelten."
+
+#. settings-schema.json->sort-order->description
+msgid "Sort users by"
+msgstr "Benutzer sortieren nach"
+
+#. settings-schema.json->sort-order->tooltip
+msgid "Controls the second sort level for multi-user hover and click lists. With activity tracking enabled, active users always stay above inactive users. Last-seen is used after this sort order."
+msgstr "Steuert die zweite Sortierebene fuer Mehrbenutzer-Hover- und Klicklisten. Mit aktivem Aktivitaetstracking bleiben aktive Benutzer immer ueber inaktiven Benutzern. Last seen wird nach dieser Sortierung verwendet."
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+#. settings-schema.json->panel-display-mode->options
+msgid "Nothing"
+msgstr "Nichts"
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "Summary"
+msgstr "Zusammenfassung"
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "Course details"
+msgstr "Kursdetails"
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "Account details"
+msgstr "Kontodetails"
+
+#. settings-schema.json->hover-display-mode->options
+#. settings-schema.json->click-display-mode->options
+msgid "All details"
+msgstr "Alle Details"
+
+#. settings-schema.json->panel-display-mode->options
+msgid "User/streak/online"
+msgstr "Benutzer/Streaks/Online"
+
+#. settings-schema.json->panel-display-mode->options
+msgid "Loaded user count"
+msgstr "Geladene Benutzeranzahl"
+
+#. settings-schema.json->panel-display-mode->options
+msgid "Active user count"
+msgstr "Aktive Benutzeranzahl"
+
+#. settings-schema.json->panel-display-mode->options
+msgid "Total streak"
+msgstr "Gesamt-Streak"
+
+#. settings-schema.json->panel-display-mode->options
+msgid "Total XP"
+msgstr "Gesamt-XP"
+
+#. settings-schema.json->panel-display-mode->options
+msgid "Only my values"
+msgstr "Nur eigene Werte"
+
+#. settings-schema.json->maintenance-section->title
+msgid "Maintenance"
+msgstr "Wartung"
+
+#. settings-schema.json->factory-reset->description
+msgid "Factory Reset"
+msgstr "Factory Reset"
+
+#. settings-schema.json->sort-order->options
+msgid "Configured order"
+msgstr "Konfigurierte Reihenfolge"
+
+#. settings-schema.json->sort-order->options
+msgid "Alias or username A-Z"
+msgstr "Alias oder Benutzername A-Z"
+
+#. settings-schema.json->sort-order->options
+msgid "Alias or username Z-A"
+msgstr "Alias oder Benutzername Z-A"
+
+#. settings-schema.json->sort-order->options
+msgid "Streak high to low"
+msgstr "Streak absteigend"
+
+#. settings-schema.json->sort-order->options
+msgid "Streak low to high"
+msgstr "Streak aufsteigend"
+
+#. settings-schema.json->sort-order->options
+msgid "Total XP high to low"
+msgstr "Gesamt-XP absteigend"
+
+#. settings-schema.json->sort-order->options
+msgid "Total XP low to high"
+msgstr "Gesamt-XP aufsteigend"
+
+#. settings-schema.json->layout->panel-section->title
+msgid "Panel"
+msgstr "Panel"
+
+#. settings-schema.json->layout->activity-section->title
+msgid "Activity"
+msgstr "Aktivität"
+
+#. settings-schema.json->layout->hover-section->title
+msgid "Hover"
+msgstr "Hover"
+
+#. settings-schema.json->layout->click-section->title
+msgid "Click menu"
+msgstr "Klickmenü"
+
+#. settings-schema.json->users-editor->tooltip
+msgid "Edit Duolingo users. Each column header has its own tooltip."
+msgstr "Bearbeite Duolingo-Benutzer. Jede Spaltenüberschrift hat ihren eigenen Tooltip."
+
+#. settings-schema.json->users->description
+msgid "Duolingo users"
+msgstr "Duolingo-Benutzer"
+
+#. settings-schema.json->users->tooltip
+msgid "Add one enabled row per Duolingo username. Alias only changes the display name. Standalone limits hover and click views when the matching display options are enabled."
+msgstr "Fuege pro Duolingo-Benutzername eine aktivierte Zeile hinzu. Alias aendert nur den Anzeigenamen. Standalone begrenzt Hover- und Klickansichten, wenn die passenden Anzeigeoptionen aktiv sind."
+
+#. settings-schema.json->users->columns->enabled->title
+msgid "Enabled"
+msgstr "Enabled"
+
+#. settings-schema.json->users->columns->enabled->tooltip
+msgid "Include this user in Duolingo checks and applet displays."
+msgstr "Nimmt diesen Benutzer in Duolingo-Abfragen und Applet-Anzeigen auf."
+
+#. settings-schema.json->users->columns->highlighted->title
+msgid "Highlight"
+msgstr "Hervorheben"
+
+#. settings-schema.json->users->columns->highlighted->tooltip
+msgid "Highlights this user in the click menu and, when enabled, in the hover tooltip."
+msgstr "Hebt diesen Benutzer im Klickmenue hervor und, wenn aktiviert, auch im Hover-Tooltip."
+
+#. settings-schema.json->users->columns->simulateActive->title
+msgid "Simmulate active"
+msgstr "Aktiv simmulieren"
+
+#. settings-schema.json->users->columns->simulateActive->tooltip
+msgid "Simulates that this user is online even when Duolingo does not report them as active."
+msgstr "Simuliert, dass dieser Benutzer online ist, auch wenn Duolingo ihn nicht als aktiv meldet."
+
+#. settings-schema.json->users->columns->standalone->title
+msgid "Standalone"
+msgstr "Standalone"
+
+#. settings-schema.json->users->columns->standalone->tooltip
+msgid "Shows this user in hover and click views when those views are limited to Standalone users. The first Standalone user is used for self-style panel values and the automatic self-online icon."
+msgstr "Zeigt diesen Benutzer in Hover- und Klickansichten, wenn diese Ansichten auf Standalone-Benutzer begrenzt sind. Der erste Standalone-Benutzer wird fuer Selbst-Werte im Panel und das automatische Selbst-online-Symbol verwendet."
+
+#. settings-schema.json->users->columns->username->title
+msgid "Username"
+msgstr "Benutzername"
+
+#. settings-schema.json->users->columns->username->tooltip
+msgid "The public Duolingo username. This exact value is used for API requests and profile links."
+msgstr "Der oeffentliche Duolingo-Benutzername. Genau dieser Wert wird fuer API-Anfragen und Profillinks verwendet."
+
+#. settings-schema.json->users->columns->alias->title
+msgid "Alias"
+msgstr "Alias"
+
+#. settings-schema.json->users->columns->alias->tooltip
+msgid "Optional local display name. Leave empty to show the Duolingo username."
+msgstr "Optionaler lokaler Anzeigename. Leer lassen, um den Duolingo-Benutzernamen zu zeigen."

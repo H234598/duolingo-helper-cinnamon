@@ -1,0 +1,5 @@
+.duolingo-activity-highlighted-user {
+  font-weight: bold;
+  background-color: rgba(120, 170, 80, 0.35);
+  border-left: 3px solid #78aa50;
+}

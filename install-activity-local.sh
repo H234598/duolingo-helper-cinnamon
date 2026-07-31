@@ -2,7 +2,8 @@
 set -euo pipefail
 
 repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-uuid="duolingo-activity@nodeengineer.com"
+source "${repo_dir}/config/duolingo-activity.conf"
+uuid="${UUID}"
 src="${repo_dir}/files/${uuid}"
 target="${HOME}/.local/share/cinnamon/applets/${uuid}"
 locale_root="${HOME}/.local/share/locale"
