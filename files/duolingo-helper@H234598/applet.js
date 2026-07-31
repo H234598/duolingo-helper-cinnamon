@@ -24,6 +24,7 @@ const CACHE_DIR = GLib.build_filenamev([GLib.get_user_cache_dir(), UUID]);
 const AUTH_FILE_PATH = GLib.build_filenamev([GLib.get_user_config_dir(), UUID, "auth.json"]);
 const SETTINGS_SCHEMA_PATH = APPLET_PATH + "/settings-schema.json";
 const CLICK_MENU_SCROLL_MAX_HEIGHT = 720;
+const MAX_VISIBLE_USERS = 200;
 const DUOLINGO_ACCEPT = "application/json,text/plain,*/*";
 const DUOLINGO_ACCEPT_LANGUAGE = "de-DE,de;q=0.9,en;q=0.8";
 const DUOLINGO_USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36";
@@ -202,6 +203,8 @@ MyApplet.prototype = {
     this.pendingRequests = 0;
     this.refreshGeneration = 0;
     this.appletRemoved = false;
+    this.pendingSoup2Messages = [];
+    this.requestCancellable = null;
     this.loadingUsers = false;
     this.refreshTimer = 0;
     this.currentRefreshIntervalSeconds = UPDATE_INTERVAL_SECONDS;
@@ -235,6 +238,11 @@ MyApplet.prototype = {
     this.speechBubbleRotationTimer = 0;
     this.speechBubbleRotationIndex = 0;
     this.menuNeedsRebuild = true;
+    this.menuRowSlots = [];
+    this.clickMenuSection = null;
+    this.clickMenuScrollView = null;
+    this.clickMenuScrollItem = null;
+    this.clickMenuFooterSeparator = null;
 
     this.settings = new Settings.AppletSettings(this, UUID, instanceId);
     this.settings.bindProperty(
@@ -386,23 +394,38 @@ MyApplet.prototype = {
     this.menuManager = new PopupMenu.PopupMenuManager(this);
     this.menu = new Applet.AppletPopupMenu(this, orientation);
     this.menuManager.addMenu(this.menu);
-    this.rebuildMenu();
+    this.menuRowSlots = [];
+    this.beginClickMenuUserScrollSection();
+
+    this.clickMenuFooterSeparator = new PopupMenu.PopupSeparatorMenuItem();
+    this.menu.addMenuItem(this.clickMenuFooterSeparator);
+    this.openDuolingoMenuItem = new PopupMenu.PopupMenuItem(_("Open Duolingo"));
+    this.openDuolingoMenuItem.connect("activate", () => Util.spawn(["xdg-open", "https://duolingo.com"]));
+    this.menu.addMenuItem(this.openDuolingoMenuItem);
+    this.refreshMenuItem = new PopupMenu.PopupMenuItem(_("Refresh now"));
+    this.refreshMenuItem.connect("activate", () => this.refresh());
+    this.menu.addMenuItem(this.refreshMenuItem);
+    this.syncMenu();
   },
 
   on_applet_clicked: function() {
-    if (this.menuNeedsRebuild && this.menu.isOpen !== true) {
-      this.rebuildMenu();
+    if (this.menuNeedsRebuild) {
+      this.syncMenu();
     }
     this.menu.toggle();
   },
 
   invalidateMenu: function() {
     this.menuNeedsRebuild = true;
+    if (this.menu) {
+      this.syncMenu();
+    }
   },
 
   on_applet_removed_from_panel: function() {
     this.appletRemoved = true;
     this.refreshGeneration++;
+    this.cancelPendingRequests();
     if (global.duolingoHelperInstances && global.duolingoHelperInstances[this.instanceId] === this) {
       delete global.duolingoHelperInstances[this.instanceId];
     }
@@ -416,6 +439,7 @@ MyApplet.prototype = {
     if (menu && this.menuManager && this.menuManager.removeMenu) {
       this.menuManager.removeMenu(menu);
     }
+    this.destroyMenuRowSlots();
     if (menu && menu.destroy) {
       menu.destroy();
     }
@@ -428,6 +452,46 @@ MyApplet.prototype = {
     this.clickMenuSection = null;
     this.clickMenuScrollView = null;
     this.clickMenuScrollItem = null;
+    this.clickMenuFooterSeparator = null;
+    this.openDuolingoMenuItem = null;
+    this.refreshMenuItem = null;
+    this.pendingSoup2Messages = null;
+    this.requestCancellable = null;
+  },
+
+  beginRequestBatch: function() {
+    this.cancelPendingRequests();
+    this.pendingSoup2Messages = [];
+    this.requestCancellable = Soup.MAJOR_VERSION === 2 ? null : new Gio.Cancellable();
+  },
+
+  trackSoup2Message: function(message) {
+    if (!this.pendingSoup2Messages) {
+      this.pendingSoup2Messages = [];
+    }
+    this.pendingSoup2Messages.push(message);
+  },
+
+  untrackSoup2Message: function(message) {
+    if (!this.pendingSoup2Messages) {
+      return;
+    }
+    this.pendingSoup2Messages = this.pendingSoup2Messages.filter(current => current !== message);
+  },
+
+  cancelPendingRequests: function() {
+    if (this.requestCancellable && this.requestCancellable.cancel) {
+      this.requestCancellable.cancel();
+    }
+    this.requestCancellable = null;
+
+    let messages = this.pendingSoup2Messages || [];
+    this.pendingSoup2Messages = [];
+    if (Soup.MAJOR_VERSION === 2 && soupASyncSession.cancel_message) {
+      for (let message of messages) {
+        soupASyncSession.cancel_message(message, Soup.Status.CANCELLED);
+      }
+    }
   },
 
   loadFactoryDefaults: function() {
@@ -965,6 +1029,7 @@ MyApplet.prototype = {
     this.authConfig = this.loadAuthConfig();
     this.refreshGeneration++;
     let generation = this.refreshGeneration;
+    this.beginRequestBatch();
     this.pendingRequests = this.usernames.length;
     this.loadingUsers = this.usernames.length > 0;
 
@@ -1015,7 +1080,9 @@ MyApplet.prototype = {
     let authenticated = authConfig !== null;
 
     if (Soup.MAJOR_VERSION === 2) {
+      this.trackSoup2Message(request);
       soupASyncSession.queue_message(request, (session, message) => {
+        this.untrackSoup2Message(request);
         if (message.status_code !== 200) {
           this.recordCachedResponse(userConfig, message.status_code, generation);
           return;
@@ -1028,19 +1095,24 @@ MyApplet.prototype = {
         }
       });
     } else {
-      soupASyncSession.send_and_read_async(request, Soup.MessagePriority.NORMAL, null, (session, response) => {
-        if (request.get_status() !== 200) {
-          this.recordCachedResponse(userConfig, request.get_status(), generation);
-          return;
-        }
+      soupASyncSession.send_and_read_async(
+        request,
+        Soup.MessagePriority.NORMAL,
+        this.requestCancellable,
+        (session, response) => {
+          if (request.get_status() !== 200) {
+            this.recordCachedResponse(userConfig, request.get_status(), generation);
+            return;
+          }
 
-        try {
-          let bytes = session.send_and_read_finish(response);
-          this.recordResponse(userConfig, JSON.parse(ByteArray.toString(ByteArray.fromGBytes(bytes))), false, null, generation, authenticated);
-        } catch (err) {
-          this.recordCachedResponse(userConfig, "parse", generation);
+          try {
+            let bytes = session.send_and_read_finish(response);
+            this.recordResponse(userConfig, JSON.parse(ByteArray.toString(ByteArray.fromGBytes(bytes))), false, null, generation, authenticated);
+          } catch (err) {
+            this.recordCachedResponse(userConfig, "parse", generation);
+          }
         }
-      });
+      );
     }
   },
 
@@ -1589,6 +1661,18 @@ MyApplet.prototype = {
     return '<span weight="bold" background="#4f6f2f" foreground="#ffffff">' + text + '</span>';
   },
 
+  limitVisibleUsers: function(users) {
+    let allUsers = users || [];
+    return {
+      users: allUsers.slice(0, MAX_VISIBLE_USERS),
+      omittedCount: Math.max(0, allUsers.length - MAX_VISIBLE_USERS)
+    };
+  },
+
+  omittedUsersLabel: function(count) {
+    return formatString(_("%s weitere Benutzer nicht angezeigt"), [count]);
+  },
+
   buildTooltip: function() {
     let hoverDisplayMode = this.validDisplayMode(this.hoverDisplayMode);
 
@@ -1615,35 +1699,42 @@ MyApplet.prototype = {
       lines.push({ text: _("Using cached Duolingo data") });
     }
 
-    let displayUsers = this.getUsersForDisplayMode(this.userData, this.hoverSelfOnly === true);
+    let allDisplayUsers = this.getUsersForDisplayMode(this.userData, this.hoverSelfOnly === true);
 
-    if (displayUsers.length === 0 && this.hoverSelfOnly === true) {
+    if (allDisplayUsers.length === 0 && this.hoverSelfOnly === true) {
       lines.push({ text: _("No Standalone users configured") });
       return lines.map(line => this.formatTooltipLine(line)).join("\n");
     }
 
+    let limited = this.limitVisibleUsers(allDisplayUsers);
+    let displayUsers = limited.users;
     let hoverMultiUserMode = this.isMultiUserDisplay(displayUsers);
-    if (this.shouldUseActivityGroups(displayUsers)) {
-      return this.buildGroupedTooltipLines(lines, displayUsers).map(line => this.formatTooltipLine(line)).join("\n");
+    if (this.shouldUseActivityGroups(allDisplayUsers)) {
+      lines = this.buildGroupedTooltipLines(lines, displayUsers, allDisplayUsers);
+    } else {
+      for (let user of displayUsers) {
+        if (user.error) {
+          lines.push({ text: user.displayUsername + ": " + user.error });
+          continue;
+        }
+
+        lines = lines.concat(this.buildHoverUserDisplayLines(user, hoverMultiUserMode));
+      }
     }
 
-    for (let user of displayUsers) {
-      if (user.error) {
-        lines.push({ text: user.displayUsername + ": " + user.error });
-        continue;
-      }
-
-      lines = lines.concat(this.buildHoverUserDisplayLines(user, hoverMultiUserMode));
+    if (limited.omittedCount > 0) {
+      lines.push({ text: this.omittedUsersLabel(limited.omittedCount) });
     }
 
     return lines.map(line => this.formatTooltipLine(line)).join("\n");
   },
 
-  buildGroupedTooltipLines: function(lines, users) {
+  buildGroupedTooltipLines: function(lines, users, allUsers) {
     let groups = this.splitUsersByActivity(users);
+    let allGroups = this.splitUsersByActivity(allUsers || users);
     lines.push({ text: this.activeNowLabel() });
 
-    if (groups.active.length === 0) {
+    if (allGroups.active.length === 0) {
       lines.push({ text: this.noActiveUsersLabel() });
     } else {
       for (let user of groups.active) {
@@ -1653,7 +1744,7 @@ MyApplet.prototype = {
 
     lines.push({ text: this.inactiveLabel() });
 
-    if (groups.inactive.length === 0) {
+    if (allGroups.inactive.length === 0) {
       lines.push({ text: this.noInactiveUsersLabel() });
     } else {
       for (let user of groups.inactive) {
@@ -2062,12 +2153,6 @@ MyApplet.prototype = {
     ].join("\n");
   },
 
-  setMenuItemTooltip: function(item, text) {
-    if (item.actor) {
-      item._teamShareTooltip = new Tooltips.Tooltip(item.actor, text);
-    }
-  },
-
   formatLastSeen: function(timestamp) {
     if (!timestamp || timestamp <= 0) {
       return _("never");
@@ -2181,54 +2266,234 @@ MyApplet.prototype = {
     return date ? date.format("%Y-%m-%d") : _("unknown");
   },
 
-  rebuildMenu: function() {
-    if (!this.menu) {
+  createMenuRowSlot: function() {
+    if (!this.clickMenuSection || !this.menuRowSlots) {
+      return null;
+    }
+
+    let slot = {
+      currentAction: null,
+      currentUsername: null,
+      isUserSlot: false,
+      tooltip: null,
+      item: new PopupMenu.PopupMenuItem(""),
+      separator: new PopupMenu.PopupSeparatorMenuItem()
+    };
+    slot.item.connect("activate", () => {
+      if (slot.currentAction === "configure") {
+        this.configureApplet();
+      } else if (slot.currentAction === "profile" && slot.currentUsername) {
+        this.openProfile(slot.currentUsername);
+      }
+    });
+    slot.item.actor.hide();
+    slot.separator.actor.hide();
+    this.clickMenuSection.addMenuItem(slot.item);
+    this.clickMenuSection.addMenuItem(slot.separator);
+    this.menuRowSlots.push(slot);
+    return slot;
+  },
+
+  updateMenuSlotTooltip: function(slot, text) {
+    if (!text) {
+      if (slot.tooltip && slot.tooltip.set_text) {
+        slot.tooltip.set_text("");
+      }
       return;
     }
 
-    this.destroyDetachedClickMenuScrollViews();
-    this.menu.removeAll();
-    this.clickMenuSection = null;
-    this.clickMenuScrollView = null;
-    this.clickMenuScrollItem = null;
+    if (slot.tooltip && slot.tooltip.set_text) {
+      slot.tooltip.set_text(text);
+    } else if (slot.item.actor) {
+      slot.tooltip = new Tooltips.Tooltip(slot.item.actor, text);
+    }
+  },
+
+  renderMenuRows: function(descriptors) {
+    if (!this.clickMenuSection || !this.menuRowSlots) {
+      return;
+    }
+
+    for (let index = 0; index < descriptors.length; index++) {
+      let descriptor = descriptors[index];
+      let slot = this.menuRowSlots[index] || this.createMenuRowSlot();
+      if (!slot) {
+        return;
+      }
+
+      slot.currentAction = descriptor.action || null;
+      slot.currentUsername = descriptor.username || null;
+      slot.isUserSlot = descriptor.isUser === true;
+      this.updateMenuSlotTooltip(slot, descriptor.tooltip || "");
+
+      if (descriptor.type === "separator") {
+        slot.item.actor.hide();
+        slot.separator.actor.show();
+        continue;
+      }
+
+      slot.separator.actor.hide();
+      slot.item.actor.show();
+      slot.item.label.set_text(descriptor.text || "");
+      slot.item.label.set_style(descriptor.plus === true ? "color: #b00020;" : "");
+      slot.item.setSensitive(descriptor.sensitive === true);
+      if (slot.item.actor.remove_style_class_name) {
+        slot.item.actor.remove_style_class_name("duolingo-helper-highlighted-user");
+      }
+      if (descriptor.highlighted === true) {
+        this.highlightMenuItem(slot.item);
+      }
+    }
+
+    for (let index = descriptors.length; index < this.menuRowSlots.length; index++) {
+      let slot = this.menuRowSlots[index];
+      slot.currentAction = null;
+      slot.currentUsername = null;
+      slot.isUserSlot = false;
+      this.updateMenuSlotTooltip(slot, "");
+      slot.item.actor.hide();
+      slot.separator.actor.hide();
+    }
+  },
+
+  appendUserMenuDescriptors: function(descriptors, users, clickDisplayMode, highlightActiveUsers) {
+    let firstUser = true;
+    for (let user of users) {
+      if (!firstUser && clickDisplayMode !== DISPLAY_MODE_SUMMARY) {
+        descriptors.push({ type: "separator" });
+      }
+      firstUser = false;
+
+      if (user.error) {
+        descriptors.push({
+          text: user.displayUsername + ": " + user.error,
+          sensitive: false,
+          isUser: true
+        });
+        continue;
+      }
+
+      let lines = this.buildUserDisplayLines(user, clickDisplayMode);
+      for (let index = 0; index < lines.length; index++) {
+        let firstLine = index === 0;
+        descriptors.push({
+          text: this.lineText(lines[index]),
+          plus: this.lineIsPlus(lines[index]),
+          sensitive: firstLine,
+          action: firstLine ? "profile" : null,
+          username: firstLine ? user.username : null,
+          highlighted: firstLine && (
+            (this.highlightOnClick === true && user.highlighted) ||
+            (this.highlightActiveUsersOnClick === true && highlightActiveUsers && user.activeRecently === true)
+          ),
+          tooltip: firstLine ? this.buildTeamShareTooltip(user) : "",
+          isUser: firstLine
+        });
+      }
+    }
+  },
+
+  buildMenuDescriptors: function() {
     let clickDisplayMode = this.validDisplayMode(this.clickDisplayMode);
-
     if (this.loadingUsers === true && this.userData.length === 0) {
-      this.addInsensitiveMenuItem(_("Loading..."));
-    } else if (this.userData.length === 0) {
-      let configureUsers = new PopupMenu.PopupMenuItem(_("No users configured"));
-      configureUsers.connect("activate", () => this.configureApplet());
-      this.menu.addMenuItem(configureUsers);
-    } else if (clickDisplayMode !== DISPLAY_MODE_NONE) {
-      let displayUsers = this.getUsersForDisplayMode(this.userData, this.clickSelfOnly === true);
-      this.beginClickMenuUserScrollSection();
+      return [{ text: _("Loading..."), sensitive: false }];
+    }
+    if (this.userData.length === 0) {
+      return [{
+        text: _("No users configured"),
+        sensitive: true,
+        action: "configure"
+      }];
+    }
+    if (clickDisplayMode === DISPLAY_MODE_NONE) {
+      return [];
+    }
 
-      if (displayUsers.length === 0 && this.clickSelfOnly === true) {
-        let configureSelf = new PopupMenu.PopupMenuItem(_("No Standalone users configured"));
-        configureSelf.connect("activate", () => this.configureApplet());
-        this.addClickMenuUserItem(configureSelf);
-      }
+    let allDisplayUsers = this.getUsersForDisplayMode(this.userData, this.clickSelfOnly === true);
+    if (allDisplayUsers.length === 0 && this.clickSelfOnly === true) {
+      return [{
+        text: _("No Standalone users configured"),
+        sensitive: true,
+        action: "configure"
+      }];
+    }
 
-      if (this.shouldUseActivityGroups(displayUsers)) {
-        this.addUserGroupsToMenu(displayUsers, clickDisplayMode);
+    let limited = this.limitVisibleUsers(allDisplayUsers);
+    let displayUsers = limited.users;
+    let descriptors = [];
+    if (this.shouldUseActivityGroups(allDisplayUsers)) {
+      let allGroups = this.splitUsersByActivity(allDisplayUsers);
+      let groups = this.splitUsersByActivity(displayUsers);
+      descriptors.push({ text: this.activeNowLabel(), sensitive: false });
+      if (allGroups.active.length === 0) {
+        descriptors.push({ text: this.noActiveUsersLabel(), sensitive: false });
       } else {
-        this.addUsersToMenu(displayUsers, clickDisplayMode, false);
+        this.appendUserMenuDescriptors(descriptors, groups.active, clickDisplayMode, true);
       }
 
+      descriptors.push({ type: "separator" });
+      descriptors.push({ text: this.inactiveLabel(), sensitive: false });
+      if (allGroups.inactive.length === 0) {
+        descriptors.push({ text: this.noInactiveUsersLabel(), sensitive: false });
+      } else {
+        this.appendUserMenuDescriptors(descriptors, groups.inactive, clickDisplayMode, false);
+      }
+
+      if (groups.errors.length > 0) {
+        descriptors.push({ type: "separator" });
+        this.appendUserMenuDescriptors(descriptors, groups.errors, clickDisplayMode, false);
+      }
+    } else {
+      this.appendUserMenuDescriptors(descriptors, displayUsers, clickDisplayMode, false);
+    }
+
+    if (limited.omittedCount > 0) {
+      if (descriptors.length > 0) {
+        descriptors.push({ type: "separator" });
+      }
+      descriptors.push({
+        text: this.omittedUsersLabel(limited.omittedCount),
+        sensitive: false
+      });
+    }
+
+    return descriptors;
+  },
+
+  syncMenu: function() {
+    if (!this.menu) {
+      this.menuNeedsRebuild = true;
+      return;
+    }
+
+    let descriptors = this.buildMenuDescriptors();
+    this.renderMenuRows(descriptors);
+    if (descriptors.length > 0) {
+      this.clickMenuScrollItem.actor.show();
+      this.clickMenuFooterSeparator.actor.show();
       this.resetClickMenuUserScroll();
+    } else {
+      this.clickMenuScrollItem.actor.hide();
+      this.clickMenuFooterSeparator.actor.hide();
     }
-
-    if (this.userData.length === 0 || clickDisplayMode !== DISPLAY_MODE_NONE) {
-      this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-    }
-    let openDuolingo = new PopupMenu.PopupMenuItem(_("Open Duolingo"));
-    openDuolingo.connect("activate", () => Util.spawn(["xdg-open", "https://duolingo.com"]));
-    this.menu.addMenuItem(openDuolingo);
-
-    let refreshNow = new PopupMenu.PopupMenuItem(_("Refresh now"));
-    refreshNow.connect("activate", () => this.refresh());
-    this.menu.addMenuItem(refreshNow);
     this.menuNeedsRebuild = false;
+  },
+
+  rebuildMenu: function() {
+    this.syncMenu();
+  },
+
+  destroyMenuRowSlots: function() {
+    if (!this.menuRowSlots) {
+      return;
+    }
+    for (let slot of this.menuRowSlots) {
+      if (slot.tooltip && slot.tooltip.destroy) {
+        slot.tooltip.destroy();
+      }
+      slot.tooltip = null;
+    }
+    this.menuRowSlots = null;
   },
 
   beginClickMenuUserScrollSection: function() {
@@ -2264,27 +2529,6 @@ MyApplet.prototype = {
     this.menu.addMenuItem(this.clickMenuScrollItem);
   },
 
-  destroyDetachedClickMenuScrollViews: function() {
-    if (!this.menu || !this.menu.box) {
-      return;
-    }
-
-    let children = this.menu.box.get_children();
-    for (let child of children) {
-      if (child._delegate) {
-        continue;
-      }
-
-      try {
-        if (child.has_style_class_name && child.has_style_class_name("duolingo-helper-click-scroll")) {
-          child.destroy();
-        }
-      } catch (e) {
-        // Ignore stale actors from older menu builds.
-      }
-    }
-  },
-
   resetClickMenuUserScroll: function() {
     if (!this.clickMenuScrollView) {
       return;
@@ -2298,94 +2542,6 @@ MyApplet.prototype = {
     } catch (e) {
       // Some Cinnamon builds expose the adjustment only after allocation.
     }
-  },
-
-  addClickMenuUserItem: function(item) {
-    if (this.clickMenuSection) {
-      this.clickMenuSection.addMenuItem(item);
-    } else {
-      this.menu.addMenuItem(item);
-    }
-  },
-
-  addClickMenuUserSeparator: function() {
-    this.addClickMenuUserItem(new PopupMenu.PopupSeparatorMenuItem());
-  },
-
-  addUserGroupsToMenu: function(users, clickDisplayMode) {
-    let groups = this.splitUsersByActivity(users);
-
-    this.addSectionTitle(this.activeNowLabel());
-    if (groups.active.length === 0) {
-      this.addInsensitiveMenuItem(this.noActiveUsersLabel());
-    } else {
-      if (!this.addUsersToMenu(groups.active, clickDisplayMode, true)) {
-        return;
-      }
-    }
-
-    this.addClickMenuUserSeparator();
-    this.addSectionTitle(this.inactiveLabel());
-    if (groups.inactive.length === 0) {
-      this.addInsensitiveMenuItem(this.noInactiveUsersLabel());
-    } else {
-      if (!this.addUsersToMenu(groups.inactive, clickDisplayMode, false)) {
-        return;
-      }
-    }
-
-    if (groups.errors.length > 0) {
-      this.addClickMenuUserSeparator();
-      for (let user of groups.errors) {
-        this.addInsensitiveMenuItem(user.displayUsername + ": " + user.error);
-      }
-    }
-  },
-
-  addUsersToMenu: function(users, clickDisplayMode, highlightActiveUsers) {
-    let firstUser = true;
-    for (let user of users) {
-      if (!firstUser && clickDisplayMode !== DISPLAY_MODE_SUMMARY) {
-        this.addClickMenuUserSeparator();
-      }
-      firstUser = false;
-
-      if (user.error) {
-        this.addInsensitiveMenuItem(user.displayUsername + ": " + user.error);
-        continue;
-      }
-
-      let lines = this.buildUserDisplayLines(user, clickDisplayMode);
-      for (let index = 0; index < lines.length; index++) {
-        let item = new PopupMenu.PopupMenuItem(this.lineText(lines[index]));
-        if (this.lineIsPlus(lines[index])) {
-          item.label.set_style("color: #b00020;");
-        }
-        if (index === 0) {
-          if ((this.highlightOnClick === true && user.highlighted) ||
-              (this.highlightActiveUsersOnClick === true && highlightActiveUsers && user.activeRecently === true)) {
-            this.highlightMenuItem(item);
-          }
-          this.setMenuItemTooltip(item, this.buildTeamShareTooltip(user));
-          item.connect("activate", () => this.openProfile(user.username));
-        } else {
-          item.setSensitive(false);
-        }
-        this.addClickMenuUserItem(item);
-      }
-    }
-
-    return true;
-  },
-
-  addSectionTitle: function(title) {
-    this.addInsensitiveMenuItem(title);
-  },
-
-  addInsensitiveMenuItem: function(label) {
-    let item = new PopupMenu.PopupMenuItem(label);
-    item.setSensitive(false);
-    this.addClickMenuUserItem(item);
   },
 
   openProfile: function(username) {
