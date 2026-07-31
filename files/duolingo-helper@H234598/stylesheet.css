@@ -1,0 +1,115 @@
+.top-box {
+  height: 30px;
+  width: 100px;
+}
+
+.icon {
+  padding: 5px;
+  height: 25px;
+  width: 22px;
+  margin-left: 5px;
+  padding-bottom: 5px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  margin-left: 5px;
+  padding-left: 2px;
+}
+
+.bottom-box {
+  height: 30px;
+  width: 100px;
+}
+
+.button {
+  height: 28px;
+  width: 298px;
+  border-radius: 5px;
+  border: 1px solid #222222;
+  background-color: #444444; 
+  text-align: center;
+}
+
+.button:hover {
+  background-color: #888888;
+  font-weight: bold;
+}
+
+.duolingo-helper-highlighted-user {
+  font-weight: bold;
+  background-color: rgba(120, 170, 80, 0.35);
+  border-left: 3px solid #78aa50;
+}
+
+.duolingo-helper-speech-bubble {
+  background-color: rgba(38, 46, 35, 0.96);
+  border: 1px solid rgba(120, 170, 80, 0.95);
+  border-radius: 8px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+
+.duolingo-helper-speech-bubble-content {
+  spacing: 2px;
+}
+
+.duolingo-helper-speech-bubble-title {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 9px;
+  font-weight: bold;
+}
+
+.duolingo-helper-speech-bubble-label {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.duolingo-helper-speech-bubble-online {
+  background-color: rgba(43, 72, 36, 0.97);
+  border-color: rgba(120, 190, 80, 0.95);
+  border-radius: 18px;
+  padding: 10px 14px;
+}
+
+.duolingo-helper-speech-bubble-offline {
+  background-color: rgba(88, 28, 35, 0.98);
+  border: 2px solid rgba(235, 120, 120, 0.98);
+  border-radius: 2px;
+  padding: 7px 10px;
+}
+
+.duolingo-helper-speech-bubble-cache {
+  background-color: rgba(30, 44, 67, 0.92);
+  border-color: rgba(135, 160, 210, 0.95);
+  border-left: 6px solid rgba(135, 160, 210, 0.95);
+  border-radius: 3px;
+  padding: 8px 14px;
+}
+
+.duolingo-helper-speech-bubble-plus {
+  background-color: rgba(82, 56, 6, 0.98);
+  border: 2px solid rgba(245, 197, 76, 0.98);
+  border-radius: 999px;
+  padding: 8px 18px;
+}
+
+.duolingo-helper-speech-bubble-plus .duolingo-helper-speech-bubble-label,
+.duolingo-helper-speech-bubble-plus .duolingo-helper-speech-bubble-title {
+  color: #ffe7a3;
+}
+
+.duolingo-helper-speech-bubble-quiet {
+  background-color: rgba(22, 22, 22, 0.72);
+  border-color: rgba(145, 145, 145, 0.95);
+  border-radius: 1px;
+  padding: 5px 9px;
+}
+
+.duolingo-helper-speech-bubble-quiet .duolingo-helper-speech-bubble-label {
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: normal;
+}

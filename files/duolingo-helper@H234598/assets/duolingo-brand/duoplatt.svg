@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-label="Round green bird icon vector">
+  <defs>
+    <radialGradient id="face" cx="42%" cy="35%" r="72%">
+      <stop offset="0%" stop-color="#84f400"/>
+      <stop offset="56%" stop-color="#58d900"/>
+      <stop offset="100%" stop-color="#3fb900"/>
+    </radialGradient>
+    <linearGradient id="feather" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9dff25"/>
+      <stop offset="1" stop-color="#58d900"/>
+    </linearGradient>
+    <radialGradient id="eye" cx="50%" cy="45%" r="65%">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f4f4ef"/>
+    </radialGradient>
+    <linearGradient id="beak" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd400"/>
+      <stop offset="100%" stop-color="#ff9100"/>
+    </linearGradient>
+    <clipPath id="clipFace"><circle cx="512" cy="512" r="405"/></clipPath>
+  </defs>
+
+  <circle cx="512" cy="512" r="405" fill="url(#face)"/>
+  <g clip-path="url(#clipFace)">
+    <path d="M128 434 C175 276 263 238 396 337 C486 404 582 403 636 289 C662 233 713 257 691 329 C665 424 587 487 473 478 C343 468 246 375 149 311 C117 290 93 366 128 434Z" fill="url(#feather)" opacity=".78"/>
+    <path d="M660 394 C715 278 760 180 804 156 C837 138 874 225 872 308 C910 243 960 260 1002 399 C928 352 854 334 770 355 C725 366 690 379 660 394Z" fill="#97f728" opacity=".88"/>
+    <path d="M139 657 C248 683 349 676 443 628" fill="none" stroke="#3ec300" stroke-width="34" stroke-linecap="round" opacity=".55"/>
+    <path d="M585 651 C683 704 820 684 897 606" fill="none" stroke="#41c800" stroke-width="38" stroke-linecap="round" opacity=".38"/>
+  </g>
+
+  <ellipse cx="322" cy="538" rx="159" ry="191" transform="rotate(-14 322 538)" fill="url(#eye)"/>
+  <path d="M177 661 C286 665 388 676 468 685 C495 632 493 574 472 522 C407 496 297 499 220 546 C190 583 174 624 177 661Z" fill="#ffffff" opacity=".96"/>
+  <ellipse cx="708" cy="493" rx="166" ry="179" transform="rotate(8 708 493)" fill="url(#eye)"/>
+
+  <g stroke="#2b2d2f" stroke-width="62" stroke-linecap="round" opacity=".98">
+    <path d="M281 485 L393 596"/>
+    <path d="M393 485 L281 596"/>
+    <path d="M662 435 L784 544"/>
+    <path d="M772 432 L672 552"/>
+  </g>
+
+  <path d="M424 357 C478 395 542 390 588 328" fill="none" stroke="#39bd00" stroke-width="43" stroke-linecap="round" opacity=".62"/>
+
+  <path d="M438 622 C462 564 517 532 578 551 C633 568 669 608 681 657 C632 623 550 610 438 622Z" fill="url(#beak)"/>
+  <path d="M465 642 C500 595 567 592 612 626 C574 649 539 674 506 716 C481 694 464 672 465 642Z" fill="#8b3a00" opacity=".92"/>
+  <path d="M591 639 C638 638 678 656 704 687 C671 724 616 758 563 762 C562 711 569 669 591 639Z" fill="#ff8500"/>
+  <path d="M451 658 C410 679 401 734 428 772 C451 805 502 805 524 763 C542 728 536 679 508 657 C488 642 469 646 451 658Z" fill="#ff7cc7"/>
+  <path d="M488 659 C467 692 459 724 461 769" fill="none" stroke="#ff9ed7" stroke-width="23" stroke-linecap="round" opacity=".58"/>
+  <path d="M535 657 C520 695 515 726 516 753" fill="none" stroke="#ff9ed7" stroke-width="21" stroke-linecap="round" opacity=".45"/>
+  <ellipse cx="520" cy="556" rx="35" ry="16" fill="#ffe640" opacity=".7" transform="rotate(-5 520 556)"/>
+</svg>

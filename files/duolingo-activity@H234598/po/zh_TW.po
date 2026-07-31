@@ -1,0 +1,141 @@
+# Duolingo Activity Cinnamon applet translations.
+# This file is put in the public domain.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: duolingo-activity@H234598 1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/H234598/duolingo-helper-cinnamon/"
+"issues\n"
+"POT-Creation-Date: 2026-05-24 00:00+0000\n"
+"PO-Revision-Date: 2026-05-24 00:00+0000\n"
+"Last-Translator: Codex <noreply.com>\n"
+"Language-Team: zh_TW\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. metadata.json->name
+#. applet.js
+msgid "Duolingo Activity"
+msgstr "Duolingo 活動"
+
+#. metadata.json->description
+msgid "Shows when configured Duolingo users appear recently active."
+msgstr "顯示已設定的 Duolingo 使用者最近是否看起來有活動。"
+
+#. applet.js
+msgid "Settings"
+msgstr "設定"
+
+#. applet.js
+msgid "Checking Duolingo activity..."
+msgstr "正在檢查 Duolingo 活動..."
+
+#. applet.js
+msgid "not found"
+msgstr "找不到"
+
+#. applet.js
+msgid "Error %s"
+msgstr "錯誤 %s"
+
+#. applet.js
+msgid "No users configured"
+msgstr "尚未設定使用者"
+
+#. applet.js
+msgid "%s is playing Duolingo right now!"
+msgstr "%s 現在正在玩 Duolingo！"
+
+#. applet.js
+msgid "No one is playing Duolingo right now."
+msgstr "目前沒有人正在玩 Duolingo。"
+
+#. applet.js
+msgid "Active now:"
+msgstr "目前活躍:"
+
+#. applet.js
+msgid "Inactive:"
+msgstr "非活躍:"
+
+#. applet.js
+msgid "No active users"
+msgstr "沒有活躍使用者"
+
+#. applet.js
+msgid "No inactive users"
+msgstr "沒有非活躍使用者"
+
+#. applet.js
+msgid "Refresh now"
+msgstr "立即重新整理"
+
+#. applet.js
+msgid "Using cached Duolingo data"
+msgstr ""
+
+#. applet.js
+msgid "never"
+msgstr "從未"
+
+#. applet.js
+msgid "Last seen: %s"
+msgstr "上次出現：%s"
+
+#. settings-schema.json->panel-icon->description
+msgid "Panel icon"
+msgstr "面板圖示"
+
+#. settings-schema.json->panel-icon->options
+msgid "Automatic"
+msgstr ""
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar square"
+msgstr "方形頭像"
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar rounded"
+msgstr "圓角頭像"
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar circle"
+msgstr "圓形頭像"
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar mask"
+msgstr "頭像面罩"
+
+#. settings-schema.json->panel-icon->options
+msgid "Duoplatt"
+msgstr "Duoplatt"
+
+#. settings-schema.json->hide-when-inactive->description
+msgid "Hide applet when no users are active"
+msgstr "沒有使用者在線時隱藏面板項目"
+
+#. settings-schema.json->highlight-on-hover->description
+msgid "Highlight selected users on hover"
+msgstr "滑鼠停留時醒目標示選取的使用者"
+
+#. settings-schema.json->users->description
+msgid "Duolingo users"
+msgstr "Duolingo 使用者"
+
+#. settings-schema.json->users->columns->enabled->title
+msgid "Enabled"
+msgstr "啟用"
+
+#. settings-schema.json->users->columns->highlighted->title
+msgid "Highlight"
+msgstr "醒目標示"
+
+#. settings-schema.json->users->columns->username->title
+msgid "Username"
+msgstr "使用者名稱"
+
+#. settings-schema.json->users->columns->alias->title
+msgid "Alias"
+msgstr "別名"

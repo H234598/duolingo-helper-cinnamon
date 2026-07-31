@@ -1,0 +1,141 @@
+# Duolingo Activity Cinnamon applet translations.
+# This file is put in the public domain.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: duolingo-activity@H234598 1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/H234598/duolingo-helper-cinnamon/"
+"issues\n"
+"POT-Creation-Date: 2026-05-24 00:00+0000\n"
+"PO-Revision-Date: 2026-05-24 00:00+0000\n"
+"Last-Translator: Codex <noreply.com>\n"
+"Language-Team: vi\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. metadata.json->name
+#. applet.js
+msgid "Duolingo Activity"
+msgstr "Hoạt động Duolingo"
+
+#. metadata.json->description
+msgid "Shows when configured Duolingo users appear recently active."
+msgstr "Hiển thị khi người dùng Duolingo đã cấu hình có vẻ hoạt động gần đây."
+
+#. applet.js
+msgid "Settings"
+msgstr "Cài đặt"
+
+#. applet.js
+msgid "Checking Duolingo activity..."
+msgstr "Đang kiểm tra hoạt động Duolingo..."
+
+#. applet.js
+msgid "not found"
+msgstr "không tìm thấy"
+
+#. applet.js
+msgid "Error %s"
+msgstr "Lỗi %s"
+
+#. applet.js
+msgid "No users configured"
+msgstr "Chưa cấu hình người dùng"
+
+#. applet.js
+msgid "%s is playing Duolingo right now!"
+msgstr "%s đang học Duolingo ngay bây giờ!"
+
+#. applet.js
+msgid "No one is playing Duolingo right now."
+msgstr "Hiện không ai đang chơi Duolingo."
+
+#. applet.js
+msgid "Active now:"
+msgstr "Đang hoạt động:"
+
+#. applet.js
+msgid "Inactive:"
+msgstr "Không hoạt động:"
+
+#. applet.js
+msgid "No active users"
+msgstr "Không có người dùng hoạt động"
+
+#. applet.js
+msgid "No inactive users"
+msgstr "Không có người dùng không hoạt động"
+
+#. applet.js
+msgid "Refresh now"
+msgstr "Làm mới ngay"
+
+#. applet.js
+msgid "Using cached Duolingo data"
+msgstr ""
+
+#. applet.js
+msgid "never"
+msgstr "chua tung"
+
+#. applet.js
+msgid "Last seen: %s"
+msgstr "Lan cuoi hoat dong: %s"
+
+#. settings-schema.json->panel-icon->description
+msgid "Panel icon"
+msgstr "Bieu tuong bang dieu khien"
+
+#. settings-schema.json->panel-icon->options
+msgid "Automatic"
+msgstr ""
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar square"
+msgstr "Avatar hinh vuong"
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar rounded"
+msgstr "Avatar bo tron"
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar circle"
+msgstr "Avatar hinh tron"
+
+#. settings-schema.json->panel-icon->options
+msgid "Avatar mask"
+msgstr "Mat na avatar"
+
+#. settings-schema.json->panel-icon->options
+msgid "Duoplatt"
+msgstr "Duoplatt"
+
+#. settings-schema.json->hide-when-inactive->description
+msgid "Hide applet when no users are active"
+msgstr "An khoi bang khi khong co nguoi dung hoat dong"
+
+#. settings-schema.json->highlight-on-hover->description
+msgid "Highlight selected users on hover"
+msgstr "To sang nguoi dung da chon khi di chuot"
+
+#. settings-schema.json->users->description
+msgid "Duolingo users"
+msgstr "Người dùng Duolingo"
+
+#. settings-schema.json->users->columns->enabled->title
+msgid "Enabled"
+msgstr "Bật"
+
+#. settings-schema.json->users->columns->highlighted->title
+msgid "Highlight"
+msgstr "To sang"
+
+#. settings-schema.json->users->columns->username->title
+msgid "Username"
+msgstr "Tên người dùng"
+
+#. settings-schema.json->users->columns->alias->title
+msgid "Alias"
+msgstr "Bí danh"

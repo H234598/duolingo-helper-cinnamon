@@ -1,0 +1,324 @@
+{
+  "layout": {
+    "type": "layout",
+    "pages": [
+      "main-page"
+    ],
+    "main-page": {
+      "type": "page",
+      "title": "Duolingo Helper",
+      "sections": [
+        "identity-section",
+        "panel-section",
+        "activity-section",
+        "hover-section",
+        "click-section",
+        "users-section",
+        "maintenance-section"
+      ]
+    },
+    "identity-section": {
+      "type": "section",
+      "title": "Duolingo Helper",
+      "keys": [
+        "brand-logo"
+      ]
+    },
+    "panel-section": {
+      "type": "section",
+      "title": "Panel",
+      "keys": [
+        "panel-icon",
+        "hide-when-inactive",
+        "panel-display-mode"
+      ]
+    },
+    "activity-section": {
+      "type": "section",
+      "title": "Activity",
+      "keys": [
+        "activity-tracking-enabled",
+        "online-message",
+        "offline-message",
+        "sort-order"
+      ]
+    },
+    "hover-section": {
+      "type": "section",
+      "title": "Hover",
+      "keys": [
+        "hover-self-only",
+        "hover-display-mode",
+        "highlight-active-users-on-hover",
+        "highlight-on-hover"
+      ]
+    },
+    "click-section": {
+      "type": "section",
+      "title": "Click menu",
+      "keys": [
+        "click-self-only",
+        "click-display-mode",
+        "highlight-active-users-on-click",
+        "highlight-on-click"
+      ]
+    },
+    "users-section": {
+      "type": "section",
+      "title": "Duolingo users",
+      "keys": [
+        "users-editor"
+      ]
+    },
+    "maintenance-section": {
+      "type": "section",
+      "title": "Maintenance",
+      "keys": [
+        "factory-reset"
+      ]
+    }
+  },
+  "brand-header": {
+    "type": "header",
+    "description": "Duolingo Helper"
+  },
+  "brand-logo": {
+    "type": "custom",
+    "file": "SettingsLogo.py",
+    "widget": "BrandLogo",
+    "default": ""
+  },
+  "panel-icon": {
+    "type": "combobox",
+    "description": "Panel icon",
+    "tooltip": "Automatic:\n- Avatar rounded while up to 50% of users are online.\n- Avatar circle above 50%.\n- Avatar mask above 75%.\n- Duoplatt above 90%.\n- If the first Standalone user is online, Duo growth chart is shown.\n\nRandom:\n- Chooses a random bundled icon once per hour.\n\nManual icons:\n- Choosing a specific icon disables automatic and random switching.",
+    "options": {
+      "Automatic": "automatic",
+      "Random": "random",
+      "Avatar square": "avatar-square",
+      "Avatar rounded": "avatar-rounded",
+      "Avatar circle": "avatar-circle",
+      "Avatar mask": "avatar-mask",
+      "Duoplatt": "duoplatt",
+      "Duo growth chart": "duo-growth-chart",
+      "Duo orange sunburst": "duo-orange-sunburst",
+      "Duo angry cyber grid": "duo-angry-cyber-grid",
+      "Duo tired bandage": "duo-tired-bandage",
+      "Duo red eyes elevator": "duo-red-eyes-elevator",
+      "Duo red demon": "duo-red-demon",
+      "Duo horror black eyes": "duo-horror-black-eyes",
+      "Royal owl": "royal",
+      "Cyberpunk owl": "cyberpunk",
+      "Sleepy owl": "sleepy",
+      "Wizard owl": "wizard",
+      "Rocker owl": "rocker",
+      "Astronaut owl": "astronaut",
+      "Pirate owl": "pirate",
+      "Samurai owl": "samurai",
+      "Vampire owl": "vampire",
+      "Chef owl": "chef",
+      "Detective owl": "detective",
+      "Knight owl": "knight",
+      "Surfer owl": "surfer",
+      "Gamer owl": "gamer",
+      "Gardener owl": "gardener",
+      "Ninja owl": "ninja",
+      "Disco owl": "disco",
+      "Scientist owl": "scientist",
+      "Firefighter owl": "firefighter",
+      "Artist owl": "artist",
+      "Beekeeper owl": "beekeeper",
+      "Mariachi owl": "mariachi",
+      "Librarian owl": "librarian",
+      "Boxer owl": "boxer",
+      "Pharaoh owl": "pharaoh",
+      "Skier owl": "skier",
+      "Mechanic owl": "mechanic",
+      "DJ owl": "dj",
+      "Movie director owl": "movie-director",
+      "Superhero owl": "superhero"
+    },
+    "default": "automatic"
+  },
+  "hide-when-inactive": {
+    "type": "checkbox",
+    "description": "Hide applet when no users are active",
+    "tooltip": "Hides the applet from the panel when no configured user is currently active. The online check keeps running even when activity-based grouping is disabled.",
+    "default": false
+  },
+  "activity-tracking-enabled": {
+    "type": "checkbox",
+    "description": "User activity tracking",
+    "tooltip": "Controls only activity-based display. Enabled: users reported active by Duolingo are grouped first and highlighted in multi-user views. Disabled: online/offline grouping is skipped; lists use the configured sort first and last-seen as the next tie-breaker. Online detection, last-seen cache updates, active-count labels, automatic icons, and panel hiding keep working.",
+    "default": true
+  },
+  "online-message": {
+    "type": "entry",
+    "description": "Send Message when user comes online",
+    "tooltip": "Text shown in the speech bubble when a user newly comes online. Placeholders: $user, $count.",
+    "default": "Serve the owl"
+  },
+  "offline-message": {
+    "type": "entry",
+    "description": "Send Message when user goes offline",
+    "tooltip": "Text shown in the speech bubble when a user goes offline. Placeholders: $user, $count.",
+    "default": "$user bites mice"
+  },
+  "hover-self-only": {
+    "type": "checkbox",
+    "description": "Show only Standalone users on hover",
+    "tooltip": "Limits the panel hover tooltip to users marked Standalone. When disabled, the hover tooltip shows all enabled users.",
+    "default": false
+  },
+  "hover-display-mode": {
+    "type": "combobox",
+    "description": "Show on hover",
+    "tooltip": "Controls how much information appears in the tooltip when hovering over the panel applet.",
+    "options": {
+      "Nothing": "none",
+      "Summary": "summary",
+      "Course details": "courses",
+      "Account details": "account",
+      "All details": "all"
+    },
+    "default": "summary"
+  },
+  "click-self-only": {
+    "type": "checkbox",
+    "description": "Show only Standalone users on click",
+    "tooltip": "Limits the left-click menu to users marked Standalone. When disabled, the menu shows all enabled users.",
+    "default": true
+  },
+  "click-display-mode": {
+    "type": "combobox",
+    "description": "Show on click",
+    "tooltip": "Controls how much user information appears in the left-click menu. User rows open the matching Duolingo profile when clicked.",
+    "options": {
+      "Nothing": "none",
+      "Summary": "summary",
+      "Course details": "courses",
+      "Account details": "account",
+      "All details": "all"
+    },
+    "default": "courses"
+  },
+  "panel-display-mode": {
+    "type": "combobox",
+    "description": "Show in panel",
+    "tooltip": "Controls the text shown next to the panel icon. Compact mode shows loaded users, total streak, and active users.",
+    "options": {
+      "User/streak/online": "compact",
+      "Loaded user count": "users",
+      "Active user count": "active-users",
+      "Total streak": "streak",
+      "Total XP": "xp",
+      "Only my values": "me",
+      "Nothing": "none"
+    },
+    "default": "compact"
+  },
+  "highlight-on-hover": {
+    "type": "checkbox",
+    "description": "Highlight selected users on hover",
+    "tooltip": "Highlights users marked Highlight in the hover tooltip.",
+    "default": true
+  },
+  "highlight-active-users-on-hover": {
+    "type": "checkbox",
+    "description": "Highlight active users",
+    "tooltip": "Highlights users currently reported active in multi-user hover tooltips.",
+    "default": true
+  },
+  "highlight-on-click": {
+    "type": "checkbox",
+    "description": "Highlight selected users on click",
+    "tooltip": "Highlights users marked Highlight in the click menu.",
+    "default": true
+  },
+  "highlight-active-users-on-click": {
+    "type": "checkbox",
+    "description": "Highlight active users",
+    "tooltip": "Highlights users currently reported active in the click menu.",
+    "default": true
+  },
+  "sort-order": {
+    "type": "combobox",
+    "description": "Sort users by",
+    "tooltip": "Controls the second sort level for multi-user hover and click lists. With activity tracking enabled, active users always stay above inactive users. Last-seen is used after this sort order.",
+    "options": {
+      "Configured order": "configured",
+      "Alias or username A-Z": "username-asc",
+      "Alias or username Z-A": "username-desc",
+      "Streak high to low": "streak-desc",
+      "Streak low to high": "streak-asc",
+      "Total XP high to low": "xp-desc",
+      "Total XP low to high": "xp-asc"
+    },
+    "default": "streak-desc"
+  },
+  "users-editor": {
+    "type": "custom",
+    "file": "UsersTable.py",
+    "widget": "UsersTable",
+    "target": "users",
+    "description": "Duolingo users",
+    "tooltip": "Edit Duolingo users. Each column header has its own tooltip.",
+    "default": ""
+  },
+  "factory-reset": {
+    "type": "button",
+    "description": "Factory Reset",
+    "callback": "factoryReset"
+  },
+  "users": {
+    "type": "list",
+    "description": "Duolingo users",
+    "tooltip": "Add one enabled row per Duolingo username. Alias only changes the display name. Standalone limits hover and click views when the matching display options are enabled.",
+    "columns": [
+      {
+        "id": "enabled",
+        "title": "Enabled",
+        "tooltip": "Include this user in Duolingo checks and applet displays.",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "id": "highlighted",
+        "title": "Highlight",
+        "tooltip": "Highlights this user in the click menu and, when enabled, in the hover tooltip.",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "id": "simulateActive",
+        "title": "Simmulate active",
+        "tooltip": "Simulates that this user is online even when Duolingo does not report them as active.",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "id": "standalone",
+        "title": "Standalone",
+        "tooltip": "Shows this user in hover and click views when those views are limited to Standalone users. The first Standalone user is used for self-style panel values and the automatic self-online icon.",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "id": "username",
+        "title": "Username",
+        "tooltip": "The public Duolingo username. This exact value is used for API requests and profile links.",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "id": "alias",
+        "title": "Alias",
+        "tooltip": "Optional local display name. Leave empty to show the Duolingo username.",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "height": 260,
+    "default": []
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "brand-header": {
+    "type": "header",
+    "description": "Duolingo Activity"
+  },
+  "brand-logo": {
+    "type": "custom",
+    "file": "SettingsLogo.py",
+    "widget": "BrandLogo",
+    "default": ""
+  },
+  "panel-icon": {
+    "type": "combobox",
+    "description": "Panel icon",
+    "options": {
+      "Automatic": "automatic",
+      "Avatar square": "avatar-square",
+      "Avatar rounded": "avatar-rounded",
+      "Avatar circle": "avatar-circle",
+      "Avatar mask": "avatar-mask",
+      "Duoplatt": "duoplatt"
+    },
+    "default": "automatic"
+  },
+  "panel-icon-auto-migrated": {
+    "type": "generic",
+    "default": false
+  },
+  "hide-when-inactive": {
+    "type": "checkbox",
+    "description": "Hide applet when no users are active",
+    "default": false
+  },
+  "highlight-on-hover": {
+    "type": "checkbox",
+    "description": "Highlight selected users on hover",
+    "default": true
+  },
+  "users": {
+    "type": "list",
+    "description": "Duolingo users",
+    "columns": [
+      {
+        "id": "enabled",
+        "title": "Enabled",
+        "type": "boolean",
+    "default": false
+      },
+      {
+        "id": "highlighted",
+        "title": "Highlight",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "id": "username",
+        "title": "Username",
+        "type": "string",
+        "default": ""
+      },
+      {
+        "id": "alias",
+        "title": "Alias",
+        "type": "string",
+        "default": ""
+      }
+    ],
+    "height": 260,
+    "default": []
+  }
+}

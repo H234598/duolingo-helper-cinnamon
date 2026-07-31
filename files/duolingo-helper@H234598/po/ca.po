@@ -1,0 +1,260 @@
+# Duolingo Helper Cinnamon applet translations.
+# This file is put in the public domain.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: duolingo-helper@H234598 2.0\n"
+"Report-Msgid-Bugs-To: https://github.com/H234598/duolingo-helper-cinnamon/issues\n"
+"POT-Creation-Date: 2026-05-23 00:00+0000\n"
+"PO-Revision-Date: 2026-05-23 00:00+0000\n"
+"Last-Translator: Codex <noreply@example.com>\n"
+"Language-Team: ca\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. metadata.json->name
+msgid "Duolingo Helper"
+msgstr "Ajudant de Duolingo"
+
+#. metadata.json->description
+msgid "Handy app to help practise with Duolingo."
+msgstr "Aplicació pràctica per ajudar a practicar amb Duolingo."
+
+#. applet.js
+msgid "Settings"
+msgstr "Configuració"
+
+#. applet.js
+msgid "Right-click -> Settings"
+msgstr "Clic dret -> Configuració"
+
+#. applet.js
+msgid "not found"
+msgstr "no trobat"
+
+#. applet.js
+msgid "Error %s"
+msgstr "Error %s"
+
+#. applet.js
+msgid "no course"
+msgstr "cap curs"
+
+#. applet.js
+msgid "No users configured"
+msgstr "No hi ha usuaris configurats"
+
+#. applet.js
+msgid "Duolingo Statistics"
+msgstr "Estadístiques de Duolingo"
+
+#. applet.js
+msgid "Using cached Duolingo data"
+msgstr ""
+
+#. applet.js
+msgid "%s: %s days, %s total XP, %s XP in %s"
+msgstr "%s: %s dies, %s XP totals, %s XP a %s"
+
+#. applet.js
+msgid "%s - %s days - %s XP"
+msgstr "%s - %s dies - %s XP"
+
+#. applet.js
+msgid "Open Duolingo"
+msgstr "Obre Duolingo"
+
+#. applet.js
+msgid "Refresh now"
+msgstr "Actualitza ara"
+
+#. settings-schema.json->users->description
+msgid "Duolingo users"
+msgstr "Usuaris de Duolingo"
+
+#. settings-schema.json->users->columns->enabled->title
+msgid "Enabled"
+msgstr "Activat"
+
+#. settings-schema.json->users->columns->username->title
+msgid "Username"
+msgstr "Nom d'usuari"
+
+msgid "Current course: %s (%s -> %s)"
+msgstr "Curs actual: %s (%s -> %s)"
+
+msgid "Courses: %s"
+msgstr "Cursos: %s"
+
+msgid "  %s: %s XP (%s -> %s)"
+msgstr "  %s: %s XP (%s -> %s)"
+
+msgid "Name: %s"
+msgstr "Nom: %s"
+
+msgid "Joined: %s"
+msgstr "Alta: %s"
+
+msgid "Recent activity: %s"
+msgstr "Activitat recent: %s"
+
+msgid "Email verified: %s"
+msgstr "Correu verificat: %s"
+
+msgid "Profile country: %s"
+msgstr "País del perfil: %s"
+
+msgid "Live events: %s"
+msgstr "Esdeveniments en directe: %s"
+
+msgid "Achievements: %s"
+msgstr "Assoliments: %s"
+
+msgid "Duolingo Plus: %s"
+msgstr "Duolingo Plus: %s"
+
+msgid "Plus"
+msgstr "Plus"
+
+msgid "yes"
+msgstr "sí"
+
+msgid "no"
+msgstr "no"
+
+msgid "not set"
+msgstr "no establert"
+
+msgid "unknown"
+msgstr "desconegut"
+
+msgid "Team share"
+msgstr "Part de l’equip"
+
+msgid "XP: %s / %s (%s%)"
+msgstr "XP: %s / %s (%s%)"
+
+msgid "Streak: %s / %s (%s%)"
+msgstr "Ratxa: %s / %s (%s%)"
+
+msgid "Last seen: %s"
+msgstr "Vist per ultima vegada: %s"
+
+msgid "never"
+msgstr "mai"
+
+msgid "No self user configured"
+msgstr "No hi ha cap usuari Jo configurat"
+
+msgid "Active now:"
+msgstr "Actius ara:"
+
+msgid "Inactive:"
+msgstr "Inactius:"
+
+msgid "No active users"
+msgstr "No hi ha usuaris actius"
+
+msgid "No inactive users"
+msgstr "No hi ha usuaris inactius"
+
+msgid "Show on hover"
+msgstr "Mostra en passar-hi el cursor"
+
+msgid "Show on click"
+msgstr "Mostra en fer clic"
+
+msgid "Show in panel"
+msgstr "Mostra al tauler"
+
+msgid "Hide applet when no users are active"
+msgstr "Amaga l'applet quan no hi ha usuaris actius"
+
+msgid "Highlight selected users on hover"
+msgstr "Ressalta els usuaris seleccionats en passar-hi el cursor"
+
+msgid "Sort users by"
+msgstr "Ordena els usuaris per"
+
+msgid "Nothing"
+msgstr "Res"
+
+msgid "All: Summary"
+msgstr "Tots: resum"
+
+msgid "Me: Summary"
+msgstr "Jo: resum"
+
+msgid "All: Course details"
+msgstr "Tots: detalls del curs"
+
+msgid "Me: Course details"
+msgstr "Jo: detalls del curs"
+
+msgid "All: Account details"
+msgstr "Tots: detalls del compte"
+
+msgid "Me: Account details"
+msgstr "Jo: detalls del compte"
+
+msgid "All: All details"
+msgstr "Tots: tots els detalls"
+
+msgid "Me: All details"
+msgstr "Jo: tots els detalls"
+
+msgid "Compact user/streak summary"
+msgstr "Resum compacte d’usuaris/ratxa"
+
+msgid "Loaded user count"
+msgstr "Nombre d’usuaris carregats"
+
+msgid "Active user count"
+msgstr "Nombre d'usuaris actius"
+
+msgid "Total streak"
+msgstr "Ratxa total"
+
+msgid "Total XP"
+msgstr "XP total"
+
+msgid "Only my values"
+msgstr "Només els meus valors"
+
+msgid "Configured order"
+msgstr "Ordre configurat"
+
+msgid "Alias or username A-Z"
+msgstr "Àlies o usuari A-Z"
+
+msgid "Alias or username Z-A"
+msgstr "Àlies o usuari Z-A"
+
+msgid "Streak high to low"
+msgstr "Ratxa de més a menys"
+
+msgid "Streak low to high"
+msgstr "Ratxa de menys a més"
+
+msgid "Total XP high to low"
+msgstr "XP total de més a menys"
+
+msgid "Total XP low to high"
+msgstr "XP total de menys a més"
+
+msgid "Highlight"
+msgstr "Ressalta"
+
+msgid "Me / Self"
+msgstr "Jo / mateix"
+
+msgid "Alias"
+msgstr "Àlies"
+
+msgid "Show only me on hover"
+msgstr "Mostra només jo en passar-hi el cursor"
+
+msgid "Show only me on click"
+msgstr "Mostra només jo en fer clic"

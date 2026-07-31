@@ -1,0 +1,8 @@
+{
+  "uuid": "duolingo-activity@H234598",
+  "name": "Duolingo Activity",
+  "description": "Shows when configured Duolingo users appear recently active.",
+  "author": "180772946+H234598@users.noreply.github.com",
+  "version": "1.0.0",
+  "max-instances": -1
+}
